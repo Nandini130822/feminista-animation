@@ -182,3 +182,8 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
   .foot-in { grid-template-columns: 1fr; } .foot nav { flex-wrap: wrap; gap: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .r { transition: none; opacity: 1; transform: none; } }
+/* the bottle stands on the plinth, not above it */
+.st-turn { bottom: 131px; z-index: 2; }
+.plinth::after { content: ''; position: absolute; left: 50%; top: 9px; width: 46%; height: 24px; transform: translateX(-50%); border-radius: 50%; z-index: 1;
+  background: radial-gradient(closest-side, rgba(70, 35, 20, .28), rgba(70, 35, 20, .08) 60%, transparent); }
+@media (max-width: 900px) { .st-turn { bottom: 105px; } .plinth::after { top: 6px; height: 20px; } }
