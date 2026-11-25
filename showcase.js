@@ -18,10 +18,10 @@
   // where the bottle and the disc sit on each screen (fractions of the screen): bottle x centre, y base, height, tilt;
   // disc x, y, radius. The fourth place is the return: back on the collection disc, nearly upright.
   const places = (W) => (W < 860 ? {
-    b: [[.56, .9, .46, 0], [.5, .9, .44, -12], [.72, 1.02, .58, -15], [.5, .88, .44, -3]],
+    b: [[.6, .9, .46, 0], [.5, .9, .44, -12], [.72, 1.02, .58, -15], [.5, .88, .44, -3]],
     d: [[.5, .9, 0], [.5, .72, .26], [.86, .86, .52], [.5, .72, .26]],
   } : {
-    b: [[.43, .86, .6, 0], [.5, .92, .68, -12], [.8, 1.1, .98, -16], [.5, .9, .66, -3]],
+    b: [[.48, .86, .6, 0], [.5, .92, .68, -12], [.8, 1.1, .98, -16], [.5, .9, .66, -3]],
     d: [[.5, .9, 0], [.5, .64, .34], [.86, .82, .62], [.5, .64, .34]],
   });
   const at = (arr, s) => { const i = clamp(Math.floor(s), 0, arr.length - 2), t = clamp(s - i); return arr[i].map((v, k) => lerp(v, arr[i + 1][k], t)); };
