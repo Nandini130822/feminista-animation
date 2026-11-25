@@ -155,3 +155,8 @@ ul, ol { list-style: none; }
   -webkit-appearance: none; appearance: none; font: 600 12.5px/1.2 var(--sans); color: var(--ink); cursor: pointer; }
 .btn.cart { display: block; margin-top: 16px; padding: 16px; text-align: center; border-radius: 30px; font-size: 13px; letter-spacing: .02em; }
 @media (max-width: 860px) { .card-l { width: auto; background: rgba(247, 226, 200, .75); } .card-l h1 { font-size: 22px; } .opt-l, .opt { display: none; } }
+
+/* without the line above, LOCKEN sits higher so the bottle cap no longer hides it */
+.hero-words { top: 12.5%; }
+.w2 { margin-top: 0; }
+@media (max-width: 860px) { .hero-words { top: 11%; } }
