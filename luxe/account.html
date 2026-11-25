@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Account · Feminista</title>
+<meta name="description" content="Sign in or create your Feminista account.">
+<meta name="theme-color" content="#FBF8F6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=5">
+</head>
+<body data-page="account">
+<main>
+
+  <section class="acct">
+    <figure><img src="img/who-is-she-legs.webp" alt="A woman in heels on a red velvet chair, beside a black cat"></figure>
+    <div class="acct-in">
+      <p class="eyebrow">Your account</p><h1 class="h1" id="at">Welcome back</h1>
+      <p class="lede" id="al">Sign in to follow your orders and keep your favourites close.</p>
+      <div class="tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-t="in">Sign in</button><button type="button" role="tab" aria-selected="false" data-t="up">Create account</button></div>
+      <form class="form" id="af">
+        <label class="only-up" hidden>Full name<input name="name" autocomplete="name"></label>
+        <label>Email address<input type="email" name="email" required autocomplete="email"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+        <button class="btn wine" type="submit" id="ab">Sign in</button>
+        <p class="small">Demo site — accounts are not connected, and nothing you type here is sent or stored.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<script src="luxe-data.js?v=1"></script>
+<script src="luxe-shell.js?v=4"></script>
+<script>
+  $$('.tabs button').forEach((b) => b.addEventListener('click', () => { const up = b.dataset.t === 'up';
+    $$('.tabs button').forEach((x) => x.setAttribute('aria-selected', String(x === b))); $('.only-up').hidden = !up;
+    $('#at').textContent = up ? 'Join the House' : 'Welcome back'; $('#ab').textContent = up ? 'Create account' : 'Sign in';
+    $('#al').textContent = up ? 'Be the first to know about new compositions, private launches and stories from the House of Feminista.' : 'Sign in to follow your orders and keep your favourites close.'; }));
+  $('#af').addEventListener('submit', (e) => { e.preventDefault(); e.target.reset(); toast('This is a demo — accounts are not connected.'); });
+</script>
+</body>
+</html>

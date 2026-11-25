@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fragrance · Feminista</title>
+<meta name="description" content="Feminista extraits de parfum, composed by hand and rested 180 days.">
+<meta name="theme-color" content="#FBF8F6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=5">
+</head>
+<body data-page="product">
+<main id="pdp"></main>
+<script src="luxe-data.js?v=1"></script>
+<script src="luxe-shell.js?v=4"></script>
+<script>
+(() => {
+  const k = PRODUCTS[new URLSearchParams(location.search).get('p')] ? new URLSearchParams(location.search).get('p') : 'locken';
+  const p = PRODUCTS[k];
+  document.title = `${p.name} · ${p.tag} · Feminista`;
+  if (k === 'discovery-set') document.body.dataset.page = 'set';
+  const shots = [...p.gallery.slice(0, 1), BANNER[k], ...p.gallery.slice(1)];
+  const tiers = [['Top notes', 'The opening'], ['Heart notes', 'The heart'], ['Base notes', 'The trail']];
+  const KEY = { locken: [['almond','Almond'],['coffee','Coffee'],['tuberose','Tuberose'],['vanilla','Vanilla']], vers: [['cinnamon','Cinnamon'],['cardamom','Cardamom'],['iris','Iris'],['vanilla','Vanilla']], fresca: [['apple','Apple'],['orangeblossom','Orange blossom'],['jasmine','Jasmine'],['sandalwood','Sandalwood']] }[k] || [];
+  const acc = [['How to wear', p.wear], ['Ingredients', p.ingredients],
+    ['Shipping & returns', 'Complimentary shipping across India, delivered within 7 days. As fragrances cannot be resold once dispatched, all sales are final; if your order arrives damaged, write to us within 48 hours for a replacement.'],
+    ['The 180-day promise', 'Every Feminista composition is rested for nearly 180 days before it is bottled, so its notes can soften, deepen and settle into balance.']];
+  $('#pdp').innerHTML = `
+  <div class="wrap crumbs"><a href="index.html">Home</a><span>/</span><a href="fragrances.html">Fragrances</a><span>/</span>${p.name}</div>
+  <section class="wrap pdp">
+    <div class="pdp-gal">${shots.map((s, i) => `<figure class="rv-img ${i === 1 ? 'wide' : ''}"><img src="${s}" alt="${p.name} by Feminista" ${i ? 'loading="lazy"' : ''}></figure>`).join('')}</div>
+    <aside class="pdp-buy">
+      <p class="eyebrow">${p.tag}</p>
+      <h1 class="h1">${p.name}</h1>
+      <p class="pdp-line">${p.tagline}</p>
+      <p class="pdp-rate"><span>★★★★★</span> ${p.rating} · ${p.reviews} reviews</p>
+      <p class="pdp-short">${p.short}</p>
+      <p class="pdp-price">${p.was ? `<s>${inr(p.was)}</s>` : ''}${inr(p.price)} <span>· ${p.size}${k === 'discovery-set' ? '' : ' extrait de parfum'}</span></p>
+      <p class="small">Inclusive of all taxes</p>
+      <div class="pdp-cta"><div class="qty" id="q"><button type="button" data-d="-1" aria-label="One less">−</button><span>1</span><button type="button" data-d="1" aria-label="One more">+</button></div>
+        <button class="btn wine" type="button" id="add">Add to bag · ${inr(p.price)}</button></div>
+      <ul class="pdp-promise"><li>Complimentary shipping</li><li>Delivered within 7 days</li><li>100% authentic, always</li></ul>
+      <div class="acc">${acc.map(([t, b], i) => `<details${i ? '' : ' open'}><summary>${t}<i></i></summary><p>${b}</p></details>`).join('')}</div>
+    </aside>
+  </section>
+
+  <section class="pdp-story">
+    <div class="wrap">
+      <p class="eyebrow rv center">The story</p>
+      <h2 class="h2 rv center">${p.tagline}</h2>
+      <div class="story-cols">${p.story.map(([t, b], i) => `<div class="rv d${i + 1}"><p class="num">0${i + 1}</p><h3 class="h3">${t}</h3><p>${b}</p></div>`).join('')}</div>
+    </div>
+  </section>
+
+  <section class="sec pyramid">
+    <div class="wrap pyr">
+      <figure class="pyr-img rv-img"><img src="${BANNER[k]}" alt="" loading="lazy"></figure>
+      <div>
+        <p class="eyebrow rv">The composition</p>
+        <h2 class="h2 rv">${p.name}, <em>note by note</em></h2>
+        <ol class="tiers">${p.notes.map((n, i) => `<li class="rv d${i + 1}"><span class="t-n">0${i + 1}</span><div><p class="t-k">${tiers[i][0]}</p><p class="t-h">${tiers[i][1]}</p></div><p class="t-v">${n.join(' · ')}</p></li>`).join('')}</ol>
+      </div>
+    </div>
+    ${KEY.length ? `<div class="wrap keys">${KEY.map(([f, n], i) => `<figure class="rv d${i + 1}"><div><img src="../assets/ing/${f}.webp" alt="" loading="lazy"></div><figcaption>${n}</figcaption></figure>`).join('')}</div>` : ''}
+  </section>
+
+  <section class="sec also">
+    <div class="wrap">
+      <div class="sec-head rv"><div><p class="eyebrow">Complete the wardrobe</p><h2 class="h2">You may also <em>love</em></h2></div><a class="link" href="fragrances.html">All fragrances <i>→</i></a></div>
+      <div class="grid3">${ORDER.filter((x) => x !== k).slice(0, 3).map((x) => pcard(x)).join('')}</div>
+    </div>
+  </section>`;
+  watchReveals();
+  let n = 1; const q = $('#q span');
+  $('#q').addEventListener('click', (e) => { const b = e.target.closest('[data-d]'); if (!b) return; n = Math.max(1, n + +b.dataset.d); q.textContent = n; $('#add').textContent = `Add to bag · ${inr(p.price * n)}`; });
+  $('#add').onclick = () => addToBag(k, n);
+})();
+</script>
+</body>
+</html>

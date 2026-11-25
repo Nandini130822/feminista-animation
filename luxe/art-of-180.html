@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Art of 180 · Feminista</title>
+<meta name="description" content="Time is our rarest ingredient. Nearly six months. One composition. No shortcuts.">
+<meta name="theme-color" content="#FBF8F6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=5">
+</head>
+<body data-page="art" class="on-hero">
+<main>
+
+  <section class="e-hero">
+    <img src="../site/img/maturation.webp" alt="A Feminista composition at rest">
+    <div class="wrap"><p class="eyebrow">The Art of 180</p><h1 class="display">Some things only <em>time</em> can perfect.</h1></div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap two">
+      <h2 class="h2 rv">Nearly six months. One composition. <em>No shortcuts.</em></h2>
+      <div class="rv d1"><p class="lede">Every Feminista fragrance is given nearly 180 days to mature, allowing its notes to deepen, soften and come together with greater balance. This patience is not a marketing point — it is the House's only method.</p>
+        <dl class="figs"><div><dt><span data-count="180">180</span></dt><dd>Days of rest</dd></div><div><dt><span data-count="5">5</span></dt><dd>Phases, by hand</dd></div><div><dt><span data-count="3">3</span></dt><dd>Compositions</dd></div></dl></div>
+    </div>
+  </section>
+
+  <section class="sec phases" style="padding-top:0"><div class="wrap">
+      <article class="phase rv"><figure class="rv-img"><img src="../site/img/locken-ingredients.webp" alt="" loading="lazy"></figure>
+        <div><p class="p-n">Phase 01 / 05</p><h3 class="h2">Selection</h3><p class="lede">Rare, pure materials, sourced for character rather than convenience.</p></div></article>
+      <article class="phase rv"><figure class="rv-img"><img src="../site/img/lab.webp" alt="" loading="lazy"></figure>
+        <div><p class="p-n">Phase 02 / 05</p><h3 class="h2">Composition</h3><p class="lede">Top, heart and base notes, balanced by hand into a single accord.</p></div></article>
+      <article class="phase rv"><figure class="rv-img"><img src="../site/img/maturation.webp" alt="" loading="lazy"></figure>
+        <div><p class="p-n">Phase 03 / 05</p><h3 class="h2">Maturation</h3><p class="lede">180 days of rest. The composition is left alone until the notes soften, deepen and settle into each other.</p></div></article>
+      <article class="phase rv"><figure class="rv-img"><img src="../site/img/evaluation.webp" alt="" loading="lazy"></figure>
+        <div><p class="p-n">Phase 04 / 05</p><h3 class="h2">Evaluation</h3><p class="lede">Assessed and refined until the balance feels right. If it is not ready, it waits longer.</p></div></article>
+      <article class="phase rv"><figure class="rv-img"><img src="img/art-of-180-locken-loom.webp" alt="" loading="lazy"></figure>
+        <div><p class="p-n">Phase 05 / 05</p><h3 class="h2">Bottling</h3><p class="lede">Filtered, bottled and finished by hand. Only then does it leave the House.</p></div></article>
+  </div></section>
+
+  <section class="sec" style="background:var(--sand-20)">
+    <div class="wrap">
+      <div class="sec-head rv"><div><p class="eyebrow">The collection</p><h2 class="h2">Three expressions, shaped by <em>patience</em></h2></div><a class="link" href="fragrances.html">View all fragrances <i>→</i></a></div>
+      <div class="grid3" id="g"></div>
+    </div>
+  </section>
+</main>
+<script src="luxe-data.js?v=1"></script>
+<script src="luxe-shell.js?v=4"></script>
+<script>
+  $('#g').innerHTML = ['locken', 'vers', 'fresca'].map((k) => pcard(k, { img: BANNER[k], alt: PRODUCTS[k].gallery[0] })).join(''); watchReveals();
+  const io2 = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; io2.unobserve(e.target); const el = e.target, to = +el.dataset.count, t0 = performance.now();
+    (function step(now) { const k = Math.min(1, (now - t0) / 1800); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 4))); if (k < 1) requestAnimationFrame(step); })(t0); }), { threshold: .6 });
+  $$('[data-count]').forEach((c) => io2.observe(c));
+</script>
+</body>
+</html>
