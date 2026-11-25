@@ -10,9 +10,14 @@
 
   const T = { push: [0, .1], heroOut: [.01, .06], portal: [.07, .17], sharpen: [.12, .2], scatter: [.26, .3], stream: [.29, .9], gather: [.9, .96] };
   const N = 3;
-  const phase = (u, i) => { const [a, b] = T.stream, step = (b - a) / (N + .35), s = a + i * step; return range(u, s, s + step * 1.35); };
-  const yOf = (t) => (t <= .32 ? Math.pow(1 - t / .32, 3) : t < .68 ? 0 : -Math.pow((t - .68) / .32, 3));
-  const light = (t) => clamp((.28 - Math.abs(t - .5)) / .1);
+  // each composition has its own share of the stream, overlapping its neighbours only a little,
+  // so one has almost gone before the next arrives
+  const phase = (u, i) => { const [a, b] = T.stream, step = (b - a) / N, s = a + i * step; return range(u, s - step * .06, s + step * 1.06); };
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3), easeIn = (t) => t * t;
+  // rises a short way and settles; holds; drifts up a little as it fades
+  const yOf = (t) => (t < .3 ? .12 * (1 - easeOut(t / .3)) : t < .72 ? 0 : -.08 * easeIn((t - .72) / .28));
+  const light = (t) => smooth(range(t, .02, .28)) * (1 - smooth(range(t, .74, .98)));
+  const words = (t) => smooth(range(t, .12, .34)) * (1 - smooth(range(t, .7, .9)));
 
   // an organic edge: the radius breathes on a few low harmonics
   function blob(cx, cy, r, ph, tilt = -.3, squash = .76, pts = 72) {
@@ -94,16 +99,16 @@
     items.forEach((n, i) => {
       const t = phase(u, i), live = t > 0 && t < 1;
       n.style.visibility = live ? 'visible' : 'hidden'; if (!live) return;
-      const y = yOf(t), vel = Math.abs(y - prevY[i]); prevY[i] = y;
-      const L = light(t); if (L > best) { best = L; cur = i; }
-      const travel = Math.abs(y), b = Math.min(10, travel * 9 + vel * 120);
+      const y = yOf(t), L = light(t), Tx = words(t); prevY[i] = y;
+      if (L > best) { best = L; cur = i; }
       const bottle = n.querySelector('[data-bottle]'), glow = n.querySelector('[data-glow]'), text = n.querySelector('[data-text]');
-      bottle.style.transform = `translate3d(0, ${(y * vh * .95).toFixed(1)}px, 0) scale(${(1 - travel * .12).toFixed(3)}) rotate(${(y * (i % 2 ? 5 : -5)).toFixed(2)}deg)`;
-      bottle.style.filter = b > .1 ? `blur(${b.toFixed(1)}px)` : 'none';
-      glow.style.opacity = String(L * .9); glow.style.transform = `translate(-50%, -50%) translate3d(0, ${(y * vh * .5).toFixed(1)}px, 0) scale(${(.7 + L * .3).toFixed(3)})`;
-      text.style.opacity = String(L); text.style.filter = L < .999 ? `blur(${((1 - L) * 10).toFixed(1)}px)` : 'none';
-      text.style.transform = `${mob ? '' : 'translateY(-50%) '}translate3d(0, ${(y * vh * .35).toFixed(1)}px, 0)`;
-      text.style.pointerEvents = L > .6 ? 'auto' : 'none';
+      // calm: a short rise, no blur, no spin
+      bottle.style.transform = `translate3d(0, ${(y * vh).toFixed(1)}px, 0) scale(${(.97 + .03 * L).toFixed(4)})`;
+      bottle.style.opacity = L.toFixed(3); bottle.style.filter = 'none';
+      glow.style.opacity = String(L * .8); glow.style.transform = `translate(-50%, -50%) scale(${(.85 + L * .15).toFixed(3)})`;
+      text.style.opacity = Tx.toFixed(3); text.style.filter = 'none';
+      text.style.transform = `${mob ? '' : 'translateY(-50%) '}translate3d(0, ${(y * vh * .5).toFixed(1)}px, 0)`;
+      text.style.pointerEvents = Tx > .6 ? 'auto' : 'none';
     });
     const inStream = u > T.stream[0] + .01 && u < T.stream[1] - .005;
     counter.style.opacity = inStream ? '1' : '0';

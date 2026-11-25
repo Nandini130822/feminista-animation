@@ -312,3 +312,7 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
 .ob-corner .ob-pill span { display: inline; margin: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }
 
 .wall .pw-cap i { color: #fbf3e6; text-shadow: 0 1px 6px rgba(60, 40, 25, .35); }
+
+/* more scroll for each composition */
+.orbit { height: 1150vh; }
+@media (max-width: 760px) { .orbit { height: 960vh; } }
