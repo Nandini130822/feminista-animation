@@ -27,7 +27,7 @@
   }
 
   const pin = $('.ob-pin'), photo = $('.ob-photo'), photoImg = $('.ob-photo img'), heroBits = $$('[data-out]'), layer = $('.ob-layer');
-  const ctype = $$('[data-type]'), slots = $$('[data-slot]'), items = $$('[data-scent]');
+  const ctype = $$('[data-type]'), slots = $$('[data-slot]'), items = $$('[data-scent]'), titleEl = $('.ob-title');
   const counter = $('[data-counter]'), cnum = $('[data-counter-num]'), cbar = $('[data-counter-bar]');
   const prevY = new Array(items.length).fill(0);
   let lastU = -1, lastC = -1;
@@ -74,14 +74,19 @@
     const blurIn = (1 - sharpen) * 14;
     ctype.forEach((n, i) => { const k = clamp(away * 1.4 - i * .04), b = blurIn + k * 12;
       n.style.opacity = String((.35 + .65 * sharpen) * (1 - k)); n.style.filter = b > .05 ? `blur(${b.toFixed(1)}px)` : 'none';
-      n.style.transform = `translate3d(0, ${(-k * 20).toFixed(1)}px, 0) scale(${(1.03 - .03 * sharpen).toFixed(4)})`; });
-    const rx = Math.min(W * (mob ? .36 : .3), 560), ry = vh * (mob ? .26 : .22), turn = u * Math.PI * 5;
+      n.style.transform = `${n === titleEl ? 'translate(-50%, -50%) ' : ''}translate3d(0, ${(-k * 20).toFixed(1)}px, 0) scale(${(1.03 - .03 * sharpen).toFixed(4)})`; });
+    // the orbit clears the title: wide enough to pass its sides, tall enough to pass above and below it
+    const tw = titleEl.offsetWidth, th = titleEl.offsetHeight, bh = slots[0].offsetHeight;
+    const rx = mob ? W * .34 : clamp(tw / 2 + bh * .45 + 40, 0, W / 2 - bh * .4 - 30);
+    const ry = mob ? vh * .3 : clamp(th / 2 + bh * .62 + 24, vh * .24, vh * .36);
+    const turn = u * Math.PI * 5;
     slots.forEach((n, i) => {
-      const a = (i / slots.length) * Math.PI * 2 + turn, depth = Math.sin(a), front = (depth + 1) / 2, burst = 1 + away * 1.6;
-      n.style.transform = `translate(-50%, -50%) translate3d(${(Math.cos(a) * rx * burst).toFixed(1)}px, ${(depth * ry * burst).toFixed(1)}px, 0) rotate(${(-Math.cos(a) * 6).toFixed(2)}deg) scale(${((.74 + .46 * front) * (1 + away * 2)).toFixed(3)})`;
-      n.style.zIndex = depth > 0 ? '3' : '1';
-      n.style.opacity = String((.4 + .6 * sharpen) * (.6 + .4 * front) * (1 - away));
-      const b = blurIn * .6 + (1 - front) * 2 + away * 10; n.style.filter = b > .05 ? `blur(${b.toFixed(1)}px)` : 'none';
+      const a = (i / slots.length) * Math.PI * 2 + turn, depth = Math.sin(a), front = (depth + 1) / 2;
+      const x = Math.cos(a) * rx * (1 + away * .6), y = depth * ry * (1 + away * .6);
+      n.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${(-Math.cos(a) * 5).toFixed(2)}deg) scale(${(.8 + .3 * front).toFixed(3)})`;
+      n.style.zIndex = mob ? '1' : depth > 0 ? '3' : '1';
+      n.style.opacity = String(sharpen * (.82 + .18 * front) * (1 - away));
+      n.style.filter = 'none';
     });
 
     // each composition, held in turn

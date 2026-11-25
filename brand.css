@@ -302,3 +302,13 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
   .ob-text h3 { font-size: 46px; margin-top: 8px; } .ob-line { font-size: 16px; margin-top: 8px; } .ob-text .link { display: none; }
   .ob-counter { bottom: auto; top: 18px; }
 }
+
+/* orbit, clean: a calmer title, nothing crossing it */
+.ob-title h2 { font-size: clamp(44px, 4.8vw, 92px); }
+.ob-title p { font-size: clamp(20px, 2vw, 34px); }
+.ob-corner.br { max-width: none; }
+.ob-pill { margin-top: 0; }
+@media (max-width: 760px) { .ob-title h2 { font-size: 40px; } .ob-title { text-shadow: 0 0 18px var(--cream-2), 0 0 30px var(--cream-2); z-index: 2; } .ob-corner.br { left: auto; right: var(--edge); } }
+.ob-corner .ob-pill span { display: inline; margin: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }
+
+.wall .pw-cap i { color: #fbf3e6; text-shadow: 0 1px 6px rgba(60, 40, 25, .35); }

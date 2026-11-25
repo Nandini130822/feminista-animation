@@ -76,7 +76,7 @@
 
   // ── 04 · the art of 180: the days count, the phases light in turn ──
   const a180 = document.getElementById('s4'), day = document.getElementById('day'), phases = [...document.querySelectorAll('#phases li')], ph = document.getElementById('phases');
-  const aImg = a180.querySelector('.a-img img');  // optional
+  const aImg = a180 && a180.querySelector('.a-img img');  // optional
   function a180Frame() {
     const r = a180.getBoundingClientRect(), p = qs.has('all') ? .9 : clamp((innerHeight - r.top) / (innerHeight + r.height * .55));
     const k = seg(p, .15, .85);
@@ -97,7 +97,7 @@
     requestAnimationFrame(frame);
     if (vis(fusion) || qs.has('fz')) fusionFrame();
     if (vis(stage)) { sm.x += (sm.tx - sm.x) * .05; turn.style.setProperty('--ry', `${(sm.x * 14 + (reduce ? 0 : Math.sin(now / 3400) * 3)).toFixed(2)}deg`); }
-    if (vis(a180) || qs.has('all')) a180Frame();
+    if (a180 && (vis(a180) || qs.has('all'))) a180Frame();
     if (lab && (vis(lab) || qs.has('all'))) {
       lm.x += (lm.tx - lm.x) * .05; lm.y += (lm.ty - lm.y) * .05;
       const r = lab.getBoundingClientRect(), p = clamp((innerHeight - r.top) / (innerHeight + r.height));
