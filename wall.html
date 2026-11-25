@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FEMINISTA · Maison de Parfum</title>
+<meta name="description" content="Feminista — three extraits de parfum, made in small batches. Vers, Locken, Fresca.">
+<meta name="theme-color" content="#0b0a0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..500&family=Manrope:wght@300..700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/stone.webp">
+<link rel="preload" as="image" href="assets/vers-cut.webp">
+<link rel="preload" as="image" href="assets/locken-cut.webp">
+<link rel="preload" as="image" href="assets/fresca-cut.webp">
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<a class="skip" href="#niches">Skip to the perfumes</a>
+
+<header class="masthead" id="masthead">
+  <a class="wordmark" href="#top" id="home-link">FEMINISTA<small>MAISON DE PARFUM</small></a>
+  <nav class="capsule" aria-label="Main">
+    <a class="cap-link" href="#top" id="nav-collection">Collection</a>
+    <span class="cap-dot" aria-hidden="true"></span>
+    <button type="button" class="cap-link" id="bag-btn" aria-controls="bag">Bag <span id="bag-count">0</span></button>
+  </nav>
+  <span class="mast-side" aria-hidden="true"></span>
+</header>
+
+<!-- The world: a basalt wall with lit niches, fixed behind the page -->
+<div id="world" aria-label="Three perfumes, each in its own lit niche of basalt">
+  <div class="layer" id="wall-layer">
+    <div class="stone" aria-hidden="true"></div>
+    <div class="wall-light" aria-hidden="true"></div>
+    <div class="row" id="niches" role="group" aria-label="Choose a perfume"></div>
+    <div class="water" aria-hidden="true"><div class="row mirror" id="mirror"></div></div>
+  </div>
+
+  <div class="layer" id="detail-layer" aria-hidden="true">
+    <div class="stone" aria-hidden="true"></div>
+    <div class="stage">
+      <figure class="big-niche" id="big-niche">
+        <span class="cavity"><span class="back"></span><span class="beam"></span><span class="pool"></span><img class="bottle" id="detail-img" alt="" decoding="async"><span class="walls"></span><span class="floor"></span><span class="lamp"></span></span>
+      </figure>
+      <div class="water" aria-hidden="true">
+        <div class="big-niche mirror" id="big-mirror"><span class="cavity"><span class="back"></span><span class="beam"></span><span class="pool"></span><img class="bottle" id="detail-mirror" alt=""><span class="walls"></span><span class="floor"></span><span class="lamp"></span></span></div>
+      </div>
+    </div>
+  </div>
+  <div id="shade" aria-hidden="true"></div>
+</div>
+
+<main class="page" id="page">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="intro">
+      <p class="eyebrow">Maison de parfum · Collection N°1</p>
+      <h1 id="hero-title">The <em>signature</em> collection</h1>
+      <p class="lede">Three extraits de parfum, 100 ml, made in small batches.</p>
+      <p class="m-hint">Touch a niche to come closer</p>
+    </div>
+    <p class="hint" aria-hidden="true"><span class="hint-dot"></span><span id="hint-text">Select a perfume</span></p>
+  </section>
+
+  <footer class="foot" id="foot">
+    <div class="glass">
+      <div class="foot-row">
+        <div class="foot-brand">
+          <p class="foot-mark">FEMINISTA<small>MAISON DE PARFUM</small></p>
+          <p class="foot-letter">Letters from the house: new pressings, before anyone else.</p>
+        </div>
+        <form class="news" id="news" novalidate>
+          <label class="sr" for="news-mail">Email</label>
+          <input id="news-mail" type="email" placeholder="Your email" autocomplete="email" required>
+          <button type="submit" aria-label="Subscribe">→</button>
+          <p class="news-ok" id="news-ok" role="status"></p>
+        </form>
+      </div>
+      <div class="foot-base">
+        <nav class="foot-links" aria-label="Footer"><a href="#foot">Shipping</a><a href="#foot">Returns</a><a href="#foot">Contact</a><a href="#foot">Instagram</a></nav>
+        <p>© <span id="year">2026</span> FEMINISTA · Maison de Parfum. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Product sheet (detail view) -->
+<article class="sheet" id="sheet" aria-live="polite" aria-hidden="true">
+  <p class="eyebrow" id="s-num"></p>
+  <h2 id="s-name"></h2>
+  <p class="s-line" id="s-line"></p>
+  <dl class="notes" id="s-notes"></dl>
+  <p class="s-price"><span id="s-price"></span><span class="s-size">Extrait · 100 ml</span></p>
+  <button type="button" class="s-add" id="s-add">Add to bag <span aria-hidden="true">→</span></button>
+  <div class="s-foot">
+    <button type="button" class="s-back" id="s-back"><span aria-hidden="true">←</span> Back to the wall</button>
+    <span class="s-step"><button type="button" id="s-prev" aria-label="Previous perfume">‹</button><span id="s-pos"></span><button type="button" id="s-next" aria-label="Next perfume">›</button></span>
+  </div>
+</article>
+
+<!-- Bag drawer -->
+<aside class="bag" id="bag" aria-label="Your bag" aria-hidden="true">
+  <div class="bag-head"><p class="eyebrow">Your bag</p><button type="button" class="s-back" id="bag-close">Close <span aria-hidden="true">×</span></button></div>
+  <ul class="bag-list" id="bag-list"></ul>
+  <p class="bag-empty" id="bag-empty">Your bag is empty.</p>
+  <div class="bag-foot">
+    <p class="bag-total"><span>Subtotal</span><span id="bag-total"></span></p>
+    <button type="button" class="bag-checkout" id="bag-checkout">Checkout</button>
+    <p class="bag-note">Complimentary samples with every order.</p>
+  </div>
+</aside>
+<div class="scrim" id="scrim" aria-hidden="true"></div>
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script src="app.js?v=3" defer></script>
+</body>
+</html>

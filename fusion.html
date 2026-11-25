@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Fusion · FEMINISTA</title>
+<meta name="description" content="Every note of a Feminista perfume, flowing into the bottle and fusing into one.">
+<meta name="theme-color" content="#070608">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..500&family=Manrope:wght@300..700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fusion.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="gl" aria-label="Animation: the ingredients of a Feminista perfume flow into the bottle and fuse"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="wordmark" href="./">FEMINISTA<small>MAISON DE PARFUM</small></a>
+  <nav class="tabs" aria-label="Choose a perfume">
+    <button type="button" data-p="0">Vers</button>
+    <button type="button" data-p="1">Locken</button>
+    <button type="button" data-p="2">Fresca</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="replay" aria-label="Replay">↻</button>
+  </nav>
+  <a class="back" href="./">All studies →</a>
+</header>
+
+<aside class="notes" id="notes" aria-live="polite">
+  <p class="eyebrow">The composition</p>
+  <div class="tier" data-t="0"><h3>Top notes</h3><p></p></div>
+  <div class="tier" data-t="1"><h3>Heart notes</h3><p></p></div>
+  <div class="tier" data-t="2"><h3>Base notes</h3><p></p></div>
+</aside>
+
+<div class="labels" id="labels" aria-hidden="true"></div>
+<div class="caption" id="caption"><p id="caption-text">Every note, <em>becoming one</em></p></div>
+
+<nav class="carousel" aria-label="Bottles">
+  <button type="button" id="prev" aria-label="Previous bottle">‹</button>
+  <span id="pos">02 / 03</span>
+  <button type="button" id="next" aria-label="Next bottle">›</button>
+</nav>
+<p class="next-hint" id="next-hint">Next · <span id="next-name">Fresca</span> <span aria-hidden="true">→</span></p>
+
+<div class="reveal" id="reveal">
+  <p class="eyebrow" id="r-num">N°02 · Extrait de parfum</p>
+  <h2 id="r-name">Loc<em>ken</em></h2>
+  <p class="sub">Extrait de parfum · 100 ml</p>
+</div>
+
+<div class="bar" aria-hidden="true"><i id="bar"></i></div>
+<a class="credits" href="credits.html">Image credits</a>
+<p class="fallback">This animation needs WebGL. Try a recent version of Chrome, Edge, Safari or Firefox.</p>
+
+<script type="module" src="fusion.js"></script>
+</body>
+</html>

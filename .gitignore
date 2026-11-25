@@ -1,0 +1,7 @@
+.claude/
+assets/ing/incoming/
+site/_full_*.html
+_labtest.html
+*.log
+Thumbs.db
+.DS_Store

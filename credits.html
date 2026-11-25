@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image credits · FEMINISTA</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #efe9e1; --muted: rgba(239, 233, 225, .6); --line: rgba(239, 233, 225, .14); --gold: #e3b860; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0b0a0c; color: var(--ink); font: 400 14px/1.6 Manrope, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 900px; margin: 0 auto; padding: 72px 22px 80px; }
+  a { color: var(--gold); }
+  h1 { margin: 0 0 8px; font: 400 40px/1.1 Marcellus, Georgia, serif; }
+  p.lede { margin: 0 0 36px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 12px 10px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  td img { width: 48px; height: 48px; object-fit: contain; background: #1a171a; border-radius: 6px; }
+  .back { display: inline-block; margin-bottom: 36px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: var(--muted); text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="fusion.html">← Back to The Fusion</a>
+  <h1>Image credits</h1>
+  <p class="lede">The ingredient photographs are public domain, CC0, or CC BY. They were cut out from their backgrounds for this page.</p>
+  <table>
+    <thead><tr><th></th><th>Ingredient</th><th>Photo</th><th>By</th><th>Licence</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="5">Loading…</td></tr></tbody>
+  </table>
+</main>
+<script>
+  const esc = (s) => String(s || '').replace(/<[^>]*>/g, '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  fetch('assets/ing/credits.json').then((r) => r.json()).then((c) => {
+    document.getElementById('rows').innerHTML = Object.entries(c).sort().map(([k, v]) => `<tr>
+      <td><img src="assets/ing/${esc(k)}.webp" alt=""></td><td>${esc(k)}</td>
+      <td><a href="${esc(v.page)}" target="_blank" rel="noopener">${esc(v.title) || 'Source'}</a><br><small>${esc(v.source)}</small></td>
+      <td>${esc(v.creator) || '—'}</td><td>${esc(v.license)}</td></tr>`).join('');
+  }).catch(() => { document.getElementById('rows').innerHTML = '<tr><td colspan="5">No credits file found.</td></tr>'; });
+</script>
+</body>
+</html>

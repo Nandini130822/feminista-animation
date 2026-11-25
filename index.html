@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FEMINISTA · Motion studies</title>
+<meta name="description" content="Feminista — hero and animation studies, side by side.">
+<meta name="theme-color" content="#120806">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #f3e7d8; --muted: rgba(243, 231, 216, .62); --gold: #d9a85a; --line: rgba(217, 168, 90, .28); --card: #170c08; }
+  * { box-sizing: border-box; }
+  html { background: #0d0605; }
+  body { margin: 0; min-height: 100vh; color: var(--ink); font: 400 14px/1.6 Manrope, Arial, sans-serif; -webkit-font-smoothing: antialiased;
+    background: radial-gradient(90% 70% at 22% 0%, #3a160b 0%, #1d0b07 45%, #0d0605 100%); }
+  main { max-width: 1240px; margin: 0 auto; padding: clamp(48px, 9vh, 96px) clamp(18px, 7vw, 96px) 80px; }
+  h1 { margin: 0; font: italic 400 clamp(40px, 6vw, 76px)/1.05 'Cormorant Garamond', Georgia, serif; letter-spacing: -.005em; }
+  .sub { margin: 18px 0 0; padding-left: clamp(120px, 26vw, 300px); font-size: 10.5px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 22px; margin-top: clamp(36px, 6vh, 54px); }
+  .card { display: block; color: inherit; text-decoration: none; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card);
+    transition: transform .6s cubic-bezier(.22, .7, .16, 1), border-color .4s, box-shadow .6s; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(217, 168, 90, .6); box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .8); }
+  .card:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+  .shot { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0b0809; }
+  .shot iframe { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; border: 0; transform-origin: 0 0; transform: scale(var(--s, .25)); pointer-events: none; }
+  .shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgba(23, 12, 8, .5)); pointer-events: none; }
+  .meta { padding: 20px 22px 22px; }
+  .meta h2 { margin: 0; font: italic 400 26px/1.15 'Cormorant Garamond', Georgia, serif; }
+  .meta p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+  .open { display: inline-block; margin-top: 14px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+  .open span { display: inline-block; transition: transform .4s; }
+  .card:hover .open span { transform: translateX(4px); }
+  footer { margin-top: 56px; color: rgba(243, 231, 216, .35); font-size: 11px; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>The House of Feminista — Hero studies</h1>
+  <p class="sub" id="count">Five studies</p>
+
+  <div class="grid" id="grid">
+    <a class="card" href="wall.html">
+      <div class="shot"><iframe src="wall.html" title="Preview: The Basalt Wall" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="meta">
+        <h2>1 · The Basalt Wall</h2>
+        <p>Three bottles in lit niches of basalt. Hover for light, click to come closer.</p>
+        <span class="open">Open study <span>→</span></span>
+      </div>
+    </a>
+    <a class="card" href="fusion.html">
+      <div class="shot"><iframe src="fusion.html?preview&t=5.5" title="Preview: The Fusion" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="meta">
+        <h2>2 · The Fusion</h2>
+        <p>Every note flies in, circles the bottle, then pours inside as light and fuses into one.</p>
+        <span class="open">Open study <span>→</span></span>
+      </div>
+    </a>
+    <a class="card" href="stage.html">
+      <div class="shot"><iframe src="stage.html?preview&t=3" title="Preview: The Stage" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="meta">
+        <h2>3 · The Stage</h2>
+        <p>One perfume at a time on a stone stage, its notes fusing in while the scene changes behind it.</p>
+        <span class="open">Open study <span>→</span></span>
+      </div>
+    </a>
+    <a class="card" href="site/art-of-180.html">
+      <div class="shot"><img src="assets/a180-preview.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div class="meta">
+        <h2>4 · The Art of 180</h2>
+        <p>One bottle on the real workbench: its notes are gathered and poured in, it rests 180 days, is evaluated, then joins the collection. Scroll-driven, in five phases.</p>
+        <span class="open">Open study <span>→</span></span>
+      </div>
+    </a>
+    <a class="card" href="site/index.html">
+      <div class="shot"><img src="assets/site-preview.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top"></div>
+      <div class="meta">
+        <h2>5 · The Website</h2>
+        <p>The full Feminista demo site: the spotlight wall as hero, the original content and pages, and the Art of 180 lab.</p>
+        <span class="open">Open study <span>→</span></span>
+      </div>
+    </a>
+  </div>
+  <footer>Previews play live. Open a study to see it full screen.</footer>
+</main>
+<script>
+  // scale each live preview to its card
+  const fit = () => document.querySelectorAll('.shot').forEach((s) => s.style.setProperty('--s', s.clientWidth / 1600));
+  new ResizeObserver(fit).observe(document.getElementById('grid'));
+  fit();
+  const n = document.querySelectorAll('.card').length;
+  const words = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+  document.getElementById('count').textContent = `${words[n] || n} animation variation${n === 1 ? '' : 's'}`;
+</script>
+</body>
+</html>

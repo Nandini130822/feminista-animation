@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Art of 180 · The Laboratory · FEMINISTA</title>
+<meta name="description" content="Time is our rarest ingredient. Step inside the Feminista laboratory and follow one composition through 180 days.">
+<meta name="theme-color" content="#120c08">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..500&family=Manrope:wght@300..700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/lab/art-of-180-lab.webp">
+<link rel="stylesheet" href="lab-studio.css?v=2">
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="gl" aria-label="The Feminista laboratory in 3D"></canvas>
+<div class="rays" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="tags" id="tags" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="wordmark" href="./">FEMINISTA<small>MAISON DE PARFUM</small></a>
+  <p class="kicker"><span>The Art of 180</span> · The laboratory</p>
+  <a class="back" href="./">All studies →</a>
+</header>
+
+<nav class="rail" aria-label="Phases">
+  <a href="#p1" data-i="1"><b>01</b><span>Selection</span></a>
+  <a href="#p2" data-i="2"><b>02</b><span>Composition</span></a>
+  <a href="#p3" data-i="3"><b>03</b><span>Maturation</span></a>
+  <a href="#p4" data-i="4"><b>04</b><span>Evaluation</span></a>
+  <a href="#p5" data-i="5"><b>05</b><span>Bottling</span></a>
+</nav>
+
+<main id="story">
+  <section data-k="0" class="s-hero"><div class="panel center">
+    <p class="eyebrow">The Art of 180</p>
+    <h1><span class="ln"><span>Time is our <em>rarest</em></span></span> <span class="ln"><span>ingredient</span></span></h1>
+    <i class="rule" aria-hidden="true"></i>
+    <p class="lede">Nearly six months. One composition. No shortcuts.</p>
+    <p class="cue"><span></span>Scroll to step inside</p>
+  </div></section>
+
+  <section data-k="1" id="p1"><div class="panel left">
+    <span class="big" aria-hidden="true">01</span>
+    <p class="eyebrow">Phase 01 / 05</p><h2>Selection</h2>
+    <p>Rare, pure materials, sourced for character rather than convenience.</p>
+    <p class="meta" id="sel-meta">Almond · Coffee · Bergamot · Tuberose · Jasmine sambac · Bulgarian rose · Tonka · Cacao · Vanilla · Sandalwood · Amber</p>
+  </div></section>
+
+  <section data-k="2" id="p2"><div class="panel right">
+    <span class="big" aria-hidden="true">02</span>
+    <p class="eyebrow">Phase 02 / 05</p><h2>Composition</h2>
+    <p>Top, heart and base notes, balanced by hand into a single accord.</p>
+    <ol class="drops"><li data-at=".18"><b>Top</b>Almond · Coffee · Bergamot · Lemon</li><li data-at=".42"><b>Heart</b>Tuberose · Jasmine sambac · Orange blossom · Bulgarian rose</li><li data-at=".66"><b>Base</b>Tonka · Cacao · Vanilla · Praline · Sandalwood · Amber</li></ol>
+  </div></section>
+
+  <section data-k="3" id="p3"><div class="panel left">
+    <span class="big" aria-hidden="true">03</span>
+    <p class="eyebrow">Phase 03 / 05</p><h2>Maturation</h2>
+    <p class="sub">180 days of rest</p>
+    <p>The composition is left alone until the notes soften, deepen and settle into each other.</p>
+    <p class="day"><span>Day</span> <b id="day">000</b><i>/ 180</i></p>
+  </div></section>
+
+  <section data-k="4" id="p4"><div class="panel right">
+    <span class="big" aria-hidden="true">04</span>
+    <p class="eyebrow">Phase 04 / 05</p><h2>Evaluation</h2>
+    <p>Assessed and refined until the balance feels right. If it is not ready, it waits longer.</p>
+    <p class="status" id="status">Assessing the balance…</p>
+  </div></section>
+
+  <section data-k="5" id="p5"><div class="panel left">
+    <span class="big" aria-hidden="true">05</span>
+    <p class="eyebrow">Phase 05 / 05</p><h2>Bottling</h2>
+    <p>Filtered, bottled and finished by hand. Only then does it leave the House.</p>
+    <ul class="checks"><li data-at=".15">Filtered</li><li data-at=".5">Bottled</li><li data-at=".85">Finished by hand</li></ul>
+  </div></section>
+
+  <section data-k="6" class="s-end"><div class="panel center">
+    <h2 class="closing">Some things only <em>time</em> can perfect.</h2>
+    <p class="eyebrow" style="margin-top:34px">The collection · Three expressions, shaped by patience</p>
+    <div class="coll">
+      <a href="https://www.feminista.co.in/fragrances/locken" target="_blank" rel="noopener"><img src="assets/locken-cut.webp" alt=""><span><i>The Magnetic</i>Locken</span></a>
+      <a href="https://www.feminista.co.in/fragrances/vers" target="_blank" rel="noopener"><img src="assets/vers-cut.webp" alt=""><span><i>The Intimate</i>Vers</span></a>
+      <a href="https://www.feminista.co.in/fragrances/fresca" target="_blank" rel="noopener"><img src="assets/fresca-cut.webp" alt=""><span><i>The Luminous</i>Fresca</span></a>
+    </div>
+  </div></section>
+</main>
+<p class="fallback">This page needs WebGL. Try a recent version of Chrome, Edge, Safari or Firefox.</p>
+<script type="module" src="lab-studio.js?v=2"></script>
+</body>
+</html>

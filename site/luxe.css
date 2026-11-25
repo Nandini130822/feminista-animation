@@ -1,0 +1,116 @@
+/* ── FEMINISTA · one art direction for the whole house ─────────────────
+   Warm ivory, deep ink, antique gold. Cormorant Garamond for the voice,
+   Manrope for everything small. Sharp corners, more air, fewer colours.
+   Loaded last on every page; the animated sections keep their own look. */
+:root {
+  --paper: #f7f3ee; --ivory-2: #f1ebe3; --blush: #efe7de; --blush-2: #f4eee7;
+  --ink: #16110e; --muted: #6f655d; --line: rgba(22, 17, 14, .12);
+  --gold: #8f6d3f; --gold-l: #d3b27c; --wine: #5e1a31; --wine-2: #3f1222;
+  --serif: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  --sans: Manrope, 'Helvetica Neue', Arial, sans-serif;
+  --r: 2px; --max: 1280px;
+}
+body { background: var(--paper); font: 400 15px/1.75 var(--sans); letter-spacing: .005em; }
+::selection { background: var(--ink); color: var(--paper); }
+:focus-visible { outline-color: var(--gold); }
+
+/* type: larger, lighter, tighter */
+.eyebrow { font: 600 10.5px/1.4 var(--sans); letter-spacing: .32em; color: var(--gold); }
+.h1 { font: 400 clamp(46px, 6.2vw, 96px)/1 var(--serif); letter-spacing: -.015em; }
+.h2 { font: 400 clamp(38px, 4.4vw, 68px)/1.02 var(--serif); letter-spacing: -.012em; }
+.h3 { font: 500 clamp(26px, 2.2vw, 34px)/1.1 var(--serif); letter-spacing: -.005em; }
+.h1 i, .h1 em, .h2 i, .h2 em { font-style: italic; font-weight: 400; }
+.lede { font-size: 16px; line-height: 1.8; color: var(--muted); }
+.pad { padding: clamp(90px, 12vw, 170px) 0; }
+
+/* buttons: square, quiet, gold on hover */
+.btn { height: 54px; padding: 0 36px; border-radius: 0; background: var(--ink); color: var(--paper);
+  font: 600 10.5px/1 var(--sans); letter-spacing: .26em; transition: background .5s, color .5s; }
+.btn:hover { background: var(--gold); }
+.btn.light { background: var(--paper); color: var(--ink); }
+.btn.light:hover { background: var(--gold-l); color: var(--ink); }
+.btn.ghost { border-color: currentColor; }
+.link { font: 600 10.5px/1 var(--sans); letter-spacing: .26em; border-bottom-color: rgba(22, 17, 14, .35); }
+.link:hover { border-bottom-color: currentColor; }
+
+/* images: sharp corners, slower hover */
+.card-img, .x-card figure, .x-frame, .ph-img { border-radius: var(--r) !important; }
+.card-img img { transition: transform 1.8s var(--ease-o); }
+.card-img:hover img { transform: scale(1.04); }
+.stars { color: var(--gold); }
+
+/* ── header: logo centred, three links, quiet tools ── */
+.announce { background: var(--ink); color: rgba(247, 243, 238, .78); font: 600 9.5px/1 var(--sans); letter-spacing: .3em; padding: 10px 16px; }
+.announce b { color: var(--gold-l); font-weight: 600; }
+.over-hero .site-head:not(.solid) .announce { background: rgba(10, 8, 7, .35); }
+.site-head { background: rgba(247, 243, 238, .92); box-shadow: 0 1px 0 var(--line); }
+.site-head .bar { grid-template-columns: 1fr auto 1fr; height: 88px; }
+.site-head .nav { justify-content: flex-start; gap: 34px; padding: 0; }
+.site-head .nav a { font: 600 10.5px/1 var(--sans); letter-spacing: .26em; }
+.site-head .logo img { height: 44px; }
+.site-head .tools { gap: 26px; }
+.site-head .tools a, .site-head .tools button { font: 600 10.5px/1 var(--sans); letter-spacing: .24em; }
+.site-head .ico { display: inline-grid; place-items: center; width: 22px; height: 22px; }
+.cart-count { background: var(--gold); min-width: 17px; height: 17px; font-size: 9.5px; font-weight: 700; }
+.over-hero .site-head:not(.solid) { background: linear-gradient(180deg, rgba(8, 6, 5, .6), rgba(8, 6, 5, 0)); }
+
+/* menu + drawer */
+.menu { background: var(--paper); }
+.menu .m-body a.big { font: 400 clamp(40px, 4.6vw, 70px)/1.1 var(--serif); }
+.menu .m-body a.big:hover { color: var(--gold); }
+.drawer { background: var(--paper); }
+.drawer-list img { border-radius: var(--r); }
+.drawer-list b { font: 500 22px/1.1 var(--serif); }
+.drawer-foot .tot { font: 500 24px/1 var(--serif); }
+.qty { border-radius: 0; }
+.toast { border-radius: 0; background: var(--ink); }
+
+/* ── footer ── */
+.circle { background: var(--ivory-2); border-top: 1px solid var(--line); }
+.circle .wrap { padding: clamp(70px, 8vw, 110px) 0; }
+.site-foot { background: #110d0b; color: rgba(247, 243, 238, .82); }
+.site-foot h4 { font: 600 10px/1 var(--sans); letter-spacing: .3em; color: var(--gold-l); }
+.site-foot li { color: rgba(247, 243, 238, .62); }
+.site-foot .brand p { font: italic 400 22px/1.35 var(--serif); color: rgba(247, 243, 238, .85); }
+.site-foot .cols { padding: clamp(80px, 9vw, 120px) 0 70px; }
+
+/* ── page blocks that were too colourful or too rounded ── */
+.banner.a180 .h1, .banner .h1 { font-weight: 400; }
+.testi, .voices { background: var(--ivory-2) !important; }
+.rev, .voice-stage, .x-card figure { border-radius: var(--r) !important; }
+.rev blockquote, .voice blockquote { font-family: var(--serif); font-size: clamp(19px, 1.5vw, 22px); line-height: 1.5; }
+.press-line b, .press-line i { font-family: var(--serif); }
+.b-tile, .tile, .ess figure, .pdp figure, .lab-cta { border-radius: var(--r) !important; }
+.x-intro, .x-coll { background: var(--paper) !important; }
+.x-big { font-weight: 400; letter-spacing: -.02em; }
+.x-stats dt { font-family: var(--serif); font-weight: 400; }
+.x-meta h3, .ph h3, .x-steps h2, .x-quote h2, .x-coll h2 { font-family: var(--serif); font-weight: 400; }
+.x-big em, .x-coll h2 em, .x-steps h2 em { color: var(--gold); }
+.x-quote h2 em { color: var(--gold-l); }
+.x-meta p { color: var(--gold); }
+
+@media (max-width: 900px) {
+  .site-head .bar { grid-template-columns: auto 1fr auto; height: 66px; }
+  .site-head .nav { display: none; }
+  .site-head .logo { justify-self: center; }
+  .site-head .logo img { height: 34px; }
+  .site-head .tools .t-txt { display: none; }
+  .announce { font-size: 8.5px; letter-spacing: .2em; }
+}
+
+/* small consistency fixes */
+.b-title { text-transform: none; font-size: clamp(36px, 3.6vw, 54px); line-height: 1.02; }
+.b-title em { font-style: italic; color: var(--gold-l); }
+.a180 .eyebrow, .banner .eyebrow { color: #4e3520; }
+.bf-sound, .rev, .chip, .pill { border-radius: 0 !important; }
+.eyebrow.light { color: var(--gold-l); }
+.p-story, .rev { background: var(--ivory-2) !important; border-color: var(--line) !important; }
+.compo li { border-radius: 0; }
+.compo b, .compo .n { font-family: var(--serif); }
+@media (max-width: 900px) {
+  .site-head .bar { grid-template-columns: 1fr auto 1fr; }
+  .site-head .logo { grid-column: 2; }
+  .site-head .tools { grid-column: 3; gap: 18px; }
+  .site-head .tools #open-menu svg { display: inline !important; }
+  .announce .a-more { display: none; }
+}

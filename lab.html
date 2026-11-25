@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Art of 180 · FEMINISTA</title>
+<meta name="description" content="Time is our rarest ingredient. Nearly six months. One composition. No shortcuts. Watch each Feminista perfume being composed in the House's laboratory.">
+<meta name="theme-color" content="#120c08">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..500&family=Manrope:wght@300..700&family=Marcellus&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/lab/lab-bg-hd.webp?v=3" crossorigin="anonymous">
+<link rel="stylesheet" href="fusion.css?v=3">
+<link rel="stylesheet" href="labs.css?v=7">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body data-mode="stage" data-scene="lab">
+<script>if (/[?&]inset/.test(location.search)) document.body.classList.add('inset');</script>
+<canvas id="gl" aria-label="The Feminista laboratory: each note flows into the bottle and fuses into one perfume"></canvas>
+<div class="lab-grade" aria-hidden="true"></div>
+<div class="lab-rays" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="lab-grain" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="wordmark" href="./">FEMINISTA<small>MAISON DE PARFUM</small></a>
+  <p class="kicker"><span>The Art of 180</span> · Time is our rarest ingredient</p>
+  <a class="back" href="./">All studies →</a>
+</header>
+
+<div class="labels" id="labels" aria-hidden="true"></div>
+
+<!-- opening -->
+<section class="intro" id="intro" aria-labelledby="intro-title">
+  <p class="eyebrow">The Art of 180</p>
+  <h1 id="intro-title"><span class="ln"><span>Time is our <em>rarest</em></span></span> <span class="ln"><span>ingredient</span></span></h1>
+  <i class="rule" aria-hidden="true"></i>
+  <p class="lede">Nearly six months. One composition. No shortcuts.</p>
+</section>
+
+<!-- the phase being shown -->
+<article class="phase" id="phase" aria-live="polite">
+  <figure class="ph-photo"><img id="ph-img" src="assets/lab/locken-ingredients.jpg" alt=""></figure>
+  <div class="ph-text">
+    <span class="ph-big" id="ph-big" aria-hidden="true">01</span>
+    <p class="eyebrow" id="ph-num">Phase 01 / 05</p>
+    <h2 id="ph-title">Selection</h2>
+    <p class="ph-sub" id="ph-sub"></p>
+    <p class="ph-body" id="ph-body">Rare, pure materials, sourced for character rather than convenience.</p>
+    <div class="ph-extra" id="ph-extra"></div>
+  </div>
+</article>
+
+<!-- closing line -->
+<p class="outro" id="outro">Some things only <em>time</em> can perfect.</p>
+
+<!-- phases -->
+<ol class="rail" id="rail" aria-label="The five phases">
+  <li data-i="0"><b>01</b><span>Selection</span><i></i></li>
+  <li data-i="1"><b>02</b><span>Composition</span><i></i></li>
+  <li data-i="2"><b>03</b><span>Maturation</span><i></i></li>
+  <li data-i="3"><b>04</b><span>Evaluation</span><i></i></li>
+  <li data-i="4"><b>05</b><span>Bottling</span><i></i></li>
+</ol>
+
+<!-- the collection -->
+<aside class="collection" aria-label="The collection">
+  <p class="eyebrow">The collection</p>
+  <p class="col-title">Three expressions, shaped by patience</p>
+  <nav class="tabs col-pick" aria-label="Choose a perfume">
+    <button type="button" data-p="1"><img src="assets/locken-cut.webp" alt=""><span><i>The Magnetic</i>Locken</span></button>
+    <button type="button" data-p="0"><img src="assets/vers-cut.webp" alt=""><span><i>The Intimate</i>Vers</span></button>
+    <button type="button" data-p="2"><img src="assets/fresca-cut.webp" alt=""><span><i>The Luminous</i>Fresca</span></button>
+  </nav>
+  <a class="discover" id="discover" href="https://www.feminista.co.in/fragrances/locken" target="_blank" rel="noopener">Discover <span id="disc-name">Locken</span> →</a>
+</aside>
+
+<!-- parts the engine expects; kept out of sight here -->
+<div class="hidden-parts" aria-hidden="true">
+  <aside class="notes" id="notes"><div class="tier"><h3></h3><p></p></div><div class="tier"><h3></h3><p></p></div><div class="tier"><h3></h3><p></p></div></aside>
+  <div class="caption" id="caption"><p id="caption-text"></p></div>
+  <div class="reveal" id="reveal"><p id="r-num"></p><h2 id="r-name"></h2></div>
+  <button type="button" id="replay" tabindex="-1"></button><button type="button" id="prev" tabindex="-1"></button><button type="button" id="next" tabindex="-1"></button>
+  <span id="pos"></span><p id="next-hint"><span id="next-name"></span></p>
+  <div class="bar"><i id="bar"></i></div>
+</div>
+
+<a class="credits" href="credits.html">Image credits</a>
+<p class="fallback">This page needs WebGL. Try a recent version of Chrome, Edge, Safari or Firefox.</p>
+
+<script type="module" src="fusion.js?v=6"></script>
+<script>
+(() => {
+  const PH = [
+    { title: 'Selection', body: 'Rare, pure materials, sourced for character rather than convenience.', img: 'assets/lab/locken-ingredients.jpg' },
+    { title: 'Composition', body: 'Top, heart and base notes, balanced by hand into a single accord.', img: 'assets/lab/art-of-180-lab.webp' },
+    { title: 'Maturation', sub: '180 days of rest', body: 'The composition is left alone until the notes soften, deepen and settle into each other.', img: 'assets/lab/art-of-180-maturation.webp' },
+    { title: 'Evaluation', body: 'Assessed and refined until the balance feels right. If it is not ready, it waits longer.', img: 'assets/lab/art-of-180-evaluation.webp' },
+    { title: 'Bottling', body: 'Filtered, bottled and finished by hand. Only then does it leave the House.', img: 'assets/lab/art-of-180-locken-loom.webp' },
+  ];
+  const SLUG = ['vers', 'locken', 'fresca'], NAME = ['Vers', 'Locken', 'Fresca'];
+  // phase windows on the fusion's own clock (seconds after the bottle lands)
+  const AT = [-99, 4.6, 7.2, 9.2, 11.9];
+  const $ = (id) => document.getElementById(id);
+  const rail = [...document.querySelectorAll('#rail li')];
+  let shown = -1, firstRun = true, lastActive = -1;
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  function setPhase(i) {
+    const p = PH[i], el = $('phase');
+    $('ph-num').textContent = `Phase 0${i + 1} / 05`; $('ph-big').textContent = `0${i + 1}`;
+    $('ph-title').textContent = p.title;
+    $('ph-sub').textContent = p.sub || '';
+    $('ph-body').textContent = p.body;
+    $('ph-img').src = p.img;
+    $('ph-extra').innerHTML = i === 2 ? '<p class="day"><span>Day</span> <b id="day">000</b><i>/ 180</i></p>'
+      : i === 3 ? '<p class="status" id="status">Assessing the balance…</p>'
+      : i === 4 ? '<ul class="checks"><li data-at="12.2">Filtered</li><li data-at="12.9">Bottled</li><li data-at="13.5">Finished by hand</li></ul>' : '';
+    el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter');   // replay the entrance
+  }
+  function tick() {
+    requestAnimationFrame(tick);
+    const f = window.__fusion; if (!f) return;
+    const t = f.t;
+    if (f.active !== lastActive) {
+      lastActive = f.active;
+      $('disc-name').textContent = NAME[f.active];
+      $('discover').href = `https://www.feminista.co.in/fragrances/${SLUG[f.active]}`;
+    }
+    let i = 0; for (let k = 0; k < 5; k++) if (t >= AT[k]) i = k;
+    if (f.turning || t < 0) i = 0;
+    if (i !== shown) { shown = i; setPhase(i); }
+    rail.forEach((li, k) => {
+      li.classList.toggle('on', k === i); li.classList.toggle('done', k < i);
+      const a = Math.max(0, AT[k]), b = k < 4 ? AT[k + 1] : f.T.done;
+      li.querySelector('i').style.transform = `scaleX(${k < i ? 1 : k > i ? 0 : clamp((t - a) / (b - a))})`;
+    });
+    const day = $('day'); if (day) day.textContent = String(Math.round(clamp((t - 7.4) / 1.6) * 180)).padStart(3, '0');
+    const st = $('status'); if (st) st.textContent = t > 11.2 ? 'Balanced. Ready.' : t > 10.4 ? 'Refining…' : 'Assessing the balance…';
+    document.querySelectorAll('.checks li').forEach((li) => li.classList.toggle('on', t >= +li.dataset.at));
+    // opening titles over the first landing; closing line after bottling
+    if (firstRun && t > 1.8) firstRun = false;
+    document.body.classList.toggle('show-intro', firstRun);
+    document.body.classList.toggle('show-outro', t > f.T.done - .2 && !f.turning);
+  }
+  document.body.classList.add('show-intro');
+  tick();
+})();
+</script>
+</body>
+</html>

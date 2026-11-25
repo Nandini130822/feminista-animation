@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Art of 180 · FEMINISTA</title>
+<meta name="description" content="Time is our rarest ingredient. Nearly six months. One composition. No shortcuts. Inside the Feminista laboratory.">
+<meta name="theme-color" content="#0b0c0d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..500&family=Manrope:wght@300..700&family=Marcellus&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lab.css">
+<style id="inset-mode">
+  /* inside the website: the site header is above, so no wordmark, no "all studies", no opening title */
+  .inset .top .wordmark, .inset .top .back, .inset .lab-foot { display: none !important; }
+  .inset .top { height: 70px; }
+  .inset #hero .panel > :not(.scroll-cue) { display: none !important; }
+  .inset #hero .scroll-cue { margin-top: 0; }
+  .inset .top .pills { grid-column: 2; }
+  html:has(body.inset) { scrollbar-width: none; }
+  html:has(body.inset)::-webkit-scrollbar { display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<script>if (/[?&]inset/.test(location.search)) document.body.classList.add('inset');</script>
+<canvas id="gl" aria-label="A 3D perfume laboratory: selection, composition, maturation, evaluation and bottling"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="wordmark" href="./">FEMINISTA<small>MAISON DE PARFUM</small></a>
+  <nav class="pills" aria-label="Choose the composition">
+    <button type="button" data-p="0" aria-pressed="true">Locken</button>
+    <button type="button" data-p="1" aria-pressed="false">Vers</button>
+    <button type="button" data-p="2" aria-pressed="false">Fresca</button>
+  </nav>
+  <a class="back" href="./">All studies →</a>
+</header>
+
+<nav class="rail" aria-label="Phases">
+  <a href="#p1" data-i="1"><b>01</b><span>Selection</span></a>
+  <a href="#p2" data-i="2"><b>02</b><span>Composition</span></a>
+  <a href="#p3" data-i="3"><b>03</b><span>Maturation</span></a>
+  <a href="#p4" data-i="4"><b>04</b><span>Evaluation</span></a>
+  <a href="#p5" data-i="5"><b>05</b><span>Bottling</span></a>
+</nav>
+
+<main id="story">
+  <section class="hero" id="hero" data-k="0">
+    <div class="panel center">
+      <p class="eyebrow">The Art of 180</p>
+      <h1>Time is our <em>rarest</em> ingredient</h1>
+      <p class="lede">Nearly six months. One composition. No shortcuts.</p>
+      <p class="scroll-cue"><span></span>Scroll to enter the laboratory</p>
+    </div>
+  </section>
+
+  <section class="phase" id="p1" data-k="1">
+    <div class="panel left">
+      <p class="eyebrow">Phase 01 / 05</p>
+      <h2>Selection</h2>
+      <p>Rare, pure materials, sourced for character rather than convenience.</p>
+      <div class="readout"><p class="ro-title">Specimens on the bench</p><ul id="ro-specimens"></ul></div>
+    </div>
+  </section>
+
+  <section class="phase" id="p2" data-k="2">
+    <div class="panel right">
+      <p class="eyebrow">Phase 02 / 05</p>
+      <h2>Composition</h2>
+      <p>Top, heart and base notes, balanced by hand into a single accord.</p>
+      <div class="readout"><p class="ro-title">The accord</p><dl id="ro-accord"></dl><p class="verdict fuse" id="fuse-state">Charging the vessel</p></div>
+    </div>
+  </section>
+
+  <section class="phase" id="p3" data-k="3">
+    <div class="panel left">
+      <p class="eyebrow">Phase 03 / 05</p>
+      <h2>Maturation</h2>
+      <p class="sub">180 days of rest</p>
+      <p>The composition is left alone until the notes soften, deepen and settle into each other.</p>
+      <div class="readout counter"><p class="ro-title">Resting</p><p class="day"><span>Day</span> <b id="day">000</b><i>/ 180</i></p><div class="days"><i id="days-bar"></i></div></div>
+    </div>
+  </section>
+
+  <section class="phase" id="p4" data-k="4">
+    <div class="panel right">
+      <p class="eyebrow">Phase 04 / 05</p>
+      <h2>Evaluation</h2>
+      <p>Assessed and refined until the balance feels right. If it is not ready, it waits longer.</p>
+      <div class="readout gauge"><p class="ro-title">Balance</p>
+        <svg viewBox="0 0 200 110" aria-hidden="true"><path d="M20 100 A80 80 0 0 1 180 100" class="arc"/><path d="M92 22 L100 18 L108 22" class="mark"/><line id="needle" x1="100" y1="100" x2="100" y2="30"/><circle cx="100" cy="100" r="5"/></svg>
+        <p class="verdict" id="verdict">Assessing…</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="phase" id="p5" data-k="5">
+    <div class="panel left">
+      <p class="eyebrow">Phase 05 / 05</p>
+      <h2>Bottling</h2>
+      <p>Filtered, bottled and finished by hand. Only then does it leave the House.</p>
+      <div class="readout"><p class="ro-title">Finishing</p>
+        <ol class="checks"><li data-at=".2">Filtered</li><li data-at=".7">Bottled</li><li data-at=".92">Finished by hand</li></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="outro" id="outro" data-k="6">
+    <div class="panel center">
+      <h2 class="big">Some things only <em>time</em> can perfect.</h2>
+    </div>
+  </section>
+
+  <section class="collection" id="collection" aria-label="The collection: the fusion of every note">
+    <div class="fx-head">
+      <p class="eyebrow">The collection</p>
+      <h2>Three expressions, shaped by <em>patience</em></h2>
+      <p class="fx-who"><span id="fx-num">N°02</span> · <span id="fx-tag">The Magnetic</span> · <a id="fx-link" href="https://www.feminista.co.in/fragrances/locken" target="_blank" rel="noopener">Discover <span id="fx-name">Locken</span> →</a></p>
+    </div>
+    <div class="fx-stage">
+      <iframe id="fx" src="fusion.html?embed&amp;p=1" title="The fusion: every note of each perfume flowing into its bottle" loading="lazy" allow="autoplay"></iframe>
+    </div>
+    <nav class="fx-pick" aria-label="Choose a perfume">
+      <button type="button" data-f="1"><img src="assets/locken-cut.webp" alt=""><span><i>The Magnetic</i>Locken</span></button>
+      <button type="button" data-f="0"><img src="assets/vers-cut.webp" alt=""><span><i>The Intimate</i>Vers</span></button>
+      <button type="button" data-f="2"><img src="assets/fresca-cut.webp" alt=""><span><i>The Luminous</i>Fresca</span></button>
+    </nav>
+  </section>
+  <footer class="lab-foot"><a class="credits" href="credits.html">Image credits</a></footer>
+</main>
+
+<div class="labels" id="labels" aria-hidden="true"></div>
+<p class="fallback">This page needs WebGL. Try a recent version of Chrome, Edge, Safari or Firefox.</p>
+<script type="module" src="lab-3d.js"></script>
+<script>
+  // the finale: the full fusion runs while it is on screen; the lab rests meanwhile
+  (() => {
+    const fx = document.getElementById('fx'), sec = document.getElementById('collection');
+    const META = [
+      { n: 'N°01', tag: 'The Intimate', name: 'Vers', slug: 'vers' },
+      { n: 'N°02', tag: 'The Magnetic', name: 'Locken', slug: 'locken' },
+      { n: 'N°03', tag: 'The Luminous', name: 'Fresca', slug: 'fresca' },
+    ];
+    const send = (m) => { try { fx.contentWindow.postMessage(m, '*'); } catch (_) {} };
+    let on = false;
+    new IntersectionObserver(([e]) => {
+      on = e.intersectionRatio > .55;
+      window.__labHold = on;
+      send({ type: on ? 'fusion-play' : 'fusion-pause' });
+      document.body.classList.toggle('in-fusion', on);
+    }, { threshold: [0, .55, 1] }).observe(sec);
+    fx.addEventListener('load', () => send({ type: on ? 'fusion-play' : 'fusion-pause' }));
+    addEventListener('message', (e) => {
+      if (!e.data || e.data.type !== 'fusion-active') return;
+      const m = META[e.data.i]; if (!m) return;
+      document.getElementById('fx-num').textContent = m.n;
+      document.getElementById('fx-tag').textContent = m.tag;
+      document.getElementById('fx-name').textContent = m.name;
+      document.getElementById('fx-link').href = `https://www.feminista.co.in/fragrances/${m.slug}`;
+      document.querySelectorAll('.fx-pick button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.f === e.data.i)));
+    });
+    document.querySelectorAll('.fx-pick button').forEach((b) => b.addEventListener('click', () => send({ type: 'fusion-go', i: +b.dataset.f })));
+    // choosing a perfume at the top of the lab also lines up the finale
+    const LAB_TO_FX = [1, 0, 2];
+    document.querySelectorAll('.pills [data-p]').forEach((b) => b.addEventListener('click', () => send({ type: 'fusion-go', i: LAB_TO_FX[+b.dataset.p] })));
+  })();
+</script>
+</body>
+</html>
