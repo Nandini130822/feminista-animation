@@ -105,3 +105,7 @@ ul, ol { list-style: none; }
 @media (max-width: 860px) { .feat-m .f1, .feat-m .f2, .feat-m .f3 { left: 16%; } .feat-m .f1 { top: 62%; } .feat-m .f2 { top: 74%; } .feat-m .f3 { top: 86%; } }
 
 @media (max-width: 860px) { .w2 { font-size: 15vw !important; } }
+/* no overlaps on shorter screens */
+.hero-note { top: auto; bottom: 7%; }
+.carousel { z-index: 7; }
+@media (max-height: 700px) { .thumb { display: none; } .hero-words { top: 13%; } }
