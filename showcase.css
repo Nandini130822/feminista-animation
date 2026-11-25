@@ -198,3 +198,6 @@ ul, ol { list-style: none; }
 /* the paragraph block a little lower, and a larger Discover Locken button */
 .hero-note { margin-top: 48px; }
 .hero-note .hn-btn { padding: clamp(16px, 2vh, 20px) clamp(34px, 3vw, 46px) !important; font-size: clamp(13px, calc(.45vw + .6vh), 16px) !important; }
+
+/* "Never just sweet" closer to the paragraph below it */
+.w3 { margin-top: 1.2em; }
