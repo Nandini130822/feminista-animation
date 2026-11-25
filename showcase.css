@@ -164,3 +164,7 @@ ul, ol { list-style: none; }
 /* the hero paragraph: larger, filling its corner */
 .hero-note { width: min(560px, 42vw); bottom: 9%; }
 .hero-note p { font-size: clamp(17px, 1.55vw, 23px); line-height: 1.6; color: #34261e; }
+
+/* the paragraph keeps clear of the bottle */
+.hero-note { width: min(440px, 30vw); bottom: 10%; }
+.hero-note p { font-size: clamp(15px, 1.25vw, 23px); line-height: 1.7; }
