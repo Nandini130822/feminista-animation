@@ -168,3 +168,9 @@ ul, ol { list-style: none; }
 /* the paragraph keeps clear of the bottle */
 .hero-note { width: min(440px, 30vw); bottom: 10%; }
 .hero-note p { font-size: clamp(15px, 1.25vw, 23px); line-height: 1.7; }
+/* jasmine sambac beside the vanilla pods */
+.jas { filter: drop-shadow(0 14px 14px rgba(60, 30, 10, .3)) !important; }
+.j1 { width: clamp(70px, 6.4vw, 115px); left: 4%; bottom: 9%; transform: rotate(-18deg); }
+.j2 { width: clamp(50px, 4.4vw, 80px); left: 13%; bottom: 4%; transform: rotate(24deg); }
+.intro .props .j1 { animation-delay: .55s; } .intro .props .j2 { animation-delay: .65s; }
+@media (max-width: 860px) { .j1 { left: 2%; bottom: 7%; width: 64px; } .j2 { left: 18%; bottom: 3%; width: 46px; } }
