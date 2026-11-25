@@ -5,102 +5,143 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Feminista · Modern fine fragrance</title>
 <meta name="description" content="The future of modern fine fragrance. Crafted for women who move with confidence, elegance and depth.">
-<meta name="theme-color" content="#f7efe4">
+<meta name="theme-color" content="#fbf6ef">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="brand.css?v=2">
+<link rel="preload" as="image" href="assets/locken-cut.webp">
+<link rel="stylesheet" href="brand.css?v=4">
 </head>
 <body>
 
 <header class="bar">
-  <nav class="links"><a href="#collection">Fragrances</a><a href="#crafted">The Art of 180</a><a href="#she">Our Story</a></nav>
+  <nav class="links"><a href="#notes">Composition</a><a href="#trio">Fragrances</a><a href="#crafted">The Art of 180</a></nav>
   <a class="mark" href="#top" aria-label="Feminista"><img src="site/img/logo-black.webp" alt="Feminista"></a>
-  <div class="tools"><a href="#collection">Search</a><a href="#collection">Bag (0)</a></div>
+  <div class="tools"><a href="#shop">Shop</a><a href="#shop">Bag (0)</a></div>
 </header>
 
+<!-- the one bottle that travels through the page -->
+<div class="tint" id="tint" aria-hidden="true"></div>
+<div class="travel" id="travel" aria-hidden="true">
+  <div class="tilt" id="tilt">
+    <img class="bt a" id="bt-a" src="assets/locken-cut.webp" alt="">
+    <img class="bt b" id="bt-b" src="assets/locken-cut.webp" alt="">
+    <i class="glow" id="glow"></i>
+  </div>
+  <i class="floor"></i>
+</div>
+<div class="notes-layer" id="notes-layer" aria-hidden="true"></div>
+
 <main id="top">
-  <!-- hero -->
-  <section class="hero">
-    <img class="hero-img" src="assets/brand/hero.webp" alt="A woman seated on a tall stool in warm, soft light">
-    <div class="hero-in">
+  <!-- 1 · hero -->
+  <section class="s hero" data-b="66,52,1,-9">
+    <div class="copy left">
       <p class="eyebrow r">Maison de parfum</p>
-      <h1 class="r">The future of <em>modern</em><br>fine fragrance</h1>
+      <h1 class="r">The future of <em>modern</em> fine fragrance.</h1>
       <p class="lede r">Crafted for women who move with confidence, elegance and depth.</p>
-      <p class="acts r"><a class="btn" href="#collection">Discover the collection</a></p>
+      <p class="acts r"><a class="btn" href="#shop">Discover the collection</a><a class="link" href="#notes">The composition</a></p>
+    </div>
+    <dl class="facts r">
+      <div><dt>100<small>ml</small></dt><dd>Extrait</dd></div>
+      <div><dt>180<small>days</small></dt><dd>Of rest</dd></div>
+      <div><dt>3</dt><dd>Compositions</dd></div>
+      <div><dt>₹8,000</dt><dd>From ₹7,000</dd></div>
+    </dl>
+  </section>
+
+  <!-- 2 · manifesto -->
+  <section class="s manifesto" data-b="30,54,.9,10">
+    <div class="copy right">
+      <p class="eyebrow r">For her</p>
+      <h2 class="r">An identity you wear before you say a word.</h2>
+      <p class="r">For the woman who defines herself on her own terms, Feminista turns scent into presence.</p>
+      <p class="quote r">Because every Feminista fragrance is the result of six months of artistry, composed to be unmistakably her.</p>
     </div>
   </section>
 
-  <!-- manifesto -->
-  <section class="manifesto">
-    <p class="m-left r">For the <b>woman</b> who defines herself on her own terms, Feminista turns scent into presence, an identity you wear before you say a word.</p>
-    <span class="rule" aria-hidden="true"></span>
-    <p class="m-right r">Because every Feminista fragrance is the result of six months of artistry, composed to be unmistakably her.</p>
-  </section>
-
-  <!-- the collection -->
-  <section class="collection" id="collection">
-    <div class="head r"><p class="eyebrow">The collection</p><h2>Three compositions, one woman</h2></div>
-    <div class="trio">
-      <a class="prod r" href="site/product.html?p=vers">
-        <figure><img src="assets/vers-cut.webp" alt="Vers by Feminista"></figure>
-        <p class="tag">The Intimate</p><h3>Vers</h3><p class="line">The Beauty of Contrast.</p>
-        <p class="notes">Cinnamon · Peony · Iris · White musk</p>
-        <p class="price">₹8,000 <span>· 100 ml</span></p><span class="more">Discover</span>
-      </a>
-      <a class="prod r" href="site/product.html?p=locken">
-        <figure><img src="assets/locken-cut.webp" alt="Locken by Feminista"></figure>
-        <p class="tag">The Magnetic</p><h3>Locken</h3><p class="line">Never Just Sweet.</p>
-        <p class="notes">Almond · Coffee · Tuberose · Vanilla</p>
-        <p class="price">₹8,000 <span>· 100 ml</span></p><span class="more">Discover</span>
-      </a>
-      <a class="prod r" href="site/product.html?p=fresca">
-        <figure><img src="assets/fresca-cut.webp" alt="Fresca by Feminista"></figure>
-        <p class="tag">The Luminous</p><h3>Fresca</h3><p class="line">The Art of Subtlety.</p>
-        <p class="notes">Fruits · Magnolia · Water lily · Amber</p>
-        <p class="price">₹7,000 <span>· 100 ml</span></p><span class="more">Discover</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- who is she -->
-  <section class="she" id="she">
-    <div class="she-text">
-      <p class="eyebrow r">The woman</p>
-      <h2 class="r">Who is <em>SHE?</em></h2>
-      <p class="r">Self-possessed and quietly magnetic, in her late 20s to 40s. Equally at home in a boardroom and a candlelit dinner. She doesn't chase attention; she holds it.</p>
-      <p class="r">Culturally fluent, she already knows the great perfume houses, and buys for self-expression as much as for gifting.</p>
-    </div>
-    <div class="mosaic">
-      <figure class="t1 r"><img src="assets/brand/stairs.webp" alt="A woman in a backless dress on a staircase, holding Locken behind her" loading="lazy"></figure>
-      <figure class="t2 r"><img src="assets/brand/cat.webp" alt="A black cat in a fur collar" loading="lazy"></figure>
-      <figure class="t3 r"><img src="assets/brand/citrus.webp" alt="A bottle neck beside a slice of orange" loading="lazy"></figure>
-      <figure class="t4 r"><img src="assets/brand/flowers.webp" alt="Flowers, citrus and vanilla in warm light" loading="lazy"></figure>
-    </div>
-  </section>
-
-  <!-- crafted, not manufactured -->
-  <section class="crafted" id="crafted">
-    <img src="assets/brand/lab.webp" alt="Gloved hands measuring a composition beside a note reading 180 days" loading="lazy">
-    <div class="crafted-in">
-      <p class="eyebrow r">The Art of 180</p>
-      <h2 class="r">Crafted,<br>not manufactured.</h2>
-      <p class="r">Six months of artistry in every bottle. Each composition is balanced by hand, then left to rest until it is ready.</p>
-      <dl class="stats r">
-        <div><dt>Six</dt><dd>Months</dd></div>
-        <div><dt>180</dt><dd>Days</dd></div>
-        <div><dt>4,320</dt><dd>Hours</dd></div>
+  <!-- 3 · the fusion, quietly: the notes drift in and settle into the bottle -->
+  <section class="s notes" id="notes" data-b="50,55,.92,0" data-pin="fusion">
+    <div class="sticky">
+      <div class="copy left top">
+        <p class="eyebrow">The composition</p>
+        <h2>Composed, note by note.</h2>
+      </div>
+      <dl class="tiers">
+        <div><dt>Top</dt><dd>Almond · Coffee · Bergamot · Lemon</dd></div>
+        <div><dt>Heart</dt><dd>Tuberose · Jasmine sambac · Orange blossom · Bulgarian rose</dd></div>
+        <div><dt>Base</dt><dd>Tonka bean · Cacao · Vanilla · Sandalwood</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- the language of materials -->
-  <section class="materials">
-    <div class="head r"><p class="eyebrow">The language of materials</p><h2>Touched before it is worn</h2></div>
-    <div class="mats">
-      <figure class="r"><img src="assets/brand/satin.webp" alt="" loading="lazy"><figcaption>Satin fabric</figcaption></figure>
-      <figure class="r"><img src="assets/brand/glass.webp" alt="" loading="lazy"><figcaption>Faceted glass</figcaption></figure>
-      <figure class="r"><img src="assets/brand/paper.webp" alt="" loading="lazy"><figcaption>Soft-touch paper</figcaption></figure>
-      <figure class="r"><img src="assets/brand/press.webp" alt="" loading="lazy"><figcaption>The house letter</figcaption></figure>
+  <!-- 4 · the stage: one composition at a time -->
+  <section class="s trio" id="trio" data-b="62,54,.95,-6" data-pin="stage">
+    <div class="sticky">
+      <div class="copy left stage-copy">
+        <p class="eyebrow">Three expressions</p>
+        <div class="stage-names">
+          <article class="on"><p class="tag">N°01 · The Intimate</p><h2>Vers</h2><p class="line">The Beauty of Contrast.</p><p>Soft, graceful and quietly expressive. Cinnamon, cardamom and ginger over a heart of peony and iris.</p><p class="price">₹8,000 <span>· 100 ml</span></p></article>
+          <article><p class="tag">N°02 · The Magnetic</p><h2>Locken</h2><p class="line">Never Just Sweet.</p><p>Warm, magnetic and unapologetically expressive. Almond and coffee over tuberose, jasmine and Bulgarian rose.</p><p class="price">₹8,000 <span>· 100 ml</span></p></article>
+          <article><p class="tag">N°03 · The Luminous</p><h2>Fresca</h2><p class="line">The Art of Subtlety.</p><p>Fresh, radiant and confidently expressive. Bright fruit, a soft apple heart, and a base of whipped cream and vanilla.</p><p class="price">₹7,000 <span>· 100 ml</span></p></article>
+        </div>
+        <ol class="dots"><li class="on">Vers</li><li>Locken</li><li>Fresca</li></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · the signature wall, framed -->
+  <section class="s wall" data-b="hide">
+    <div class="head r"><p class="eyebrow">The signature collection</p><h2>Each in her own light</h2></div>
+    <div class="wall-frame r">
+      <div class="pw">
+        <img class="pw-base" src="assets/wall-feminista.webp" alt="Vers, Locken and Fresca, each lit in its own niche of basalt" loading="lazy">
+        <a class="pw-n" href="site/product.html?p=vers" style="--l:7.6%;--w:14.6%" aria-label="Vers"><img class="pw-lit" src="assets/wall-feminista.webp" alt="" loading="lazy"><span class="pw-hit"></span></a>
+        <a class="pw-n" href="site/product.html?p=locken" style="--l:42.6%;--w:14.8%" aria-label="Locken"><img class="pw-lit" src="assets/wall-feminista.webp" alt="" loading="lazy"><span class="pw-hit"></span></a>
+        <a class="pw-n" href="site/product.html?p=fresca" style="--l:78.2%;--w:14.3%" aria-label="Fresca"><img class="pw-lit" src="assets/wall-feminista.webp" alt="" loading="lazy"><span class="pw-hit"></span></a>
+      </div>
+    </div>
+    <p class="caption r">Hover a niche to bring up its light.</p>
+  </section>
+
+  <!-- 6 · who is she -->
+  <section class="s she" data-b="hide">
+    <div class="she-text">
+      <p class="eyebrow r">The woman</p>
+      <h2 class="r">Who is <em>SHE?</em></h2>
+      <p class="r">Self-possessed and quietly magnetic, in her late 20s to 40s. Equally at home in a boardroom and a candlelit dinner. She doesn't chase attention; she holds it.</p>
+      <p class="r">Culturally fluent, she knows the great perfume houses, and buys for self-expression as much as for gifting.</p>
+    </div>
+    <div class="mosaic">
+      <figure class="t1 r"><img src="assets/brand/stairs.webp" alt="A woman in a backless dress on a staircase, holding Locken" loading="lazy"></figure>
+      <figure class="t2 r"><img src="assets/brand/cat.webp" alt="A black cat in a fur collar" loading="lazy"></figure>
+      <figure class="t3 r"><img src="assets/brand/citrus.webp" alt="A bottle beside a slice of orange" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <!-- 7 · the art of 180 -->
+  <section class="s crafted" id="crafted" data-b="hide">
+    <figure class="crafted-img r"><img src="assets/brand/lab.webp" alt="Gloved hands composing a fragrance beside a note reading 180 days" loading="lazy"></figure>
+    <div class="crafted-copy">
+      <p class="eyebrow r">The Art of 180</p>
+      <h2 class="r">Crafted, not manufactured.</h2>
+      <p class="r">Six months of artistry in every bottle.</p>
+      <ol class="phases r">
+        <li><b>01</b><span>Selection</span><i>Rare, pure materials, chosen for character.</i></li>
+        <li><b>02</b><span>Composition</span><i>Top, heart and base, balanced by hand.</i></li>
+        <li><b>03</b><span>Maturation</span><i>180 days of rest.</i></li>
+        <li><b>04</b><span>Evaluation</span><i>If it is not ready, it waits longer.</i></li>
+        <li><b>05</b><span>Bottling</span><i>Filtered, bottled and finished by hand.</i></li>
+      </ol>
+      <p class="r"><a class="link" href="lab-room.html">Step into the laboratory</a></p>
+    </div>
+  </section>
+
+  <!-- 8 · shop -->
+  <section class="s shop" id="shop" data-b="hide">
+    <div class="head r"><p class="eyebrow">The collection</p><h2>Find the one that is her</h2></div>
+    <div class="cards">
+      <a class="card r" href="site/product.html?p=vers"><figure><img src="assets/vers-cut.webp" alt="Vers" loading="lazy"></figure><p class="tag">The Intimate</p><h3>Vers</h3><p class="price">₹8,000 <span>· 100 ml</span></p><span class="link">Discover</span></a>
+      <a class="card r" href="site/product.html?p=locken"><figure><img src="assets/locken-cut.webp" alt="Locken" loading="lazy"></figure><p class="tag">The Magnetic</p><h3>Locken</h3><p class="price">₹8,000 <span>· 100 ml</span></p><span class="link">Discover</span></a>
+      <a class="card r" href="site/product.html?p=fresca"><figure><img src="assets/fresca-cut.webp" alt="Fresca" loading="lazy"></figure><p class="tag">The Luminous</p><h3>Fresca</h3><p class="price">₹7,000 <span>· 100 ml</span></p><span class="link">Discover</span></a>
     </div>
   </section>
 </main>
@@ -114,6 +155,6 @@
   </div>
 </footer>
 
-<script src="brand.js?v=1"></script>
+<script src="brand.js?v=4"></script>
 </body>
 </html>
