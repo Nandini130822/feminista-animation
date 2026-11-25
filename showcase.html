@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Locken · Feminista</title>
+<meta name="description" content="Locken by Feminista. Never just sweet: almond and coffee over tuberose, jasmine and Bulgarian rose, rested 180 days.">
+<meta name="theme-color" content="#f5e8d6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/locken-cut.webp">
+<link rel="stylesheet" href="showcase.css?v=2">
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-l"><a href="#" data-go="0">Home</a><a href="#" data-go="1">Shop</a><a href="#" data-go="2">More</a></nav>
+  <a class="mark" href="#" data-go="0" aria-label="Feminista"><img src="site/img/logo-black.webp" alt="Feminista"></a>
+  <div class="nav-r">
+    <a href="site/fragrances.html" aria-label="Search"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a>
+    <a href="site/index.html" aria-label="Bag"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+    <a class="login" href="site/contact.html">Login</a>
+  </div>
+</header>
+
+<section class="stage" id="stage" aria-label="Locken by Feminista">
+  <div class="pin" id="pin">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="disc" id="disc" aria-hidden="true"></div>
+
+    <!-- 0 · hero: the headline behind the bottle -->
+    <div class="hero-words" data-st="0" aria-hidden="true">
+      <p class="w1">Created to be</p>
+      <p class="w2">Locken</p>
+      <p class="w3">Never just sweet.</p>
+    </div>
+    <div class="props" data-st="0" aria-hidden="true">
+      <img class="p1" src="assets/ing/sandalwood.webp" alt=""><img class="p2" src="assets/ing/rose.webp" alt=""><img class="p3" src="assets/ing/vanilla.webp" alt="">
+    </div>
+    <div class="hero-note" data-st="0">
+      <p>At Feminista we believe a fragrance is more than a scent: it is presence. Locken opens with almond and coffee, then unfolds into tuberose, jasmine and Bulgarian rose, rested 180 days until it is ready.</p>
+      <a class="btn" href="#" data-go="1">Discover Locken</a>
+    </div>
+
+    <!-- 1 · collection: the bottle on its disc, a card left, three notes right -->
+    <article class="card-l" data-st="1">
+      <p class="tag">N°02 · The Magnetic</p>
+      <h1>Luxury <br>essence <br>collection</h1>
+      <p class="copy">Warm, magnetic and unapologetically expressive. An extrait composed by hand and given six months to become itself.</p>
+      <p class="price">₹8,000 <span>· 100 ml</span></p>
+      <a class="btn" href="site/product.html?p=locken">Shop now</a>
+    </article>
+    <div class="carousel" data-st="1">
+      <button type="button" aria-label="Previous" data-step="-1">‹</button><span><i class="on"></i><i></i><i></i></span><button type="button" aria-label="Next" data-step="1">›</button>
+    </div>
+    <div class="cards-r" data-st="1">
+      <div><b>Top notes</b><p>Almond, coffee, bergamot and lemon: an addictive, glowing opening.</p></div>
+      <div><b>The heart</b><p>Tuberose, jasmine sambac, orange blossom and Bulgarian rose.</p></div>
+      <div><b>The base</b><p>Tonka bean, cacao, vanilla, praline and sandalwood, warm on the skin.</p></div>
+    </div>
+
+    <!-- 2 · features: a headline and two siblings left, three features in the middle, the bottle large on the right -->
+    <article class="feat-l" data-st="2">
+      <h2>Warm, magnetic,<br>and <em>unforgettable</em></h2>
+      <p class="copy">Every Feminista fragrance is the result of six months of artistry, composed to be unmistakably hers, whatever the hour.</p>
+      <a class="btn" href="site/fragrances.html">Explore all</a>
+      <div class="sibs"><a href="site/product.html?p=vers"><img src="assets/vers-cut.webp" alt="Vers"></a><a href="site/product.html?p=fresca"><img src="assets/fresca-cut.webp" alt="Fresca"></a></div>
+    </article>
+    <ul class="feat-m" data-st="2">
+      <li><i>180</i><span>Days of rest,<br>never rushed</span></li>
+      <li><i>✦</i><span>Composed and<br>finished by hand</span></li>
+      <li><i>100</i><span>Millilitres of<br>extrait de parfum</span></li>
+    </ul>
+
+    <!-- the one bottle that moves between the three -->
+    <div class="hero-bottle" id="bottle"><img src="assets/locken-cut.webp" alt="Locken by Feminista"><i class="shadow"></i></div>
+
+    <ol class="pager" id="pager" aria-label="Screens"><li class="on" data-go="0"></li><li data-go="1"></li><li data-go="2"></li></ol>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>© <span id="yr"></span> Feminista · Created for her. Never adapted to her.</p>
+  <a href="./">All studies →</a>
+</footer>
+
+<script src="showcase.js?v=2"></script>
+</body>
+</html>
