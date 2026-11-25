@@ -219,3 +219,18 @@ ul, ol { list-style: none; }
 /* brand-kit accents */
 .tag { color: #E89D1B; }
 .feat-m i, .pager li.on, .carousel .mid { background: #6D1F3A; }
+
+/* the ingredients, photographed in the same light: one warm grade, real contact shadows, a little depth */
+.props .wood { filter: sepia(.18) saturate(.92) contrast(1.04) brightness(.97) drop-shadow(0 2px 2px rgba(9, 9, 9, .35)) drop-shadow(0 18px 18px rgba(9, 9, 9, .22)) !important; }
+.props .jas { filter: sepia(.28) saturate(.85) brightness(.95) drop-shadow(0 2px 2px rgba(9, 9, 9, .3)) drop-shadow(0 12px 14px rgba(9, 9, 9, .2)) !important; }
+/* the ones further back are softer, as a lens would see them */
+.props .lk-tub, .props .w-c { filter: sepia(.22) saturate(.88) brightness(.94) blur(.6px) drop-shadow(0 14px 16px rgba(9, 9, 9, .2)) !important; }
+.props .lk-rose { filter: sepia(.12) saturate(.82) brightness(.95) contrast(1.05) drop-shadow(0 2px 2px rgba(9, 9, 9, .3)) drop-shadow(0 16px 16px rgba(9, 9, 9, .22)) !important; }
+/* a soft pool of shadow on the surface they rest on, and the light falling from the right */
+.props::before { content: ''; position: absolute; left: 0; bottom: 0; width: 46%; height: 22%; border-radius: 50%;
+  background: radial-gradient(55% 60% at 45% 75%, rgba(9, 9, 9, .2), rgba(9, 9, 9, 0) 70%); }
+.props::after { content: ''; position: absolute; left: 0; bottom: 0; width: 42%; height: 48%; pointer-events: none; mix-blend-mode: soft-light;
+  background: radial-gradient(60% 60% at 80% 30%, rgba(241, 233, 230, .45), transparent 70%); }
+.props::after { display: none; }
+.lk-tub { bottom: 12% !important; left: 11% !important; transform: rotate(68deg) !important; }
+@media (max-width: 860px) { .lk-tub { bottom: 11% !important; left: 8% !important; } }
