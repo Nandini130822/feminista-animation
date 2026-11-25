@@ -190,3 +190,8 @@ ul, ol { list-style: none; }
   .hero-note .hn-notes { font-size: clamp(11px, 1.3vh, 14px); margin-top: 2.4vh; }
   .hero-note .hn-btn { margin-top: 3.2vh; }
 }
+/* a little more air between each part of the hero's right side */
+.w3 { margin-top: .55em; }
+.hero-note { margin-top: 22px; }
+.hero-note .hn-notes { margin-top: clamp(18px, 2.6vh, 30px) !important; }
+.hero-note .hn-btn { margin-top: clamp(22px, 3.4vh, 40px) !important; }
