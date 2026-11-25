@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/lab2/room.webp">
-<link rel="stylesheet" href="lab-room.css?v=4">
+<link rel="stylesheet" href="lab-room.css?v=5">
 </head>
 <body>
 <div class="scene" id="scene" aria-label="Inside the Feminista laboratory">
@@ -27,7 +27,10 @@
     <div class="plane bench" style="--z:-150"><div class="stage">
       <img src="assets/lab2/bench.webp" alt="">
       <div class="spot"></div><div class="cone"></div><div class="pool"></div>
-      <div class="bottle" id="bottle"><img class="b" id="b-img" src="assets/locken-cut.webp" alt="Locken by Feminista"><img class="r" id="b-refl" src="assets/locken-cut.webp" alt=""></div>
+      <div class="bottle" id="bottle" role="img" aria-label="Locken by Feminista">
+        <img class="r" alt=""><div class="b-body"><img class="g" alt=""><img class="l" alt=""><img class="n" alt=""><img class="c" alt=""><i class="sheen"></i></div><i class="pulse"></i>
+      </div>
+      <div class="ings" id="ings" aria-hidden="true"></div>
     </div></div>
     <!-- glass close to the eye -->
     <div class="plane fore" style="--z:230"><div class="stage"><img src="assets/lab2/fore.webp" alt=""></div></div>
@@ -46,14 +49,14 @@
 <div class="intro">
   <p class="eyebrow">The Art of 180</p>
   <h1>The <em>Laboratory</em></h1>
-  <p class="lede">Where every Feminista composition begins, and where it is given time.</p>
+  <p class="lede" id="lede">Where every Feminista composition begins, and where it is given time.</p>
 </div>
 
 <nav class="pick" aria-label="Choose the perfume on the bench">
-  <button type="button" data-k="vers">Vers</button><button type="button" data-k="locken" aria-pressed="true">Locken</button><button type="button" data-k="fresca">Fresca</button>
+  <button type="button" data-k="vers">Vers</button><button type="button" data-k="locken" aria-pressed="true">Locken</button><button type="button" data-k="fresca">Fresca</button><button type="button" class="again" id="again" title="Compose again" aria-label="Compose again">↻</button>
 </nav>
 <p class="hint">Move to look around</p>
 
-<script src="lab-room.js?v=2"></script>
+<script src="lab-room.js?v=8"></script>
 </body>
 </html>

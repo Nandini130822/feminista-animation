@@ -46,21 +46,89 @@
     }
   }
 
-  // the bottle on the bench
-  const bottle = document.getElementById('bottle'), bImg = document.getElementById('b-img'), bRefl = document.getElementById('b-refl');
-  document.querySelectorAll('.pick button').forEach((b) => b.addEventListener('click', () => {
+  // ── the fusion: the notes gather on the bench, then pour into the bottle ──
+  const B = {
+    locken: { name: 'Locken', ar: 486 / 935, cap: .165, sh: .28,
+      ings: [['lemon', 'Lemon'], ['almond', 'Almond'], ['coffee', 'Coffee'], ['tuberose', 'Tuberose'], ['jasmine', 'Jasmine sambac'], ['rose', 'Bulgarian rose'], ['tonka', 'Tonka bean'], ['vanilla', 'Vanilla'], ['sandalwood', 'Sandalwood']] },
+    vers: { name: 'Vers', ar: 388 / 863, cap: .23, sh: .37,
+      ings: [['cinnamon', 'Cinnamon'], ['cardamom', 'Cardamom'], ['ginger', 'Ginger'], ['candied', 'Candied fruits'], ['rose', 'Rose de Mai'], ['iris', 'Iris'], ['vanilla', 'Vanilla'], ['woodchips', 'Cashmere wood']] },
+    fresca: { name: 'Fresca', ar: 374 / 880, cap: .27, sh: .37,
+      ings: [['raspberry', 'Red fruits'], ['apple', 'Apple'], ['cherry', 'Cherry'], ['orangeblossom', 'Orange blossom'], ['jasmine', 'Jasmine'], ['cream', 'Whipped cream'], ['amber', 'Amber'], ['sandalwood', 'Sandalwood']] },
+  };
+  const bottle = document.getElementById('bottle'), ingsEl = document.getElementById('ings'), lede = document.getElementById('lede');
+  const LEDE = lede.textContent;
+  const clamp = (x) => Math.min(1, Math.max(0, x)), seg = (t, a, b) => clamp((t - a) / (b - a));
+  const io = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const bump = (t, a, b, f) => Math.min(seg(t, a, a + f), 1 - seg(t, b - f, b));
+  // geometry, in % of the bench photograph: the bottle stands at x 50%, its base at 61.4%, 31% tall
+  const BX = 50, BASE = 61.4, BH = 31;
+  let key = 'locken', ings = [], plan = null, start = null;
+
+  function setBottle(k) {
+    key = k; const b = B[k], src = `assets/${k}-cut.webp`;
+    bottle.querySelectorAll('img').forEach((im) => { im.src = src; });
+    bottle.style.setProperty('--ar', b.ar); bottle.style.setProperty('--cap', b.cap); bottle.style.setProperty('--sh', b.sh); bottle.style.setProperty('--m', `url(${src})`);
+    bottle.setAttribute('aria-label', `${b.name} by Feminista`);
+    ingsEl.innerHTML = b.ings.map(([f, n], i) => `<div class="ing"><div class="f" style="--bt:${5 + (i % 4)}s;--bd:${-i * .7}s"><img src="assets/ing/${f}.webp" alt=""><span>${n}</span></div></div>`).join('');
+    ings = [...ingsEl.children];
+    // where each note rests: an arc over the bottle, alternating sides; where it comes from: the dark ends of the bench
+    const n = ings.length, top = BASE - BH;
+    plan = ings.map((_, i) => {
+      const a = (162 - (144 * i) / Math.max(1, n - 1)) * Math.PI / 180;
+      const mob = innerWidth < 760, rest = mob ? [BX + 12.5 * Math.cos(a), top + BH * .3 - 19 * Math.sin(a)] : [BX + 25 * Math.cos(a), top + BH * .36 - 21 * Math.sin(a)];
+      const from = mob ? [rest[0] < BX ? 33 : 67, 62 + (i % 2) * 4] : [rest[0] < BX ? 10 + (i % 3) * 5 : 90 - (i % 3) * 5, 60 + (i % 2) * 4];
+      return { rest, from };
+    });
+    // pour from alternating ends of the arc
+    const order = []; for (let i = 0, l = 0, r = n - 1; i < n; i++) order.push(i % 2 ? r-- : l++);
+    order.forEach((idx, k2) => { plan[idx].turn = k2; });
+  }
+
+  function compose() { start = performance.now(); lede.textContent = `Now composing ${B[key].name}.`; }
+
+  function fusion(now) {
+    requestAnimationFrame(fusion);
+    if (start === null) { bottle.style.setProperty('--fill', 0); return; }
+    const t = qs.has('still') ? +qs.get('at') : (now - start) / 1000, n = ings.length, top = BASE - BH, neck = [BX, top + BH * B[key].cap * .9];
+    const POUR = 3.4, STEP = .42, FLY = .95, END = POUR + (n - 1) * STEP + FLY;
+    let pulse = 0;
+    ings.forEach((el, i) => {
+      const p = plan[i], appear = io(seg(t, i * .16, i * .16 + 1.3));
+      const t0 = POUR + p.turn * STEP, fly = io(seg(t, t0, t0 + FLY));
+      const x0 = p.from[0] + (p.rest[0] - p.from[0]) * appear, y0 = p.from[1] + (p.rest[1] - p.from[1]) * appear;
+      const mx = (x0 + neck[0]) / 2, my = Math.min(y0, neck[1]) - 12;
+      const u = fly, x = (1 - u) * (1 - u) * x0 + 2 * (1 - u) * u * mx + u * u * neck[0], y = (1 - u) * (1 - u) * y0 + 2 * (1 - u) * u * my + u * u * neck[1];
+      el.style.left = `${x.toFixed(3)}%`; el.style.top = `${y.toFixed(3)}%`;
+      el.style.transform = `translate(-50%, -50%) scale(${((.55 + .45 * appear) * (1 - .85 * fly)).toFixed(3)})`;
+      el.style.opacity = (appear * (1 - seg(fly, .8, 1))).toFixed(3);
+      el.querySelector('span').style.opacity = String(1 - seg(fly, 0, .2));
+      pulse = Math.max(pulse, bump(t, t0 + FLY * .85, t0 + FLY + .45, .12));
+    });
+    const lift = io(seg(t, POUR - .5, POUR)) * (1 - io(seg(t, END + .1, END + .7)));
+    const fill = io(seg(t, POUR + .4, END + .1));
+    const sp = seg(t, END + .8, END + 2.2);
+    bottle.style.setProperty('--fill', fill.toFixed(4)); bottle.style.setProperty('--lift', lift.toFixed(4));
+    bottle.style.setProperty('--pulse', (pulse * .9).toFixed(3)); bottle.style.setProperty('--glow', (pulse + fill * .4).toFixed(3));
+    bottle.style.setProperty('--sp', sp.toFixed(3)); bottle.style.setProperty('--sheen', (sp > 0 && sp < 1 ? Math.sin(sp * Math.PI) : 0).toFixed(3));
+    if (t > END + 1 && lede.dataset.done !== key) { lede.dataset.done = key; lede.textContent = `${B[key].name}, composed. Now it is given time.`; }
+  }
+
+  document.querySelectorAll('.pick button[data-k]').forEach((b) => b.addEventListener('click', () => {
     if (b.getAttribute('aria-pressed') === 'true') return;
-    document.querySelectorAll('.pick button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-    bottle.classList.add('swap');
-    setTimeout(() => {
-      const src = `assets/${b.dataset.k}-cut.webp`; bImg.src = src; bRefl.src = src; bImg.alt = `${b.textContent} by Feminista`;
-      bImg.onload = () => bottle.classList.remove('swap');
-    }, 450);
+    document.querySelectorAll('.pick button[data-k]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    bottle.classList.add('swap'); start = null;
+    setTimeout(() => { setBottle(b.dataset.k); delete lede.dataset.done; bottle.style.setProperty('--fill', 0);
+      setTimeout(() => { bottle.classList.remove('swap'); compose(); }, 120); }, 450);
   }));
+  document.getElementById('again').addEventListener('click', () => { delete lede.dataset.done; compose(); });
+  setBottle('locken');
+  // ?at=6 shows that moment of the fusion (seconds) for reviewing a single frame
+  const qs = new URLSearchParams(location.search);
 
   // lights on once the room has loaded
   const room = document.querySelector('.room img');
-  const go = () => { size(); requestAnimationFrame(frame); requestAnimationFrame(dust); requestAnimationFrame(() => body.classList.add('lit')); };
+  const go = () => { size(); requestAnimationFrame(frame); requestAnimationFrame(dust); requestAnimationFrame(fusion); requestAnimationFrame(() => body.classList.add('lit'));
+    if (qs.has('at')) { start = performance.now() - +qs.get('at') * 1000; lede.textContent = `Now composing ${B[key].name}.`; } else setTimeout(compose, WALK + 600); };
   addEventListener('resize', size);
   if (room.complete) go(); else room.addEventListener('load', go, { once: true });
 })();

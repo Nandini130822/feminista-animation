@@ -127,3 +127,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cone { clip-path: none; filter: none; top: -4%; width: 46%; height: 70%;
   background: radial-gradient(38% 100% at 50% 0%, rgba(255, 228, 186, .2), rgba(255, 220, 170, .08) 55%, transparent 85%);
   -webkit-mask: linear-gradient(180deg, transparent, #000 25%, #000 80%, transparent); mask: linear-gradient(180deg, transparent, #000 25%, #000 80%, transparent); }
+
+/* ── the fusion: a bottle that fills, notes that pour in ──────────────── */
+.bottle { aspect-ratio: var(--ar, .52); }
+.bottle .b-body { position: absolute; inset: 0; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .6)) drop-shadow(0 0 30px rgba(255, 200, 130, calc(.12 + var(--glow, 0) * .35))); transition: opacity .45s var(--ease); }
+.bottle .b-body img, .bottle .r { position: absolute; left: 0; width: 100%; height: 100%; object-fit: contain; }
+.bottle .b-body img { top: 0; }
+.bottle .g { clip-path: inset(calc(var(--sh) * 100%) 0 0 0); filter: grayscale(1) brightness(1.6) contrast(.75); opacity: .45; }
+.bottle .l { clip-path: inset(calc((var(--sh) + (1 - var(--fill, 1)) * (1 - var(--sh))) * 100%) 0 0 0); filter: brightness(1.08) contrast(1.04); }
+.bottle .n { clip-path: inset(calc(var(--cap) * 100%) 0 calc((1 - var(--sh)) * 100%) 0); filter: brightness(1.05); }
+.bottle .c { clip-path: inset(0 0 calc((1 - var(--cap)) * 100%) 0); transform: translateY(calc(var(--lift, 0) * -12%)) rotate(calc(var(--lift, 0) * -8deg)); transform-origin: 50% 8%; filter: brightness(1.05); }
+.bottle .r { top: 100%; transform: scaleY(-1); opacity: calc(.08 + var(--fill, 1) * .14); filter: blur(1.5px); -webkit-mask: linear-gradient(0deg, #000, transparent 30%); mask: linear-gradient(0deg, #000, transparent 30%); }
+.bottle .sheen { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; opacity: var(--sheen, 0);
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat;
+  background: linear-gradient(105deg, transparent calc(var(--sp, 0) * 140% - 40%), rgba(255, 242, 214, .8) calc(var(--sp, 0) * 140% - 28%), transparent calc(var(--sp, 0) * 140% - 16%)); }
+.bottle .pulse { position: absolute; left: 50%; top: calc(var(--cap) * 100%); width: 90%; aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(.5 + var(--pulse, 0) * .7)); border-radius: 50%; pointer-events: none;
+  mix-blend-mode: screen; opacity: var(--pulse, 0); background: radial-gradient(circle, rgba(255, 226, 170, .8), rgba(255, 196, 120, .2) 40%, transparent 70%); }
+.bottle.swap .b-body, .bottle.swap .r { opacity: 0; }
+.bottle .b, .bottle.swap .b { display: none; }
+
+/* real ingredient cut-outs, labelled like specimens */
+.ings { position: absolute; inset: 0; pointer-events: none; }
+.ing { position: absolute; left: 0; top: 0; width: 6.2%; transform: translate(-50%, -50%); opacity: 0; will-change: transform, opacity, left, top; }
+.ing .f { animation: bob var(--bt, 6s) ease-in-out var(--bd, 0s) infinite alternate; }
+.ing img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; filter: drop-shadow(0 14px 16px rgba(0, 0, 0, .6)) brightness(1.02); }
+.ing span { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 4px; white-space: nowrap; font: 600 clamp(6.5px, .55vw, 9px)/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: rgba(246, 239, 229, .82); text-shadow: 0 1px 8px rgba(0, 0, 0, .9); }
+.ing span::before { content: ''; display: block; width: 1px; height: 8px; margin: 0 auto 5px; background: rgba(211, 178, 124, .7); }
+@keyframes bob { from { transform: translateY(-5%) rotate(-3deg); } to { transform: translateY(5%) rotate(3deg); } }
+.pick .again { padding: 11px 14px; font-size: 13px; letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) { .ing .f { animation: none; } }
