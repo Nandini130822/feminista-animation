@@ -13,9 +13,9 @@
 <link rel="preload" as="image" href="assets/vers-cut.webp">
 <link rel="preload" as="image" href="assets/locken-cut.webp">
 <link rel="preload" as="image" href="assets/fresca-cut.webp">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
-<body>
+<body class="photo-wall">
 
 <a class="skip" href="#niches">Skip to the perfumes</a>
 
@@ -33,6 +33,10 @@
 <div id="world" aria-label="Three perfumes, each in its own lit niche of basalt">
   <div class="layer" id="wall-layer">
     <div class="stone" aria-hidden="true"></div>
+    <div class="wf" aria-hidden="true">
+      <img class="wf-base" src="assets/wall-feminista.webp" alt="">
+      <img class="wf-lit" data-i="0" src="assets/wall-feminista.webp" alt=""><img class="wf-lit" data-i="1" src="assets/wall-feminista.webp" alt=""><img class="wf-lit" data-i="2" src="assets/wall-feminista.webp" alt="">
+    </div>
     <div class="wall-light" aria-hidden="true"></div>
     <div class="row" id="niches" role="group" aria-label="Choose a perfume"></div>
     <div class="water" aria-hidden="true"><div class="row mirror" id="mirror"></div></div>
