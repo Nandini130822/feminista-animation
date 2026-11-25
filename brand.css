@@ -221,3 +221,9 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
 .fusion .bottle { z-index: 2; }
 .fusion .ing { z-index: 1; }
 .fusion .ing span { transition: opacity .4s; }
+/* the cream wall: captions in ink, a softer dim around the lit niche */
+.pw-n { color: var(--ink); }
+.pw-cap { text-shadow: none; opacity: .85; }
+.pw-cap i { color: var(--gold-d); }
+.pw:has(.pw-n:hover) .pw-base { filter: brightness(.86) saturate(.95); }
+.pw-lit { filter: brightness(1.1) saturate(1.06); }
