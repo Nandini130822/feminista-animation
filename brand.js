@@ -1,113 +1,104 @@
-/* One real bottle travels through the opening chapters with a gentle 3D turn.
-   Each chapter holds a pose; between chapters the bottle glides to the next. Nothing else moves much. */
+/* The studies, told quietly. Each section keeps its idea with only a little movement. */
 (() => {
-  const travel = document.getElementById('travel'), tilt = document.getElementById('tilt');
-  const btA = document.getElementById('bt-a'), btB = document.getElementById('bt-b'), glow = document.getElementById('glow');
-  const notesLayer = document.getElementById('notes-layer'), root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, t) => a + (b - a) * t;
   const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const seg = (t, a, b) => clamp((t - a) / (b - a));
-
-  // quiet reveals
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .16, rootMargin: '0px 0px -6% 0px' });
-  document.querySelectorAll('.r').forEach((el) => io.observe(el));
+  const qs = new URLSearchParams(location.search);
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // chapters and their poses: x%, y% (of the viewport), scale, turn (deg)
-  const secs = [...document.querySelectorAll('[data-b]')].map((el) => {
-    const v = el.dataset.b; const hide = v === 'hide';
-    const [x, y, s, r] = hide ? [0, 0, 0, 0] : v.split(',').map(Number);
-    return { el, hide, x, y, s, r, pin: el.dataset.pin || '' };
-  });
-  let lay = [];
-  function measure() {
-    const hh = parseFloat(getComputedStyle(root).getPropertyValue('--hh')) || 84;
-    lay = secs.map((c) => { const top = c.el.getBoundingClientRect().top + scrollY; return { ...c, A: top - hh, B: Math.max(top - hh, top + c.el.offsetHeight - innerHeight) }; });
+  // quiet reveals (?all shows everything at once, for review)
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.r').forEach((el) => (qs.has('all') ? el.classList.add('in') : io.observe(el)));
+  // how far the page has scrolled through a pinned section (0 → 1)
+  const prog = (el) => { const r = el.getBoundingClientRect(), span = el.offsetHeight - innerHeight; return clamp(-r.top / Math.max(1, span)); };
+
+  // ── 02 · the fusion: six notes gather, then pour slowly into Locken as you scroll ──
+  const fusion = document.getElementById('s2'), fz = document.getElementById('fz'), bottle = document.getElementById('fz-bottle');
+  const ingsEl = document.getElementById('fz-ings'), state = document.getElementById('fz-state');
+  const NOTES = [['lemon', 'Lemon'], ['almond', 'Almond'], ['coffee', 'Coffee'], ['jasmine', 'Jasmine'], ['rose', 'Rose'], ['vanilla', 'Vanilla']];
+  ingsEl.innerHTML = NOTES.map(([f, n]) => `<div class="ing"><img src="assets/ing/${f}.webp" alt=""><span>${n}</span></div>`).join('');
+  const ings = [...ingsEl.children];
+  function fusionFrame(now) {
+    const p = qs.has('fz') ? +qs.get('fz') : prog(fusion);
+    const W = fz.clientWidth, br = bottle.getBoundingClientRect(), fr = fz.getBoundingClientRect();
+    const cx = br.left - fr.left + br.width / 2, top = br.top - fr.top, bh = br.height;
+    const neck = [cx, top + bh * .14], n = NOTES.length, mob = W < 900;
+    let pulse = 0;
+    ings.forEach((el, i) => {
+      const a = (160 - (140 * i) / (n - 1)) * Math.PI / 180;
+      const rx = mob ? W * .36 : Math.min(W * .26, 380), ry = mob ? bh * .5 : bh * .55;
+      const hx = cx + rx * Math.cos(a), hy = top + bh * .42 - ry * Math.sin(a);
+      const appear = ease(seg(p, .04 + i * .035, .2 + i * .035));
+      const t0 = .36 + i * .07, into = ease(seg(p, t0, t0 + .1));
+      const drift = reduce ? 0 : Math.sin(now / 2800 + i) * 5;
+      const x = lerp(hx, neck[0], into), y = lerp(hy + drift + (1 - appear) * 16, neck[1], into);
+      el.style.opacity = (appear * (1 - seg(into, .7, 1))).toFixed(3);
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%) scale(${(lerp(.92, 1, appear) * (1 - .7 * into)).toFixed(3)})`;
+      el.querySelector('span').style.opacity = String(1 - seg(into, 0, .3));
+      pulse = Math.max(pulse, Math.min(seg(p, t0 + .07, t0 + .1), 1 - seg(p, t0 + .1, t0 + .16)));
+    });
+    const fill = ease(seg(p, .38, .82)), lift = ease(seg(p, .3, .36)) * (1 - ease(seg(p, .82, .86)));
+    const sp = seg(p, .87, .97);
+    bottle.style.setProperty('--fill', fill.toFixed(4)); bottle.style.setProperty('--lift', lift.toFixed(4));
+    bottle.style.setProperty('--pulse', (pulse * .8).toFixed(3)); bottle.style.setProperty('--sp', sp.toFixed(3));
+    bottle.style.setProperty('--sheen', (sp > 0 && sp < 1 ? Math.sin(sp * Math.PI) * .9 : 0).toFixed(3));
+    state.textContent = p < .3 ? 'The notes are gathered.' : p < .84 ? 'Poured, one by one.' : 'Locken, composed.';
   }
 
-  // the notes of Locken for the composition chapter
-  const NOTES = ['lemon', 'almond', 'coffee', 'tuberose', 'jasmine', 'rose', 'vanilla'];
-  notesLayer.innerHTML = NOTES.map((n) => `<div class="note"><img src="assets/ing/${n}.webp" alt=""></div>`).join('');
-  const notes = [...notesLayer.children];
+  // ── 03 · the stage: one perfume at a time, set down gently on its plinth ──
+  const stage = document.getElementById('s3'), turn = document.getElementById('st-turn'), stImg = document.getElementById('st-bottle');
+  const tabs = [...stage.querySelectorAll('.st-tabs button')], arts = [...stage.querySelectorAll('.st-copy article')], bgs = [...stage.querySelectorAll('.st-bg i')];
+  const ORDER = ['vers', 'locken', 'fresca'], NAME = { vers: 'Vers', locken: 'Locken', fresca: 'Fresca' };
+  let cur = 'locken', auto = null, busy = false;
+  function setStage(k) {
+    if (k === cur || busy) return; busy = true; cur = k;
+    tabs.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+    arts.forEach((a) => a.classList.toggle('on', a.dataset.k === k)); bgs.forEach((b) => b.classList.toggle('on', b.dataset.k === k));
+    turn.style.setProperty('--op', 0); turn.style.setProperty('--drop', '-24px');
+    setTimeout(() => {
+      stImg.src = `assets/${k}-cut.webp`; stImg.alt = `${NAME[k]} by Feminista`;
+      turn.style.transition = 'none'; turn.style.setProperty('--drop', '-36px'); void turn.offsetWidth; turn.style.transition = '';
+      turn.style.setProperty('--op', 1); turn.style.setProperty('--drop', '0px');
+      setTimeout(() => { busy = false; }, 900);
+    }, 700);
+  }
+  const restart = () => { clearInterval(auto); if (!reduce) auto = setInterval(() => setStage(ORDER[(ORDER.indexOf(cur) + 1) % 3]), 5200); };
+  tabs.forEach((b) => b.addEventListener('click', () => { setStage(b.dataset.k); restart(); }));
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) restart(); else clearInterval(auto); }, { threshold: .4 }).observe(stage);
+  const sm = { x: 0, tx: 0 };
+  stage.addEventListener('pointermove', (e) => { sm.tx = e.clientX / innerWidth - .5; });
+  stage.addEventListener('pointerleave', () => { sm.tx = 0; });
 
-  // the stage: one composition at a time
-  const ORDER = ['vers', 'locken', 'fresca'], TINT = { vers: '#f7e7d8', locken: '#f6ead0', fresca: '#f6e1df' };
-  const arts = [...document.querySelectorAll('.stage-names article')], dots = [...document.querySelectorAll('.dots li')];
-  let shown = 'locken', front = btA, back = btB;
-  function showBottle(k) {
-    if (k === shown) return; shown = k;
-    back.src = `assets/${k}-cut.webp`;
-    back.onload = () => { back.style.opacity = 1; front.style.opacity = 0; [front, back] = [back, front]; };
+  // ── 04 · the art of 180: the days count, the phases light in turn ──
+  const a180 = document.getElementById('s4'), day = document.getElementById('day'), phases = [...document.querySelectorAll('#phases li')], ph = document.getElementById('phases');
+  const aImg = a180.querySelector('.a-img img');
+  function a180Frame() {
+    const r = a180.getBoundingClientRect(), p = qs.has('all') ? .9 : clamp((innerHeight - r.top) / (innerHeight + r.height * .55));
+    const k = seg(p, .15, .85);
+    day.textContent = String(Math.round(180 * ease(k))).padStart(3, '0');
+    ph.style.setProperty('--pp', k.toFixed(3));
+    phases.forEach((li, i) => li.classList.toggle('on', k >= i / 5 - .001));
+    aImg.style.setProperty('--kz', (1.08 - .06 * p).toFixed(4));
   }
 
-  // a little life: the bottle follows the pointer by a few degrees
-  const m = { x: 0, y: 0, tx: 0, ty: 0 };
-  addEventListener('pointermove', (e) => { m.tx = e.clientX / innerWidth - .5; m.ty = e.clientY / innerHeight - .5; });
+  // ── 05 · the laboratory: a little depth to the pointer and to the scroll ──
+  const lab = document.getElementById('s5'), cam = document.getElementById('lab-cam'), view = document.getElementById('lab-view');
+  const lm = { x: 0, y: 0, tx: 0, ty: 0 };
+  view.addEventListener('pointermove', (e) => { const r = view.getBoundingClientRect(); lm.tx = (e.clientX - r.left) / r.width - .5; lm.ty = (e.clientY - r.top) / r.height - .5; });
+  view.addEventListener('pointerleave', () => { lm.tx = 0; lm.ty = 0; });
 
-  let FIX = null;
-  function pose(y) {
-    if (FIX) return { c: lay[FIX.i], n: null, t: 0, sub: FIX.f };
-    // which chapter holds, or which two we are between
-    for (let i = 0; i < lay.length; i++) {
-      const c = lay[i], n = lay[i + 1];
-      if (y <= c.B || !n) return { c, n: null, t: 0, sub: clamp((y - c.A) / Math.max(1, c.B - c.A)) };
-      if (y < n.A) return { c, n, t: ease(clamp((y - c.B) / Math.max(1, n.A - c.B))), sub: 1 };
-    }
-    return { c: lay[lay.length - 1], n: null, t: 0, sub: 1 };
-  }
-
-  let W = innerWidth, H = innerHeight, mob = W < 900;
+  const vis = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
   function frame(now) {
     requestAnimationFrame(frame);
-    const y = scrollY, { c, n, t, sub } = pose(y);
-    const a = c.hide ? { ...c, op: 0 } : { ...c, op: 1 }, b = n ? (n.hide ? { ...a, op: 0, y: a.y - 8 } : { ...n, op: 1 }) : a;
-    const from = c.hide && n && !n.hide ? { ...b, op: 0 } : a;
-    let X = lerp(from.x, b.x, t), Y = lerp(from.y, b.y, t), S = lerp(from.s || 1, b.s || 1, t), R = lerp(from.r, b.r, t), O = lerp(from.op, b.op, t);
-    if (mob) { X = 50; Y = 66; S = .9; R = R * .5; }
-
-    // composition: the notes drift in around the bottle and settle into it
-    let g = 0;
-    const fz = c.pin === 'fusion' && !n ? sub : -1;
-    const cx = X / 100 * W, cy = Y / 100 * H, bh = travel.offsetHeight * S;
-    notes.forEach((el, i) => {
-      if (fz < 0) { el.style.opacity = 0; return; }
-      const k = NOTES.length, ang = (162 - (144 * i) / (k - 1)) * Math.PI / 180;
-      const rx = mob ? W * .38 : Math.min(W * .3, 430), ry = mob ? H * .2 : H * .3;
-      const hx = cx + (mob ? 0 : W * .05) + rx * Math.cos(ang), hy = cy - bh * .08 - ry * Math.sin(ang);
-      const appear = ease(seg(fz, .02 + i * .03, .2 + i * .03));
-      const t0 = .42 + i * .055, into = ease(seg(fz, t0, t0 + .12));
-      const drift = reduce ? 0 : Math.sin(now / 2600 + i) * 6;
-      const nx = cx, ny = cy - bh * .4;
-      const px = lerp(hx, nx, into), py = lerp(hy + drift + (1 - appear) * 18, ny, into);
-      el.style.opacity = (appear * (1 - seg(into, .7, 1))).toFixed(3);
-      el.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px) translate(-50%, -50%) scale(${(lerp(.9, 1, appear) * (1 - .75 * into)).toFixed(3)})`;
-      g = Math.max(g, Math.min(seg(fz, t0 + .08, t0 + .12), 1 - seg(fz, t0 + .12, t0 + .2)));
-    });
-    glow.style.setProperty('--g', (g * .9).toFixed(3));
-
-    // the stage: change the bottle and the warmth of the page
-    if (c.pin === 'stage' && !n) {
-      const k = ORDER[Math.min(2, Math.floor(sub * 3))];
-      showBottle(k); root.style.setProperty('--tint', TINT[k]);
-      const idx = ORDER.indexOf(k); arts.forEach((x, j) => x.classList.toggle('on', j === idx)); dots.forEach((x, j) => x.classList.toggle('on', j === idx));
-    } else if (!(n && n.pin === 'stage' && t > .5) && !(c.pin === 'stage')) { showBottle('locken'); root.style.setProperty('--tint', '#fbf6ef'); }
-
-    // gentle 3D: the chapter's turn, the pointer, a slow breath
-    m.x += (m.tx - m.x) * .05; m.y += (m.ty - m.y) * .05;
-    const breath = reduce ? 0 : Math.sin(now / 3200) * 1.6;
-    const ry = R + m.x * 8 + breath, rx = -m.y * 4;
-    const w = travel.offsetWidth, h = travel.offsetHeight;
-    travel.style.transform = `translate(${(cx - w / 2).toFixed(1)}px, ${(cy - h / 2).toFixed(1)}px) scale(${S.toFixed(3)})`;
-    travel.style.opacity = O.toFixed(3);
-    tilt.style.transform = `rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg)`;
+    if (vis(fusion) || qs.has('fz')) fusionFrame(now);
+    if (vis(stage)) { sm.x += (sm.tx - sm.x) * .05; turn.style.setProperty('--ry', `${(sm.x * 14 + (reduce ? 0 : Math.sin(now / 3400) * 3)).toFixed(2)}deg`); }
+    if (vis(a180) || qs.has('all')) a180Frame();
+    if (vis(lab) || qs.has('all')) {
+      lm.x += (lm.tx - lm.x) * .05; lm.y += (lm.ty - lm.y) * .05;
+      const r = lab.getBoundingClientRect(), p = clamp((innerHeight - r.top) / (innerHeight + r.height));
+      cam.style.transform = `translate3d(${(-lm.x * 30).toFixed(1)}px, ${(-lm.y * 14).toFixed(1)}px, ${lerp(-60, 30, p).toFixed(1)}px) rotateY(${(lm.x * 2).toFixed(2)}deg)`;
+    }
   }
-
-  const resize = () => { W = innerWidth; H = innerHeight; mob = W < 900; measure(); };
-  addEventListener('resize', resize); addEventListener('load', resize);
-  resize(); requestAnimationFrame(frame);
-  // ?at=2:0.5 shows chapter 2 (0-based) half way through, without scrolling (for reviewing a single moment)
-  const at = new URLSearchParams(location.search).get('at');
-  if (at) { const [i, f] = at.split(':').map(Number); FIX = { i, f: f || 0 };
-    secs.forEach((c, k) => { if (k < i) c.el.style.display = 'none'; }); document.querySelectorAll('.r').forEach((el) => el.classList.add('in')); resize(); }
+  requestAnimationFrame(frame);
 })();
