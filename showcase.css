@@ -160,3 +160,7 @@ ul, ol { list-style: none; }
 .hero-words { top: 12.5%; }
 .w2 { margin-top: 0; }
 @media (max-width: 860px) { .hero-words { top: 11%; } }
+
+/* the hero paragraph: larger, filling its corner */
+.hero-note { width: min(560px, 42vw); bottom: 9%; }
+.hero-note p { font-size: clamp(17px, 1.55vw, 23px); line-height: 1.6; color: #34261e; }
