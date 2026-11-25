@@ -18,8 +18,8 @@
   // where the bottle and the disc sit on each screen (fractions of the screen): bottle x centre, y base, height, tilt;
   // disc x, y, radius. The fourth place is the return: back on the collection disc, nearly upright.
   const places = (W) => (W < 860 ? {
-    b: [[.6, .95, .46, 0], [.5, .9, .44, -12], [.72, 1.02, .58, -15], [.5, .88, .44, 0]],
-    d: [[.5, .9, 0], [.5, .72, .26], [.86, .86, .52], [.5, .72, .26]],
+    b: [[.6, .97, .58, 0], [.5, .9, .44, -12], [.84, 1.0, .48, -15], [.5, .88, .44, 0]],
+    d: [[.5, .9, 0], [.5, .72, .26], [.92, .86, .5], [.5, .72, .26]],
   } : {
     b: [[.48, .98, .6, 0], [.5, .92, .68, -12], [.8, 1.1, .98, -16], [.5, .9, .66, 0]],
     d: [[.5, .9, 0], [.5, .64, .34], [.86, .82, .62], [.5, .64, .34]],

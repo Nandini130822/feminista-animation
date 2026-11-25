@@ -174,3 +174,5 @@ ul, ol { list-style: none; }
 .j2 { width: clamp(50px, 4.4vw, 80px); left: 13%; bottom: 4%; transform: rotate(24deg); }
 .intro .props .j1 { animation-delay: .55s; } .intro .props .j2 { animation-delay: .65s; }
 @media (max-width: 860px) { .j1 { left: 2%; bottom: 7%; width: 64px; } .j2 { left: 18%; bottom: 3%; width: 46px; } }
+
+@media (max-width: 860px) { .feat-m .f1, .feat-m .f2, .feat-m .f3 { left: 5%; } .feat-m span { font-size: 11px; max-width: 110px; } }
