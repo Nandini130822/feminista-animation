@@ -2,15 +2,19 @@
 .pwall { --hh: 118px; position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: #060505; color: #f4ece1; }
 .pw-frame { position: absolute; left: 50%; top: calc(50% + var(--hh) / 2); width: max(100%, calc((100svh - var(--hh)) * 1.7919)); aspect-ratio: 1679 / 937; transform: translate(-50%, -50%); }
 .pw-frame img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.pw-base { filter: brightness(.8) saturate(.95); transition: filter 1s var(--ease-o); }
-.pwall:has(.pw-n:hover) .pw-base { filter: brightness(.62) saturate(.9); }
+.pw-base { filter: brightness(.92); transition: filter 1s var(--ease-o); }
+.pwall:has(.pw-n:hover) .pw-base { filter: brightness(.7); }
 
 /* each niche: a lit copy of the photograph, revealed softly around that niche and its reflection */
 .pw-n { position: absolute; inset: 0; pointer-events: none; color: inherit; }
-.pw-lit { opacity: 0; filter: brightness(1.22) saturate(1.12) contrast(1.04); transition: opacity .9s var(--ease-o);
-  -webkit-mask: radial-gradient(calc(var(--w) * .62) 34% at var(--x) 38%, #000 45%, transparent 100%), radial-gradient(calc(var(--w) * .55) 13% at var(--x) 85%, #000 25%, transparent 100%);
-          mask: radial-gradient(calc(var(--w) * .62) 34% at var(--x) 38%, #000 45%, transparent 100%), radial-gradient(calc(var(--w) * .55) 13% at var(--x) 85%, #000 25%, transparent 100%); }
-.pw-beam { position: absolute; left: var(--l); width: var(--w); top: 10.5%; height: 54%; pointer-events: none; mix-blend-mode: screen; opacity: 0; transition: opacity .9s var(--ease-o);
+.pw-lit { opacity: 0; filter: brightness(1.18) saturate(1.08) contrast(1.03); transition: opacity .9s var(--ease-o);
+  /* exactly the niche opening, floor included, so the bottle stays standing in its light */
+  clip-path: inset(9.6% calc(100% - var(--l) - var(--w) - .4%) 33.9% calc(var(--l) - .4%)); }
+.pw-refl { opacity: 0; filter: brightness(1.25) saturate(1.1); transition: opacity .9s var(--ease-o);
+  clip-path: inset(74% calc(100% - var(--l) - var(--w) - .4%) 0 calc(var(--l) - .4%));
+  -webkit-mask: linear-gradient(180deg, transparent 74%, #000 78%, transparent 98%); mask: linear-gradient(180deg, transparent 74%, #000 78%, transparent 98%); }
+.pw-n:hover .pw-refl, .pw-n:focus-visible .pw-refl { opacity: 1; }
+.pw-beam { position: absolute; left: var(--l); width: var(--w); top: 10.2%; height: 55.8%; pointer-events: none; mix-blend-mode: screen; opacity: 0; transition: opacity .9s var(--ease-o);
   background: radial-gradient(55% 75% at 50% 0%, rgba(255, 222, 170, .32), rgba(255, 210, 150, .08) 55%, transparent 75%); }
 .pw-hit { position: absolute; left: var(--l); width: var(--w); top: 10%; height: 56%; pointer-events: auto; cursor: pointer; }
 .pw-n:hover .pw-lit, .pw-n:focus-visible .pw-lit, .pw-n:hover .pw-beam, .pw-n:focus-visible .pw-beam { opacity: 1; }
@@ -42,7 +46,7 @@
   .pw-cap em { display: none; }
   .pw-head { top: calc(var(--hh) + 16px); }
   .pw-hint { bottom: 20px; }
-  .pw-lit, .pw-beam { opacity: .55; }
+  .pw-lit, .pw-beam, .pw-refl { opacity: 0; }
 }
 @media (hover: none) { .pw-cap { opacity: 1; } }
 .pw-cap em { position: relative; display: inline-block; }
