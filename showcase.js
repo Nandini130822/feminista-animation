@@ -34,7 +34,11 @@
     const breathe = Math.sin(now / 2600) * 4;
 
     // the bottle: glides between its three places, leaning a little while it travels
-    const [bx, by, bh, tilt] = at(P.b, s);
+    let [bx, by, bh, tilt] = at(P.b, s);
+    // the end, as in the video: past the last screen the bottle snaps upright, with a small overshoot
+    const endP = qs.has('end') ? +qs.get('end') : clamp((p - .93) / .05);
+    const k = endP <= 0 ? 0 : 1 + 2.7 * Math.pow(endP - 1, 3) + 1.7 * Math.pow(endP - 1, 2);
+    tilt = tilt * (1 - k);
     const h = bh * H, w = h * 486 / 935;
     bottle.style.height = `${h.toFixed(1)}px`;
     bottle.style.transform = `translate3d(${(bx * W - w / 2).toFixed(1)}px, ${(by * H - h + breathe).toFixed(1)}px, 0) rotate(${tilt.toFixed(2)}deg)`;
