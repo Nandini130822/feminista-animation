@@ -179,3 +179,14 @@ ul, ol { list-style: none; }
 
 /* the paragraph follows "Never just sweet" at a fixed distance, on every screen height */
 .hero-note { bottom: auto; top: calc(12.5% + clamp(84px, 13.6vw, 240px) * .92 + clamp(26px, 3vw, 50px) * 1.3 + 30px); }
+/* the paragraph grows with the screen height, and carries the notes and a button, so its corner is never empty */
+.hero-note { width: clamp(340px, 30vw, 560px); }
+.hero-note p { font-size: clamp(15px, calc(.55vw + 1.05vh), 24px); }
+.hero-note .hn-notes { margin-top: clamp(10px, 1.6vh, 22px); font: 600 clamp(9.5px, calc(.3vw + .55vh), 12.5px)/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--wine); }
+.hero-note .hn-btn { margin-top: clamp(14px, 2.4vh, 30px); padding: clamp(12px, 1.6vh, 17px) clamp(24px, 2.2vw, 34px); font-size: clamp(11px, calc(.4vw + .5vh), 13.5px); }
+@media (min-height: 760px) and (min-width: 861px) {
+  .hero-note { width: clamp(380px, 34vw, 640px); }
+  .hero-note p { font-size: clamp(17px, 2.3vh, 26px); line-height: 1.75; }
+  .hero-note .hn-notes { font-size: clamp(11px, 1.3vh, 14px); margin-top: 2.4vh; }
+  .hero-note .hn-btn { margin-top: 3.2vh; }
+}
