@@ -201,3 +201,17 @@ ul, ol { list-style: none; }
 
 /* "Never just sweet" closer to the paragraph below it */
 .w3 { margin-top: 1.2em; }
+
+/* Locken's own notes on the hero: almond, coffee, Bulgarian rose, tuberose, vanilla, jasmine */
+.lk-alm { width: clamp(170px, 15vw, 270px); left: 17%; bottom: 3%; transform: rotate(-6deg); }
+.lk-cof { width: clamp(130px, 11vw, 200px); left: 6%; bottom: 3%; transform: rotate(10deg); }
+.lk-rose { width: clamp(130px, 11.5vw, 210px); left: 22%; bottom: 20%; transform: rotate(-12deg); }
+.lk-tub { width: clamp(110px, 9.5vw, 170px); left: 9%; bottom: 23%; transform: rotate(14deg); }
+.w-c { left: 2%; bottom: 14%; width: clamp(150px, 13vw, 240px); transform: rotate(-30deg); }
+.j1 { left: 30%; bottom: 7%; } .j2 { left: 2%; bottom: 3%; }
+.intro .props .lk-cof { animation-delay: .3s; } .intro .props .lk-alm { animation-delay: .38s; }
+.intro .props .lk-tub { animation-delay: .46s; } .intro .props .lk-rose { animation-delay: .54s; }
+@media (max-width: 860px) {
+  .lk-alm { width: 34vw; left: 26%; } .lk-cof { width: 26vw; left: 0; } .lk-rose { width: 26vw; left: 30%; bottom: 17%; } .lk-tub { width: 22vw; left: 4%; bottom: 19%; }
+  .w-c { width: 30vw; } .j1 { left: 52%; } .j2 { left: 0; }
+}
