@@ -176,3 +176,6 @@ ul, ol { list-style: none; }
 @media (max-width: 860px) { .j1 { left: 2%; bottom: 7%; width: 64px; } .j2 { left: 18%; bottom: 3%; width: 46px; } }
 
 @media (max-width: 860px) { .feat-m .f1, .feat-m .f2, .feat-m .f3 { left: 5%; } .feat-m span { font-size: 11px; max-width: 110px; } }
+
+/* the paragraph follows "Never just sweet" at a fixed distance, on every screen height */
+.hero-note { bottom: auto; top: calc(12.5% + clamp(84px, 13.6vw, 240px) * .92 + clamp(26px, 3vw, 50px) * 1.3 + 30px); }
