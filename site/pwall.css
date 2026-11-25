@@ -1,0 +1,50 @@
+/* ── The signature collection: the photographed basalt wall, lit on hover ── */
+.pwall { --hh: 118px; position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: #060505; color: #f4ece1; }
+.pw-frame { position: absolute; left: 50%; top: calc(50% + var(--hh) / 2); width: max(100%, calc((100svh - var(--hh)) * 1.7919)); aspect-ratio: 1679 / 937; transform: translate(-50%, -50%); }
+.pw-frame img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pw-base { filter: brightness(.8) saturate(.95); transition: filter 1s var(--ease-o); }
+.pwall:has(.pw-n:hover) .pw-base { filter: brightness(.62) saturate(.9); }
+
+/* each niche: a lit copy of the photograph, revealed softly around that niche and its reflection */
+.pw-n { position: absolute; inset: 0; pointer-events: none; color: inherit; }
+.pw-lit { opacity: 0; filter: brightness(1.22) saturate(1.12) contrast(1.04); transition: opacity .9s var(--ease-o);
+  -webkit-mask: radial-gradient(calc(var(--w) * .62) 34% at var(--x) 38%, #000 45%, transparent 100%), radial-gradient(calc(var(--w) * .55) 13% at var(--x) 85%, #000 25%, transparent 100%);
+          mask: radial-gradient(calc(var(--w) * .62) 34% at var(--x) 38%, #000 45%, transparent 100%), radial-gradient(calc(var(--w) * .55) 13% at var(--x) 85%, #000 25%, transparent 100%); }
+.pw-beam { position: absolute; left: var(--l); width: var(--w); top: 10.5%; height: 54%; pointer-events: none; mix-blend-mode: screen; opacity: 0; transition: opacity .9s var(--ease-o);
+  background: radial-gradient(55% 75% at 50% 0%, rgba(255, 222, 170, .32), rgba(255, 210, 150, .08) 55%, transparent 75%); }
+.pw-hit { position: absolute; left: var(--l); width: var(--w); top: 10%; height: 56%; pointer-events: auto; cursor: pointer; }
+.pw-n:hover .pw-lit, .pw-n:focus-visible .pw-lit, .pw-n:hover .pw-beam, .pw-n:focus-visible .pw-beam { opacity: 1; }
+.pw-n:focus-visible { outline: none; }
+.pw-n:focus-visible .pw-hit { outline: 1px solid rgba(211, 178, 124, .7); outline-offset: 6px; }
+
+/* the caption sits on the stone below each niche */
+.pw-cap { position: absolute; left: calc(var(--l) + var(--w) / 2); top: 67.5%; transform: translate(-50%, 0); text-align: center; white-space: nowrap; pointer-events: none;
+  opacity: .72; transition: opacity .6s var(--ease-o), transform .8s var(--ease-o); text-shadow: 0 2px 18px rgba(0, 0, 0, .8); }
+.pw-cap i { display: block; font: 600 9px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; font-style: normal; color: #d3b27c; }
+.pw-cap b { display: block; margin: 8px 0 6px; font: 400 clamp(24px, 2.1vw, 34px)/1 var(--serif); color: #fbf6ee; }
+.pw-cap em { font: 600 9.5px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; font-style: normal; color: rgba(244, 236, 225, .7); }
+.pw-cap em span { display: inline-block; opacity: 0; transform: translateX(-6px); transition: opacity .5s, transform .6s var(--ease-o); }
+.pw-n:hover .pw-cap, .pw-n:focus-visible .pw-cap { opacity: 1; transform: translate(-50%, -4px); }
+.pw-n:hover .pw-cap em span, .pw-n:focus-visible .pw-cap em span { opacity: 1; transform: none; }
+
+/* heading and hint */
+.pw-head { position: absolute; left: 0; right: 0; top: calc(var(--hh) + 14px); z-index: 3; text-align: center; pointer-events: none; text-shadow: 0 2px 24px rgba(0, 0, 0, .9); }
+.pw-head p { margin: 0; font: 600 9.5px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; color: #d3b27c; }
+.pw-hint { position: absolute; left: 0; right: 0; bottom: clamp(16px, 3vh, 30px); z-index: 3; margin: 0; text-align: center; pointer-events: none;
+  font: 600 9px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: rgba(244, 236, 225, .55); }
+
+@media (max-width: 760px) {
+  .pwall { --hh: 94px; height: auto; min-height: 0; padding: calc(var(--hh) + 44px) 0 56px; }
+  .pw-frame { position: relative; left: 0; top: 0; width: 100%; transform: none; }
+  .pw-cap { top: 68%; }
+  .pw-cap i { font-size: 6.5px; letter-spacing: .2em; }
+  .pw-cap b { font-size: 17px; margin: 5px 0 0; }
+  .pw-cap em { display: none; }
+  .pw-head { top: calc(var(--hh) + 16px); }
+  .pw-hint { bottom: 20px; }
+  .pw-lit, .pw-beam { opacity: .55; }
+}
+@media (hover: none) { .pw-cap { opacity: 1; } }
+.pw-cap em { position: relative; display: inline-block; }
+.pw-cap em span { position: absolute; left: 100%; top: 0; white-space: nowrap; padding-left: .5em; }
+.pw-hint b { color: #d3b27c; font-weight: 600; }
