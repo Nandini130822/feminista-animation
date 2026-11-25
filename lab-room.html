@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Laboratory · FEMINISTA</title>
+<meta name="description" content="The Art of 180: step inside the Feminista laboratory.">
+<meta name="theme-color" content="#0a0605">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/lab2/room.webp">
+<link rel="stylesheet" href="lab-room.css?v=2">
+</head>
+<body>
+<div class="scene" id="scene" aria-label="Inside the Feminista laboratory">
+  <div class="cam" id="cam">
+    <!-- the room: shelves of essences, pendant lamps, the window -->
+    <div class="plane room" style="--z:-620"><div class="stage">
+      <img src="assets/lab2/room.webp" alt="">
+      <i class="lamp" style="--x:23.1%;--y:15.6%;--d:.9s"></i><i class="lamp" style="--x:49.9%;--y:15.6%;--d:1.25s"></i><i class="lamp" style="--x:76.6%;--y:15.6%;--d:1.6s"></i>
+      <i class="window"></i>
+    </div></div>
+    <!-- light through the window, dust drifting in it -->
+    <div class="plane beams" style="--z:-380"><div class="stage"><i></i><i></i><i></i></div></div>
+    <div class="plane dust" style="--z:-260"><div class="stage"><canvas id="dust"></canvas></div></div>
+    <!-- the workbench, and the bottle standing at its centre -->
+    <div class="plane bench" style="--z:-150"><div class="stage">
+      <img src="assets/lab2/bench.webp" alt="">
+      <div class="spot"></div>
+      <div class="bottle" id="bottle"><img class="b" id="b-img" src="assets/locken-cut.webp" alt="Locken by Feminista"><img class="r" id="b-refl" src="assets/locken-cut.webp" alt=""></div>
+    </div></div>
+    <!-- glass close to the eye -->
+    <div class="plane fore" style="--z:230"><div class="stage"><img src="assets/lab2/fore.webp" alt=""></div></div>
+  </div>
+  <div class="grade"></div>
+  <div class="dark" id="dark"></div>
+</div>
+
+<header class="top">
+  <a class="wordmark" href="./">FEMINISTA<small>Maison de parfum</small></a>
+  <p class="kicker"><span>The Art of 180</span> · The Laboratory</p>
+  <a class="back" href="./">All studies →</a>
+</header>
+
+<div class="intro">
+  <p class="eyebrow">The Art of 180</p>
+  <h1>The <em>Laboratory</em></h1>
+  <p class="lede">Where every Feminista composition begins, and where it is given time.</p>
+</div>
+
+<nav class="pick" aria-label="Choose the perfume on the bench">
+  <button type="button" data-k="vers">Vers</button><button type="button" data-k="locken" aria-pressed="true">Locken</button><button type="button" data-k="fresca">Fresca</button>
+</nav>
+<p class="hint">Move to look around</p>
+
+<script src="lab-room.js?v=2"></script>
+</body>
+</html>
