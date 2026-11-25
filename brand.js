@@ -25,18 +25,29 @@
     const W = fz.clientWidth, br = bottle.getBoundingClientRect(), fr = fz.getBoundingClientRect();
     const cx = br.left - fr.left + br.width / 2, top = br.top - fr.top, bh = br.height, mob = W < 700;
     const gap = mob ? Math.max(br.width / 2 + 34, W * .34) : br.width / 2 + Math.min(170, W * .12);
+    const oy = top + bh * .52, neckY = top + bh * .12;
+    const join = ease(seg(p, .3, .4));                         // leave the columns for the circle
+    const turn = ease(seg(p, .3, .82)) * Math.PI * 2.2;        // one slow clockwise round, and a little more
     ings.forEach((el, i) => {
       const side = i < 3 ? -1 : 1, row = i % 3;
-      const x = cx + side * gap, y = top + bh * (.3 + row * .24);
+      const x0 = cx + side * gap, y0 = top + bh * (.3 + row * .24);
       const appear = seg(p, .04 + i * .04, .16 + i * .04);
-      const t0 = .34 + i * .08, given = seg(p, t0, t0 + .1);
-      el.style.opacity = (appear * (1 - .72 * given)).toFixed(3);
-      el.style.transform = `translate(${x.toFixed(1)}px, ${(y + (1 - appear) * 8).toFixed(1)}px) translate(-50%, -50%)`;
+      // its place on the circle: starts where it stood, then turns clockwise and spirals in to the neck
+      const a0 = Math.atan2((y0 - oy) / .42, x0 - cx), r0 = Math.hypot(x0 - cx, (y0 - oy) / .42);
+      const sink = ease(seg(p, .5 + i * .04, .72 + i * .04));
+      const r = r0 * (1 - sink), th = a0 + turn;
+      const ox = cx + r * Math.cos(th), oyy = oy + (neckY - oy) * sink + r * .42 * Math.sin(th);
+      const x = x0 + (ox - x0) * join, y = y0 + (oyy - y0) * join + (1 - appear) * 8;
+      const front = Math.sin(th) > 0 || join < .5;
+      el.style.zIndex = front ? 3 : 1;
+      el.style.opacity = (appear * (1 - seg(sink, .6, 1))).toFixed(3);
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%) scale(${((1 - .65 * sink) * (front ? 1 : .86 + .14 * (1 - join))).toFixed(3)})`;
+      el.querySelector('span').style.opacity = String(1 - join);
     });
-    const fill = ease(seg(p, .36, .86)), sp = seg(p, .88, .98);
+    const fill = ease(seg(p, .52, .92)), sp = seg(p, .92, .99);
     bottle.style.setProperty('--fill', fill.toFixed(4)); bottle.style.setProperty('--lift', 0); bottle.style.setProperty('--pulse', 0);
     bottle.style.setProperty('--sp', sp.toFixed(3)); bottle.style.setProperty('--sheen', (sp > 0 && sp < 1 ? Math.sin(sp * Math.PI) * .7 : 0).toFixed(3));
-    state.textContent = p < .32 ? 'The notes are chosen.' : p < .88 ? 'Composed, one by one.' : 'Locken, composed.';
+    state.textContent = p < .3 ? 'The notes are chosen.' : p < .52 ? 'They gather round.' : p < .92 ? 'Into the bottle, one by one.' : 'Locken, composed.';
   }
 
   // ── 03 · the stage: one perfume at a time, set down gently on its plinth ──
@@ -65,21 +76,21 @@
 
   // ── 04 · the art of 180: the days count, the phases light in turn ──
   const a180 = document.getElementById('s4'), day = document.getElementById('day'), phases = [...document.querySelectorAll('#phases li')], ph = document.getElementById('phases');
-  const aImg = a180.querySelector('.a-img img');
+  const aImg = a180.querySelector('.a-img img');  // optional
   function a180Frame() {
     const r = a180.getBoundingClientRect(), p = qs.has('all') ? .9 : clamp((innerHeight - r.top) / (innerHeight + r.height * .55));
     const k = seg(p, .15, .85);
     day.textContent = String(Math.round(180 * ease(k))).padStart(3, '0');
     ph.style.setProperty('--pp', k.toFixed(3));
     phases.forEach((li, i) => li.classList.toggle('on', k >= i / 5 - .001));
-    aImg.style.setProperty('--kz', (1.08 - .06 * p).toFixed(4));
+    if (aImg) aImg.style.setProperty('--kz', (1.08 - .06 * p).toFixed(4));
   }
 
   // ── 05 · the laboratory: a little depth to the pointer and to the scroll ──
   const lab = document.getElementById('s5'), cam = document.getElementById('lab-cam'), view = document.getElementById('lab-view');
   const lm = { x: 0, y: 0, tx: 0, ty: 0 };
-  view.addEventListener('pointermove', (e) => { const r = view.getBoundingClientRect(); lm.tx = (e.clientX - r.left) / r.width - .5; lm.ty = (e.clientY - r.top) / r.height - .5; });
-  view.addEventListener('pointerleave', () => { lm.tx = 0; lm.ty = 0; });
+  view && view.addEventListener('pointermove', (e) => { const r = view.getBoundingClientRect(); lm.tx = (e.clientX - r.left) / r.width - .5; lm.ty = (e.clientY - r.top) / r.height - .5; });
+  view && view.addEventListener('pointerleave', () => { lm.tx = 0; lm.ty = 0; });
 
   const vis = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
   function frame(now) {
@@ -87,7 +98,7 @@
     if (vis(fusion) || qs.has('fz')) fusionFrame();
     if (vis(stage)) { sm.x += (sm.tx - sm.x) * .05; turn.style.setProperty('--ry', `${(sm.x * 14 + (reduce ? 0 : Math.sin(now / 3400) * 3)).toFixed(2)}deg`); }
     if (vis(a180) || qs.has('all')) a180Frame();
-    if (vis(lab) || qs.has('all')) {
+    if (lab && (vis(lab) || qs.has('all'))) {
       lm.x += (lm.tx - lm.x) * .05; lm.y += (lm.ty - lm.y) * .05;
       const r = lab.getBoundingClientRect(), p = clamp((innerHeight - r.top) / (innerHeight + r.height));
       cam.style.transform = `translate3d(${(-lm.x * 30).toFixed(1)}px, ${(-lm.y * 14).toFixed(1)}px, ${lerp(-60, 30, p).toFixed(1)}px) rotateY(${(lm.x * 2).toFixed(2)}deg)`;

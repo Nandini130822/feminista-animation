@@ -190,7 +190,7 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
 /* quieter notes: small, still, labelled like specimens */
 .ing { width: clamp(46px, 4.6vw, 74px); }
 .ing img { filter: drop-shadow(0 8px 10px rgba(70, 35, 20, .14)); }
-.ing span { margin-top: 6px; font-size: 7.5px; color: var(--muted); opacity: 1 !important; }
+.ing span { margin-top: 6px; font-size: 7.5px; color: var(--muted); }
 .fusion .tiers { display: none; }
 
 /* 03 · the turn */
@@ -211,3 +211,13 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
 @media (min-width: 600px) and (max-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 14px; } .card h3 { font-size: 26px; } }
 @media (max-width: 600px) { .turn-gl { bottom: 110px; } .chead h2 { font-size: 28px; } .st-scene { height: 380px; } }
 .chead > div { min-width: 0; }
+/* the Art of 180, without the photograph: the counter and the phases, centred */
+.a-grid { grid-template-columns: 1fr; max-width: 760px; }
+.a-copy .day { justify-content: center; }
+.a-more { margin-top: 28px; text-align: center; }
+.turn .pin { background: #f8efe3; }
+
+/* the notes circle the bottle: in front of it on the near side, behind it on the far side */
+.fusion .bottle { z-index: 2; }
+.fusion .ing { z-index: 1; }
+.fusion .ing span { transition: opacity .4s; }
