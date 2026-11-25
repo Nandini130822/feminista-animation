@@ -19,31 +19,24 @@
   const NOTES = [['lemon', 'Lemon'], ['almond', 'Almond'], ['coffee', 'Coffee'], ['jasmine', 'Jasmine'], ['rose', 'Rose'], ['vanilla', 'Vanilla']];
   ingsEl.innerHTML = NOTES.map(([f, n]) => `<div class="ing"><img src="assets/ing/${f}.webp" alt=""><span>${n}</span></div>`).join('');
   const ings = [...ingsEl.children];
-  function fusionFrame(now) {
+  // quiet: the notes rest in two still columns beside the bottle; each fades in, then gives itself to the bottle
+  function fusionFrame() {
     const p = qs.has('fz') ? +qs.get('fz') : prog(fusion);
     const W = fz.clientWidth, br = bottle.getBoundingClientRect(), fr = fz.getBoundingClientRect();
-    const cx = br.left - fr.left + br.width / 2, top = br.top - fr.top, bh = br.height;
-    const neck = [cx, top + bh * .14], n = NOTES.length, mob = W < 900;
-    let pulse = 0;
+    const cx = br.left - fr.left + br.width / 2, top = br.top - fr.top, bh = br.height, mob = W < 700;
+    const gap = mob ? Math.max(br.width / 2 + 34, W * .34) : br.width / 2 + Math.min(170, W * .12);
     ings.forEach((el, i) => {
-      const a = (160 - (140 * i) / (n - 1)) * Math.PI / 180;
-      const rx = mob ? W * .36 : Math.min(W * .26, 380), ry = mob ? bh * .5 : bh * .55;
-      const hx = cx + rx * Math.cos(a), hy = top + bh * .42 - ry * Math.sin(a);
-      const appear = ease(seg(p, .04 + i * .035, .2 + i * .035));
-      const t0 = .36 + i * .07, into = ease(seg(p, t0, t0 + .1));
-      const drift = reduce ? 0 : Math.sin(now / 2800 + i) * 5;
-      const x = lerp(hx, neck[0], into), y = lerp(hy + drift + (1 - appear) * 16, neck[1], into);
-      el.style.opacity = (appear * (1 - seg(into, .7, 1))).toFixed(3);
-      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%) scale(${(lerp(.92, 1, appear) * (1 - .7 * into)).toFixed(3)})`;
-      el.querySelector('span').style.opacity = String(1 - seg(into, 0, .3));
-      pulse = Math.max(pulse, Math.min(seg(p, t0 + .07, t0 + .1), 1 - seg(p, t0 + .1, t0 + .16)));
+      const side = i < 3 ? -1 : 1, row = i % 3;
+      const x = cx + side * gap, y = top + bh * (.3 + row * .24);
+      const appear = seg(p, .04 + i * .04, .16 + i * .04);
+      const t0 = .34 + i * .08, given = seg(p, t0, t0 + .1);
+      el.style.opacity = (appear * (1 - .72 * given)).toFixed(3);
+      el.style.transform = `translate(${x.toFixed(1)}px, ${(y + (1 - appear) * 8).toFixed(1)}px) translate(-50%, -50%)`;
     });
-    const fill = ease(seg(p, .38, .82)), lift = ease(seg(p, .3, .36)) * (1 - ease(seg(p, .82, .86)));
-    const sp = seg(p, .87, .97);
-    bottle.style.setProperty('--fill', fill.toFixed(4)); bottle.style.setProperty('--lift', lift.toFixed(4));
-    bottle.style.setProperty('--pulse', (pulse * .8).toFixed(3)); bottle.style.setProperty('--sp', sp.toFixed(3));
-    bottle.style.setProperty('--sheen', (sp > 0 && sp < 1 ? Math.sin(sp * Math.PI) * .9 : 0).toFixed(3));
-    state.textContent = p < .3 ? 'The notes are gathered.' : p < .84 ? 'Poured, one by one.' : 'Locken, composed.';
+    const fill = ease(seg(p, .36, .86)), sp = seg(p, .88, .98);
+    bottle.style.setProperty('--fill', fill.toFixed(4)); bottle.style.setProperty('--lift', 0); bottle.style.setProperty('--pulse', 0);
+    bottle.style.setProperty('--sp', sp.toFixed(3)); bottle.style.setProperty('--sheen', (sp > 0 && sp < 1 ? Math.sin(sp * Math.PI) * .7 : 0).toFixed(3));
+    state.textContent = p < .32 ? 'The notes are chosen.' : p < .88 ? 'Composed, one by one.' : 'Locken, composed.';
   }
 
   // ── 03 · the stage: one perfume at a time, set down gently on its plinth ──
@@ -91,7 +84,7 @@
   const vis = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
   function frame(now) {
     requestAnimationFrame(frame);
-    if (vis(fusion) || qs.has('fz')) fusionFrame(now);
+    if (vis(fusion) || qs.has('fz')) fusionFrame();
     if (vis(stage)) { sm.x += (sm.tx - sm.x) * .05; turn.style.setProperty('--ry', `${(sm.x * 14 + (reduce ? 0 : Math.sin(now / 3400) * 3)).toFixed(2)}deg`); }
     if (vis(a180) || qs.has('all')) a180Frame();
     if (vis(lab) || qs.has('all')) {

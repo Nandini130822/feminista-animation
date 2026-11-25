@@ -187,3 +187,27 @@ h1 em, h2 em { font-style: italic; color: var(--wine); }
 .plinth::after { content: ''; position: absolute; left: 50%; top: 9px; width: 46%; height: 24px; transform: translateX(-50%); border-radius: 50%; z-index: 1;
   background: radial-gradient(closest-side, rgba(70, 35, 20, .28), rgba(70, 35, 20, .08) 60%, transparent); }
 @media (max-width: 900px) { .st-turn { bottom: 105px; } .plinth::after { top: 6px; height: 20px; } }
+/* quieter notes: small, still, labelled like specimens */
+.ing { width: clamp(46px, 4.6vw, 74px); }
+.ing img { filter: drop-shadow(0 8px 10px rgba(70, 35, 20, .14)); }
+.ing span { margin-top: 6px; font-size: 7.5px; color: var(--muted); opacity: 1 !important; }
+.fusion .tiers { display: none; }
+
+/* 03 · the turn */
+.turn { height: 420vh; padding: 0; background: var(--cream); }
+.turn .pin { position: sticky; top: var(--hh); height: calc(100vh - var(--hh)); padding: clamp(30px, 4vw, 50px) var(--edge) 0; overflow: hidden;
+  background: radial-gradient(42% 58% at 50% 60%, #fbf1e2, var(--cream) 72%); }
+.turn-gl { position: absolute; inset: 0; }
+.turn-gl canvas { display: block; width: 100%; height: 100%; }
+.turn-steps { position: absolute; left: var(--edge); bottom: 12%; width: min(260px, 24vw); }
+.turn-steps li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); opacity: .35; transition: opacity .8s var(--ease); }
+.turn-steps li b { display: block; margin-bottom: 2px; font: 400 18px/1.3 var(--serif); color: var(--ink); }
+.turn-steps li.on { opacity: 1; }
+.turn-steps li.on b { color: var(--wine); }
+.turn-gl { top: 118px; }
+@media (max-width: 900px) { .turn-gl { top: 96px; bottom: 150px; } .turn-steps { left: var(--edge); right: var(--edge); width: auto; bottom: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .turn-steps li { padding: 8px 0 0; font-size: 0; } .turn-steps li b { font-size: 13px; } }
+/* responsive polish */
+@media (min-width: 600px) and (max-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 14px; } .card h3 { font-size: 26px; } }
+@media (max-width: 600px) { .turn-gl { bottom: 110px; } .chead h2 { font-size: 28px; } .st-scene { height: 380px; } }
+.chead > div { min-width: 0; }
