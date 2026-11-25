@@ -13,17 +13,15 @@
   const toS = (p) => { for (let i = 0; i < MAP.length - 1; i++) { const [a, sa] = MAP[i], [b, sb] = MAP[i + 1]; if (p <= b) return lerp(sa, sb, ease(clamp((p - a) / (b - a)))); } return 2; };
   const toP = (s) => [.06, .5, .93][s];
 
-  // where the bottle and the disc sit on each screen, as fractions of the screen: x centre, y base, height
-  const places = (W, H) => {
-    const mob = W < 860;
-    return mob ? {
-      b: [[.5, .9, .5], [.5, .86, .4], [.66, .74, .4]],
-      d: [[.5, .9, 0], [.5, .74, .3], [.7, .6, .34]],
-    } : {
-      b: [[.5, .93, .66], [.5, .82, .5], [.8, .93, .74]],
-      d: [[.5, .9, 0], [.5, .66, .36], [.8, .66, .5]],
-    };
-  };
+  // where the bottle and the disc sit on each screen (fractions of the screen): bottle x centre, y base, height, tilt;
+  // disc x, y, radius. Hero: standing on the wood; collection: leaning on the disc; features: large, cropped, against the arch.
+  const places = (W, H) => (W < 860 ? {
+    b: [[.56, .9, .46, 0], [.5, .9, .44, -12], [.72, 1.02, .58, -15]],
+    d: [[.5, .9, 0], [.5, .72, .26], [.86, .86, .52]],
+  } : {
+    b: [[.43, .86, .6, 0], [.5, .92, .68, -12], [.8, 1.1, .98, -16]],
+    d: [[.5, .9, 0], [.5, .64, .34], [.86, .82, .62]],
+  });
   const at = (arr, s) => { const i = Math.min(1, Math.floor(s)), t = s - i; return arr[i].map((v, k) => lerp(v, arr[i + 1][k], t)); };
 
   let last = -1;
@@ -36,10 +34,11 @@
     const breathe = Math.sin(now / 2600) * 4;
 
     // the bottle: glides between its three places, leaning a little while it travels
-    const [bx, by, bh] = at(P.b, s), travel = Math.sin((s % 1) * Math.PI) * (s % 1 ? 1 : 0);
+    const [bx, by, bh, tilt] = at(P.b, s);
     const h = bh * H, w = h * 486 / 935;
     bottle.style.height = `${h.toFixed(1)}px`;
-    bottle.style.transform = `translate3d(${(bx * W - w / 2).toFixed(1)}px, ${(by * H - h + breathe).toFixed(1)}px, 0) rotate(${(travel * (s < 1 ? -5 : 6)).toFixed(2)}deg)`;
+    bottle.style.transform = `translate3d(${(bx * W - w / 2).toFixed(1)}px, ${(by * H - h + breathe).toFixed(1)}px, 0) rotate(${tilt.toFixed(2)}deg)`;
+    pin.style.setProperty('--heroBg', clamp(1 - s * 1.4).toFixed(3));
 
     // the disc: grows from nothing under the bottle, then moves and widens behind it
     const [dx, dy, dr] = at(P.d, s), R = dr * H;
