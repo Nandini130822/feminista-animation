@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/lab2/room.webp">
-<link rel="stylesheet" href="lab-room.css?v=2">
+<link rel="stylesheet" href="lab-room.css?v=4">
 </head>
 <body>
 <div class="scene" id="scene" aria-label="Inside the Feminista laboratory">
@@ -26,12 +26,13 @@
     <!-- the workbench, and the bottle standing at its centre -->
     <div class="plane bench" style="--z:-150"><div class="stage">
       <img src="assets/lab2/bench.webp" alt="">
-      <div class="spot"></div>
+      <div class="spot"></div><div class="cone"></div><div class="pool"></div>
       <div class="bottle" id="bottle"><img class="b" id="b-img" src="assets/locken-cut.webp" alt="Locken by Feminista"><img class="r" id="b-refl" src="assets/locken-cut.webp" alt=""></div>
     </div></div>
     <!-- glass close to the eye -->
     <div class="plane fore" style="--z:230"><div class="stage"><img src="assets/lab2/fore.webp" alt=""></div></div>
   </div>
+  <div class="focus"></div>
   <div class="grade"></div>
   <div class="dark" id="dark"></div>
 </div>
