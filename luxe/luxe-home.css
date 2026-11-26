@@ -89,3 +89,8 @@
   .hm-press { flex-direction: column; align-items: center; gap: 16px; }
   .hm-care { grid-template-columns: 1fr; gap: 44px; } .hm-words .quote { min-height: 380px; }
 }
+
+/* the basalt wall, straight after the film (styles from ../site/pwall.css) */
+.pwall { --hh: 0px; --ease-o: cubic-bezier(.19, 1, .22, 1); }
+.pwall a { color: inherit; }
+@media (max-width: 760px) { .pwall { --hh: 0px; padding: 0 0 46px; } .pw-hint { bottom: 16px; font-size: 7.5px; letter-spacing: .2em; padding: 0 12px; } }
