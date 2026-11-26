@@ -1,0 +1,81 @@
+/* FEMINISTA — Maison · refinement. Less interface, more editorial: air, hairlines, grain, one loud thing per screen. */
+
+/* a fine grain over everything, like paper */
+body::after { content: ''; position: fixed; inset: 0; z-index: 150; pointer-events: none; opacity: .055; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* air */
+.sec { padding: clamp(110px, 13vw, 210px) 0; }
+.lede { font-size: 16px; line-height: 1.85; max-width: 44ch; }
+.display { letter-spacing: -.022em; } .h1 { letter-spacing: -.018em; } .h2 { letter-spacing: -.014em; font-size: clamp(34px, 3.8vw, 64px); }
+.eyebrow { font-size: 10px; letter-spacing: .38em; }
+
+/* chapters are numbered, quietly */
+main { counter-reset: ch; }
+.sec-head { counter-increment: ch; align-items: flex-end; }
+.sec-head .eyebrow::before { content: '0' counter(ch) '  —  '; color: var(--noir-60); white-space: pre; }
+
+/* header: thinner, lighter */
+.announce { height: 30px; font-size: 9px; letter-spacing: .34em; }
+.on-hero .head { top: 30px; }
+.head nav, .head .tools { font-size: 10px; letter-spacing: .28em; }
+
+/* hero: one quiet line, low and left; a cue to scroll */
+.h-hero .display { font-size: clamp(38px, 4.4vw, 74px); max-width: 13ch; }
+.h-hero .side p { font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
+.h-hero .link { color: var(--ivory); }
+.h-hero::after { background: linear-gradient(180deg, rgba(9, 9, 9, .5), rgba(9, 9, 9, 0) 28%, rgba(9, 9, 9, 0) 50%, rgba(9, 9, 9, .72)); }
+.cue { position: absolute; z-index: 2; left: 50%; bottom: 26px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font: 600 8.5px/1 var(--sans); letter-spacing: .4em; text-transform: uppercase; color: rgba(241, 233, 230, .7); }
+.cue::after { content: ''; width: 1px; height: 44px; background: linear-gradient(var(--ivory), transparent); transform-origin: top; animation: cue 2.6s var(--slow) infinite; }
+@keyframes cue { 0% { transform: scaleY(0); opacity: 1; } 55% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* the three portraits: taller, stepped, less boxed */
+.portraits { align-items: start; gap: clamp(16px, 2.2vw, 40px); }
+.portrait .rv-img { aspect-ratio: 3 / 4; }
+.portraits .portrait:nth-child(2) { margin-top: clamp(40px, 6vw, 96px); }
+.portraits .portrait:nth-child(3) { margin-top: clamp(80px, 12vw, 192px); }
+.portrait::after { background: linear-gradient(180deg, rgba(9, 9, 9, 0) 52%, rgba(9, 9, 9, .62)); }
+.portrait .cap h3 { font-size: clamp(38px, 3.6vw, 60px); letter-spacing: -.015em; }
+.portrait .cap .row { border-top-color: rgba(241, 233, 230, .22); font-size: 9.5px; letter-spacing: .28em; }
+
+/* who is she: wider quiet, larger voice */
+.who .q { font-size: clamp(22px, 2vw, 30px); }
+.who .h1 { font-size: clamp(44px, 5.4vw, 92px); }
+
+/* the scent finder: a list on hairlines, not a stack of boxes */
+.f-q { gap: 0; border-top: 1px solid var(--line-2); margin-top: 38px; }
+.f-q button { padding: 24px 0; border: 0; border-bottom: 1px solid var(--line-2); font-size: clamp(20px, 1.8vw, 27px); color: var(--noir-60); transition: color .6s var(--ease), padding .8s var(--slow); background: none !important; }
+.f-q button i { color: var(--noir-60) !important; }
+.f-q button:hover { color: var(--noir); padding-left: 10px; }
+.f-q button[aria-pressed="true"] { color: var(--wine); padding-left: 18px; }
+.f-q button[aria-pressed="true"] i { color: var(--wine) !important; }
+.f-a { aspect-ratio: 4 / 5; }
+.finder-in { grid-template-columns: 1.1fr 1fr; align-items: end; }
+
+/* in her words: let the quote be large */
+.quote blockquote { font-size: clamp(26px, 2.9vw, 46px); line-height: 1.32; letter-spacing: -.01em; }
+.quote { min-height: 340px; }
+.q-nav button { border-radius: 50%; }
+.words { grid-template-columns: .8fr 1.6fr; }
+
+/* promises: no boxes */
+.care { border: 0; } .care div { border-left: 0; padding-top: 0; }
+.care b { font-size: 21px; } .care b::before { content: ''; display: block; width: 1px; height: 46px; margin: 0 auto 22px; background: var(--wine); }
+
+/* product cards: quieter */
+.pcard .meta { padding-top: 22px; } .pcard .meta h3 { font-size: 28px; letter-spacing: -.01em; }
+.pcard .tag { color: var(--noir-60); letter-spacing: .32em; }
+
+/* footer: the name, enormous, rising at the very end */
+.foot-word { overflow: hidden; padding: 0 var(--edge); line-height: .78; text-align: center; border-top: 1px solid rgba(241, 233, 230, .12); }
+.foot-word span { display: block; font: 400 clamp(80px, 21vw, 420px)/.86 var(--serif); letter-spacing: -.03em; color: var(--ivory); opacity: .92; transform: translateY(60%); transition: transform 1.8s var(--slow); padding-top: .12em; margin-bottom: -.1em; }
+.foot-word.in span { transform: none; }
+.foot .base { border-top: 0; }
+
+@media (max-width: 900px) {
+  .portraits .portrait:nth-child(2), .portraits .portrait:nth-child(3) { margin-top: 0; }
+  .portrait .rv-img { aspect-ratio: 4 / 5; }
+  .finder-in, .words { grid-template-columns: 1fr; } .f-a { aspect-ratio: 5 / 4; }
+  .cue { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .cue::after { animation: none; } .foot-word span { transform: none; } }

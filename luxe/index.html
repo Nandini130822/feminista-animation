@@ -9,7 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=6">
+<link rel="stylesheet" href="luxe-fine.css?v=1">
 <link rel="stylesheet" href="luxe-motion.css?v=1">
+<link rel="stylesheet" href="luxe-calm.css?v=3">
 <noscript><style>body{opacity:1}</style></noscript>
 </head>
 <body data-page="home" class="on-hero">
@@ -19,8 +21,9 @@
     <video src="../site/video/home-hero.mp4" autoplay muted loop playsinline poster="img/collection-banner-cat.webp"></video>
     <div class="wrap">
       <div><p class="eyebrow">Maison de parfum</p><h1 class="display">Modern femininity, <em>composed.</em></h1></div>
-      <div class="side"><p>Three extraits de parfum, each given nearly 180 days to become itself.</p><a class="btn light" href="fragrances.html">Discover the collection</a></div>
+      <div class="side"><p>Three extraits de parfum, each given nearly 180 days to become itself.</p><a class="link" href="fragrances.html">Discover the collection <i>→</i></a></div>
     </div>
+    <p class="cue" aria-hidden="true">Scroll</p>
   </section>
 
   <!-- 2 · the three banners: each perfume as a portrait -->
@@ -30,8 +33,6 @@
       <div class="portraits" id="portraits"></div>
     </div>
   </section>
-
-  <div class="marquee" aria-hidden="true"><div><span>Locken</span><span>Vers</span><span>Fresca</span><span>Rested 180 days</span><span>Composed by hand</span><span>Created for her</span><span>Locken</span><span>Vers</span><span>Fresca</span><span>Rested 180 days</span><span>Composed by hand</span><span>Created for her</span></div></div>
 
   <!-- 3 · who is she -->
   <section class="sec">
@@ -91,8 +92,8 @@
   </section>
 </main>
 <script src="luxe-data.js?v=1"></script>
-<script src="luxe-shell.js?v=5"></script>
-<script src="luxe-motion.js?v=1"></script>
+<script src="luxe-shell.js?v=6"></script>
+<script src="luxe-motion.js?v=3"></script>
 <script>
   // the three banners, as portraits
   $('#portraits').innerHTML = ['locken', 'vers', 'fresca'].map((k, i) => { const p = PRODUCTS[k];
@@ -108,6 +109,7 @@
   $('#quote').innerHTML = Q.map(([q, n, p], i) => `<figure class="${i ? '' : 'on'}"><blockquote>“${q}”</blockquote><figcaption><b>${n}</b><br>Verified purchase · ${p}</figcaption></figure>`).join('');
   let qi = 0; const qs = $$('#quote figure');
   const showQ = (i) => { qi = (i + Q.length) % Q.length; qs.forEach((f, k) => f.classList.toggle('on', k === qi)); $('#qn').textContent = `0${qi + 1} / 0${Q.length}`; };
+  setInterval(() => showQ(qi + 1), 6000);
   $('#qp').onclick = () => showQ(qi - 1); $('#qx').onclick = () => showQ(qi + 1);
   watchReveals();
 </script>

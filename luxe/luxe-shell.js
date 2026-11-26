@@ -55,6 +55,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
     <div><h4>The House</h4><ul><li><a href="our-story.html">Our Story</a></li><li><a href="art-of-180.html">The Art of 180</a></li><li><a href="account.html">Account</a></li></ul></div>
     <div><h4>Client care</h4><ul><li><a href="contact.html">Contact us</a></li><li><a href="shipping.html">Shipping &amp; delivery</a></li><li><a href="returns.html">Returns &amp; refunds</a></li><li><a href="privacy.html">Privacy policy</a></li></ul></div>
   </div>
+  <div class="foot-word rv-word" aria-hidden="true"><span>Feminista</span></div>
   <div class="wrap base"><p>© ${new Date().getFullYear()} Feminista · Maison de parfum, India · Demo site</p><nav><a href="privacy.html">Privacy</a><a href="returns.html">Returns</a><a href="../index.html">All studies</a></nav></div>
 </footer>`);
 
@@ -91,7 +92,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 
   // quiet reveals
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
-  const watch = () => $$('.rv:not(.in), .rv-img:not(.in)').forEach((el) => io.observe(el));
+  const watch = () => $$('.rv:not(.in), .rv-img:not(.in), .foot-word:not(.in)').forEach((el) => io.observe(el));
   watch(); window.watchReveals = watch;
 })();
 

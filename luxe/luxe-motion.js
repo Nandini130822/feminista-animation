@@ -36,6 +36,8 @@
       } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
     });
     walk(el); el.classList.add('split');
+    const byLine = () => { const tops = []; el.querySelectorAll('.w').forEach((w) => { let k = tops.indexOf(w.offsetTop); if (k < 0) k = tops.push(w.offsetTop) - 1; w.firstChild.style.setProperty('--i', k); }); };
+    byLine(); (document.fonts ? document.fonts.ready : Promise.resolve()).then(byLine);
   }
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2, rootMargin: '0px 0px -8% 0px' });
   function enhance() {
@@ -67,7 +69,7 @@
   }
 
   // ── the cursor ──
-  if (matchMedia('(hover: hover)').matches && !reduce) {
+  if (false) {
     const c = document.createElement('div'); c.className = 'cur'; c.innerHTML = '<span></span>'; body.appendChild(c);
     const lab = c.firstChild; let x = 0, y = 0, tx = 0, ty = 0;
     addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; c.classList.add('on');
