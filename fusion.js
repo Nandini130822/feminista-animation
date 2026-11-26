@@ -13,6 +13,7 @@ import * as I from './ingredients.js';
 const qs = new URLSearchParams(location.search);
 const PREVIEW = qs.has('preview');
 const EMBED = qs.has('embed');
+const SOLO = qs.has('solo');
 if (EMBED) document.body.classList.add('embed');
 const STAGE = document.body.dataset.mode === 'stage';
 const LAB = document.body.dataset.scene === 'lab';
@@ -147,6 +148,7 @@ const R = 4.6, CENTER = new THREE.Vector3(0, 0, -R);
 const track = new THREE.Mesh(new THREE.RingGeometry(R - .012, R + .012, 220), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: .07, blending: THREE.AdditiveBlending, depthWrite: false }));
 track.rotation.x = -Math.PI / 2; track.position.set(CENTER.x, FLOOR_Y + .004, CENTER.z); scene.add(track);
 if (STAGE) { floor.visible = false; track.visible = false; }
+if (SOLO) track.visible = false;
 
 /* ── STAGE mode: a scene behind, a stone pedestal, the name in giant letters ── */
 const stageBg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
@@ -738,6 +740,7 @@ function frame(t, dt) {
     setU(r, 'uDim', (.16 + .84 * front) * quiet);
     setU(r, 'uTime', t);
     r.front = front;
+    if (SOLO) r.group.visible = r.i === active;                    // embedded with &solo: only the chosen perfume
   });
   track.rotation.z = -phi;
   if (STAGE) {
