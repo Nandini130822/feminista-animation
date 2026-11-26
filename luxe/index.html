@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=5">
+<link rel="stylesheet" href="luxe-motion.css?v=1">
+<noscript><style>body{opacity:1}</style></noscript>
 </head>
 <body data-page="home" class="on-hero">
 <main>
@@ -22,15 +24,17 @@
   </section>
 
   <!-- 2 · the three banners: each perfume as a portrait -->
-  <section class="sec">
+  <section class="sec" style="padding-bottom:clamp(60px,7vw,100px)">
     <div class="wrap">
       <div class="sec-head rv"><div><p class="eyebrow">The compositions</p><h2 class="h2">Three fragrances, <em>three sides of her</em></h2></div><a class="link" href="fragrances.html">Shop all <i>→</i></a></div>
       <div class="portraits" id="portraits"></div>
     </div>
   </section>
 
+  <div class="marquee" aria-hidden="true"><div><span>Locken</span><span>Vers</span><span>Fresca</span><span>Rested 180 days</span><span>Composed by hand</span><span>Created for her</span><span>Locken</span><span>Vers</span><span>Fresca</span><span>Rested 180 days</span><span>Composed by hand</span><span>Created for her</span></div></div>
+
   <!-- 3 · who is she -->
-  <section class="sec" style="padding-top:0">
+  <section class="sec">
     <div class="wrap who">
       <figure class="rv-img"><img src="../site/img/who-locken.webp" alt="Locken beside a black cat and a handbag" loading="lazy"></figure>
       <div class="mid rv"><p class="eyebrow">About us</p><h2 class="h1">Who is <em>she</em></h2>
@@ -88,6 +92,7 @@
 </main>
 <script src="luxe-data.js?v=1"></script>
 <script src="luxe-shell.js?v=4"></script>
+<script src="luxe-motion.js?v=1"></script>
 <script>
   // the three banners, as portraits
   $('#portraits').innerHTML = ['locken', 'vers', 'fresca'].map((k, i) => { const p = PRODUCTS[k];
