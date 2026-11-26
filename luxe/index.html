@@ -12,105 +12,95 @@
 <link rel="stylesheet" href="luxe-fine.css?v=1">
 <link rel="stylesheet" href="luxe-motion.css?v=1">
 <link rel="stylesheet" href="luxe-calm.css?v=3">
+<link rel="stylesheet" href="luxe-home.css?v=1">
 <noscript><style>body{opacity:1}</style></noscript>
 </head>
 <body data-page="home" class="on-hero">
 <main>
-  <!-- 1 · a full-bleed film, one quiet line -->
-  <section class="e-hero h-hero">
+  <!-- 1 · the film, with one small caption at its foot -->
+  <section class="hm-hero">
     <video src="../site/video/home-hero.mp4" autoplay muted loop playsinline poster="img/collection-banner-cat.webp"></video>
-    <div class="wrap">
-      <div><p class="eyebrow">Maison de parfum</p><h1 class="display">Modern femininity, <em>composed.</em></h1></div>
-      <div class="side"><p>Three extraits de parfum, each given nearly 180 days to become itself.</p><a class="link" href="fragrances.html">Discover the collection <i>→</i></a></div>
-    </div>
-    <p class="cue" aria-hidden="true">Scroll</p>
-  </section>
-
-  <!-- 2 · the three banners: each perfume as a portrait -->
-  <section class="sec" style="padding-bottom:clamp(60px,7vw,100px)">
-    <div class="wrap">
-      <div class="sec-head rv"><div><p class="eyebrow">The compositions</p><h2 class="h2">Three fragrances, <em>three sides of her</em></h2></div><a class="link" href="fragrances.html">Shop all <i>→</i></a></div>
-      <div class="portraits" id="portraits"></div>
+    <div class="hm-cap">
+      <h1 class="h2">Modern femininity, <em>composed</em></h1>
+      <p>Three extraits de parfum, each given nearly 180 days to become itself.</p>
+      <a class="link" href="fragrances.html">Discover the collection</a>
     </div>
   </section>
 
-  <!-- 3 · who is she -->
-  <section class="sec">
-    <div class="wrap who">
-      <figure class="rv-img"><img src="../site/img/who-locken.webp" alt="Locken beside a black cat and a handbag" loading="lazy"></figure>
-      <div class="mid rv"><p class="eyebrow">About us</p><h2 class="h1">Who is <em>she</em></h2>
-        <p class="q">She is never just one thing. Neither is Feminista.</p>
-        <p class="lede">A world of fragrances for every side of her — the familiar, the unexpected, and the ones she keeps to herself.</p>
-        <a class="link" href="our-story.html">Discover our story <i>→</i></a></div>
-      <figure class="rv-img"><img src="img/who-is-she-legs.webp" alt="A woman in heels on a red velvet chair, beside a black cat" loading="lazy"></figure>
-    </div>
+  <!-- 2 · a few words -->
+  <section class="hm-say">
+    <p class="eyebrow rv">The House of Feminista</p>
+    <h2 class="h1 rv">She is never just one thing. <em>Neither is Feminista.</em></h2>
+    <p class="lede rv">A world of fragrances for every side of her — the familiar, the unexpected, and the ones she keeps to herself.</p>
+    <a class="link rv" href="our-story.html">Discover our story</a>
   </section>
 
-  <!-- 4 · try all three first -->
-  <section class="set">
+  <!-- 3 · the three banners, as tiles -->
+  <section class="hm-tiles wrap" id="tiles"></section>
+
+  <!-- 4 · half and half, edge to edge -->
+  <section class="hm-half">
+    <figure class="rv-img"><img src="img/who-is-she-legs.webp" alt="A woman in heels on a red velvet chair, beside a black cat" loading="lazy"></figure>
+    <div class="hm-txt"><div class="rv">
+      <p class="eyebrow">About us</p><h2 class="h2">Who is <em>she</em></h2>
+      <p>Feminista was born from a simple belief — that every woman deserves a fragrance as unique as her story.</p>
+      <a class="btn" href="our-story.html">Our story</a></div></div>
+  </section>
+  <section class="hm-half flip">
     <figure class="rv-img"><img src="img/discovery-set-banner.webp" alt="The Feminista Discovery Set case beside three travel sprays" loading="lazy"></figure>
-    <div class="set-in rv"><p class="eyebrow">The Discovery Set</p><h2 class="h2">More than one way <em>to be her.</em></h2>
-      <p>Different moods. Different moments. Three fragrances waiting to become part of your story — Locken, Vers and Fresca in 10 ml, to wear before you choose.</p>
-      <p class="price"><s>₹3,600</s>₹2,500 <span>· 3 × 10 ml</span></p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn light" type="button" data-add="discovery-set">Add to bag</button><a class="btn ghost" href="product.html?p=discovery-set">Discover the set</a></div></div>
+    <div class="hm-txt"><div class="rv">
+      <p class="eyebrow">The Discovery Set</p><h2 class="h2">More than one way <em>to be her</em></h2>
+      <p>Different moods. Different moments. Three fragrances waiting to become part of your story.</p>
+      <p class="hm-price">₹2,500 · 3 × 10 ml</p>
+      <button class="btn" type="button" data-add="discovery-set">Add to bag</button><br><a class="link" href="product.html?p=discovery-set">Discover the set</a></div></div>
   </section>
 
-  <!-- 5 · the scent finder -->
-  <section class="sec finder">
-    <div class="wrap finder-in">
-      <div><p class="eyebrow rv">The scent finder</p><h2 class="h2 rv">Which one is <em>hers?</em></h2><p class="lede rv">Choose the moment, and we will show you the composition made for it.</p>
-        <div class="f-q rv" id="fq">
-          <button type="button" data-k="locken" aria-pressed="true">An evening she will be remembered for<i>01</i></button>
-          <button type="button" data-k="vers" aria-pressed="false">Every day, close to the skin<i>02</i></button>
-          <button type="button" data-k="fresca" aria-pressed="false">A bright, spontaneous day<i>03</i></button>
-          <button type="button" data-k="discovery-set" aria-pressed="false">She would rather try them all<i>04</i></button>
-        </div></div>
-      <div class="f-a rv" id="fa"></div>
-    </div>
-  </section>
-
-  <!-- 6 · the craft -->
-  <section class="band">
+  <!-- 5 · one wide picture -->
+  <section class="hm-panel">
     <img src="img/art-of-180-locken-loom.webp" alt="Locken on folded linen beside a hand spindle" loading="lazy">
-    <div class="wrap rv"><p class="eyebrow">180 days in the making.</p><h2 class="h1">Made to be<br><em>remembered</em></h2><a class="link" href="art-of-180.html">Explore the Art of 180 <i>→</i></a></div>
+    <div class="hm-cap dark rv"><p class="eyebrow">180 days in the making</p><h2 class="h2">Made to be <em>remembered</em></h2><a class="link" href="art-of-180.html">Explore the Art of 180</a></div>
+  </section>
+
+  <!-- 6 · the three, on one tone -->
+  <section class="hm-shelf">
+    <div class="hm-shelf-head rv"><p class="eyebrow">The collection</p><h2 class="h2">Find your <em>essence</em></h2></div>
+    <div class="shelf" id="shelf"></div>
   </section>
 
   <!-- 7 · in her words -->
-  <section class="sec">
-    <div class="wrap words">
-      <div class="rv"><p class="eyebrow">Testimonials</p><h2 class="h2" style="margin-top:14px">In her <em>words</em></h2><p class="lede" style="margin-top:14px">What the women who wear Feminista have to say.</p>
-        <div class="press"><span>As featured in</span><b>THE TIMES OF INDIA</b><i>Femina</i></div></div>
-      <div class="rv d1"><div class="quote" id="quote"></div><div class="q-nav"><button type="button" id="qp" aria-label="Previous">←</button><span id="qn">01 / 02</span><button type="button" id="qx" aria-label="Next">→</button></div></div>
-    </div>
+  <section class="hm-words">
+    <p class="eyebrow rv">In her words</p>
+    <div class="quote rv" id="quote"></div>
+    <p class="hm-press rv"><span>As featured in</span><b>THE TIMES OF INDIA</b><i>Femina</i></p>
   </section>
 
-  <!-- 8 · the House's promises -->
-  <section class="wrap care" style="margin-bottom:clamp(90px,10vw,140px)">
-    <div class="rv"><b>Complimentary shipping</b><p>On every order, across India.</p></div>
-    <div class="rv d1"><b>Delivered within 7 days</b><p>Packed by hand, sealed and cushioned.</p></div>
-    <div class="rv d2"><b>100% authentic, always</b><p>Composed, rested and bottled by the House.</p></div>
+  <!-- 8 · at her service -->
+  <section class="hm-care wrap">
+    <div class="rv"><svg viewBox="0 0 48 48"><path d="M5 14h24v18H5zM29 20h8l6 6v6H29z"/><circle cx="13" cy="35" r="3"/><circle cx="36" cy="35" r="3"/></svg><b>Complimentary shipping</b><p>On every order, across India.</p></div>
+    <div class="rv d1"><svg viewBox="0 0 48 48"><circle cx="24" cy="26" r="15"/><path d="M24 16v10l7 4M19 6h10"/></svg><b>Delivered within 7 days</b><p>Packed by hand, sealed and cushioned.</p></div>
+    <div class="rv d2"><svg viewBox="0 0 48 48"><path d="M18 6h12M20 6v9h8V6M15 19a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v19a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4zM20 29l3 3 6-7"/></svg><b>100% authentic, always</b><p>Composed, rested and bottled by the House.</p></div>
   </section>
 </main>
 <script src="luxe-data.js?v=1"></script>
 <script src="luxe-shell.js?v=6"></script>
 <script src="luxe-motion.js?v=3"></script>
 <script>
-  // the three banners, as portraits
-  $('#portraits').innerHTML = ['locken', 'vers', 'fresca'].map((k, i) => { const p = PRODUCTS[k];
-    return `<a class="portrait rv d${i + 1}" href="product.html?p=${k}"><div class="rv-img"><img src="${BANNER[k]}" alt="${p.name} by Feminista" loading="lazy"></div>
-      <div class="cap"><small>${p.tag}</small><h3>${p.name}</h3><p>${p.tagline}</p><div class="row"><span>${p.notes[0].slice(0, 3).join(' · ')}</span><span>${inr(p.price)} →</span></div></div></a>`; }).join('');
-  // the scent finder
-  $('#fa').innerHTML = ORDER.map((k) => { const p = PRODUCTS[k]; return `<a href="product.html?p=${k}" data-k="${k}" class="${k === 'locken' ? 'on' : ''}"><img src="${BANNER[k]}" alt="" loading="lazy">
-    <div class="cap"><div><small>${p.tag}</small><b>${p.name}</b></div><span>Discover · ${inr(p.price)}</span></div></a>`; }).join('');
-  $$('#fq button').forEach((b) => b.addEventListener('click', () => { $$('#fq button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); $$('#fa a').forEach((a) => a.classList.toggle('on', a.dataset.k === b.dataset.k)); }));
-  // testimonials (from feminista.co.in)
+  const TRIO = ['locken', 'vers', 'fresca'];
+  // the three banners, as tiles
+  $('#tiles').innerHTML = TRIO.map((k, i) => { const p = PRODUCTS[k];
+    return `<a class="tile rv d${i + 1}" href="product.html?p=${k}"><div class="rv-img"><img src="${BANNER[k]}" alt="${p.name} by Feminista" loading="lazy"></div>
+      <small>${p.tag}</small><h3>${p.name}</h3><p>${p.tagline}</p><span class="link">Discover</span></a>`; }).join('');
+  // the three bottles on one tone
+  $('#shelf').innerHTML = TRIO.map((k, i) => { const p = PRODUCTS[k];
+    return `<article class="cell rv d${i + 1}"><a href="product.html?p=${k}" class="cell-img"><img src="${CUT[k]}" alt="${p.name} by Feminista" loading="lazy"></a>
+      <h3><a href="product.html?p=${k}">${p.name}</a></h3><p>${p.notes.flat().slice(0, 3).join(' · ')}</p><b>${inr(p.price)}</b><button type="button" class="link" data-add="${k}">Add to bag</button></article>`; }).join('');
+  // testimonials (from feminista.co.in), one voice at a time
   const Q = [["Locken doesn't just smell expensive, it feels considered. I've had three people stop me on the street to ask what I'm wearing. That has never happened before.", 'Ananya R.', 'Locken'],
              ["Vers is the first fragrance I've worn daily without getting tired of it. Soft, warm, never shouting. It genuinely feels like it was made for how I actually want to smell.", 'Meera S.', 'Vers']];
-  $('#quote').innerHTML = Q.map(([q, n, p], i) => `<figure class="${i ? '' : 'on'}"><blockquote>“${q}”</blockquote><figcaption><b>${n}</b><br>Verified purchase · ${p}</figcaption></figure>`).join('');
-  let qi = 0; const qs = $$('#quote figure');
-  const showQ = (i) => { qi = (i + Q.length) % Q.length; qs.forEach((f, k) => f.classList.toggle('on', k === qi)); $('#qn').textContent = `0${qi + 1} / 0${Q.length}`; };
-  setInterval(() => showQ(qi + 1), 6000);
-  $('#qp').onclick = () => showQ(qi - 1); $('#qx').onclick = () => showQ(qi + 1);
+  $('#quote').innerHTML = Q.map(([q, n, p], i) => `<figure class="${i ? '' : 'on'}"><blockquote>“${q}”</blockquote><figcaption><b>${n}</b> · Verified purchase · ${p}</figcaption></figure>`).join('');
+  let qi = 0; const qs = $$('#quote figure'); setInterval(() => { qi = (qi + 1) % Q.length; qs.forEach((f, k) => f.classList.toggle('on', k === qi)); }, 6500);
+  // the wide picture drifts as it passes
+  $('.hm-panel > img').dataset.par = '1';
   watchReveals();
 </script>
 </body>

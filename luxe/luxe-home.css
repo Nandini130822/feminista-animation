@@ -1,0 +1,91 @@
+/* FEMINISTA — Maison · the home page, composed from what the houses do:
+   a film with a caption at its foot (Malle, Amouage) · tiles with a line beneath (Kilian, Malle) ·
+   half-and-half blocks edge to edge (Diptyque, Marly) · one wide panel (Amouage) · bottles on one tone, split by hairlines (Amouage) · a fine service row (Diptyque). */
+
+/* captions sit centred at the foot of a picture */
+.hm-cap { position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(34px, 7vh, 76px); padding: 0 var(--edge); text-align: center; color: var(--ivory); }
+.hm-cap .h2 { font-size: clamp(30px, 3.2vw, 52px); }
+.hm-cap .h2 em { color: var(--sand); }
+.hm-cap p:not(.eyebrow) { margin: 12px auto 18px; max-width: 44ch; font-size: 14.5px; color: rgba(241, 233, 230, .88); }
+.hm-cap .eyebrow { color: var(--sand); margin-bottom: 14px; }
+.hm-cap.dark { color: var(--noir); } .hm-cap.dark .h2 em { color: var(--wine); } .hm-cap.dark .eyebrow { color: #5a3a22; } .hm-cap.dark .h2 { margin-bottom: 18px; }
+
+/* 1 · hero */
+.hm-hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: var(--noir); }
+.hm-hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: breathe 30s ease-in-out infinite alternate; }
+.hm-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 9, 9, .42), rgba(9, 9, 9, 0) 26%, rgba(9, 9, 9, 0) 52%, rgba(9, 9, 9, .66)); }
+
+/* 2 · a few words */
+.hm-say { padding: clamp(100px, 16vh, 190px) var(--edge) clamp(80px, 12vh, 140px); text-align: center; }
+.hm-say .h1 { max-width: 20ch; margin: 22px auto 22px; font-size: clamp(32px, 3.6vw, 60px); }
+.hm-say .lede { margin: 0 auto 26px; }
+
+/* 3 · tiles */
+.hm-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.8vw, 30px); padding-bottom: clamp(100px, 16vh, 190px); }
+.tile { display: block; text-align: center; }
+.tile .rv-img { aspect-ratio: 4 / 5; overflow: hidden; }
+.tile img { width: 100%; height: 100%; object-fit: cover; }
+.tile:hover .rv-img.in img { transform: scale(1.035); }
+.tile small { display: block; margin-top: 24px; font: 500 10.5px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: rgba(9, 9, 9, .55); }
+.tile h3 { margin: 12px 0 6px; font: 400 clamp(26px, 2.2vw, 34px)/1.1 var(--serif); }
+.tile p { font: italic 400 15px/1.4 var(--serif); color: rgba(9, 9, 9, .6); margin-bottom: 16px; }
+
+/* 4 · half and half */
+.hm-half { display: grid; grid-template-columns: 1fr 1fr; }
+.hm-half figure { aspect-ratio: 1 / 1.02; overflow: hidden; }
+.hm-half figure img { width: 100%; height: 100%; object-fit: cover; }
+.hm-half.flip figure { order: 2; }
+.hm-txt { display: grid; place-items: center; padding: 60px var(--edge); text-align: center; background: var(--paper); }
+.hm-half.flip .hm-txt { background: var(--sand-20); }
+.hm-txt > div { max-width: 400px; }
+.hm-txt .h2 { margin: 16px 0 16px; }
+.hm-txt p:not(.eyebrow) { color: rgba(9, 9, 9, .7); margin-bottom: 26px; }
+.hm-txt .hm-price { margin: -8px 0 24px !important; font-size: 14px; letter-spacing: .04em; color: var(--noir) !important; }
+.hm-txt .btn + br + .link { margin-top: 20px; }
+
+/* 5 · one wide panel */
+.hm-panel { position: relative; height: 92vh; min-height: 520px; overflow: hidden; }
+.hm-panel > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 78% center; }
+.hm-panel .hm-cap { left: 0; right: 50%; bottom: auto; top: 50%; transform: translateY(-50%); text-align: left; padding-left: var(--edge); }
+.hm-panel .hm-cap.rv { transform: translateY(calc(-50% + 20px)); } .hm-panel .hm-cap.rv.in { transform: translateY(-50%); }
+.hm-panel .hm-cap .h2 { font-size: clamp(36px, 4.4vw, 72px); }
+
+/* 6 · the shelf: three bottles, one tone, one horizon */
+.hm-shelf { padding: clamp(100px, 16vh, 190px) 0 0; }
+.hm-shelf-head { text-align: center; margin-bottom: clamp(40px, 6vh, 70px); } .hm-shelf-head .h2 { margin-top: 14px; }
+.shelf { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--sand-40); }
+.cell { padding: 0 20px clamp(34px, 5vh, 54px); border-left: 1px solid rgba(9, 9, 9, .1); text-align: center; }
+.cell:first-child { border-left: 0; }
+.cell-img { position: relative; display: block; height: clamp(300px, 46vh, 480px); }
+.cell-img::after { content: ''; position: absolute; left: 50%; bottom: 13%; width: 38%; height: 5%; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(9, 9, 9, .22), transparent); }
+.cell-img img { position: absolute; z-index: 1; left: 50%; bottom: 15%; height: 66%; width: auto; max-width: none; transform: translateX(-50%); transition: transform 1.2s var(--slow); }
+.cell:hover .cell-img img { transform: translate(-50%, -10px); }
+.cell h3 { font: 400 clamp(24px, 2vw, 30px)/1.1 var(--serif); }
+.cell p { margin: 8px 0 10px; font: 500 10.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: rgba(9, 9, 9, .55); }
+.cell button.link { background: none; border: 0; padding: 0 0 6px; color: inherit; cursor: pointer; }
+.hm-txt .link { margin-top: 20px; }
+.cell b { display: block; font-weight: 400; font-size: 14px; margin-bottom: 16px; }
+
+/* 7 · one voice */
+.hm-words { padding: clamp(110px, 18vh, 210px) var(--edge); text-align: center; }
+.hm-words .quote { position: relative; max-width: 900px; min-height: 280px; margin: 34px auto 0; }
+.hm-words .quote blockquote { font: italic 400 clamp(22px, 2.3vw, 36px)/1.45 var(--serif); }
+.hm-words .quote figcaption { margin-top: 26px; font: 500 10.5px/1.6 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: rgba(9, 9, 9, .55); } .hm-words figcaption b { color: var(--noir); font-weight: 500; }
+.hm-press { display: flex; justify-content: center; align-items: baseline; gap: 28px; flex-wrap: wrap; margin-top: 30px; padding-top: 30px; }
+.hm-press span { font: 500 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: rgba(9, 9, 9, .5); }
+.hm-press b { font: 500 19px/1 var(--serif); } .hm-press i { font: italic 400 23px/1 var(--serif); }
+
+/* 8 · at her service */
+.hm-care { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding-top: clamp(50px, 7vh, 80px); padding-bottom: clamp(90px, 14vh, 160px); border-top: 1px solid var(--line); text-align: center; }
+.hm-care svg { width: 46px; height: 46px; fill: none; stroke: var(--noir); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 18px; }
+.hm-care b { display: block; font: 400 20px/1.2 var(--serif); } .hm-care p { margin-top: 6px; font-size: 13.5px; color: rgba(9, 9, 9, .6); }
+
+@media (max-width: 900px) {
+  .hm-tiles { grid-template-columns: 1fr; gap: 50px; } .tile .rv-img { aspect-ratio: 16 / 11; }
+  .hm-half { grid-template-columns: 1fr; } .hm-half.flip figure { order: 0; } .hm-half figure { aspect-ratio: 4 / 3; } .hm-txt { padding: 60px var(--edge) 70px; }
+  .hm-panel { height: 78vh; } .hm-panel > img { object-position: 82% center; }
+  .hm-panel .hm-cap { right: 0; top: auto; bottom: 40px; transform: none !important; text-align: center; padding: 0 var(--edge); } .hm-panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(249, 241, 234, .92), rgba(249, 241, 234, 0) 55%); }
+  .shelf { grid-template-columns: 1fr; } .cell { border-left: 0; border-top: 1px solid rgba(9, 9, 9, .1); } .cell:first-child { border-top: 0; }
+  .hm-press { flex-direction: column; align-items: center; gap: 16px; }
+  .hm-care { grid-template-columns: 1fr; gap: 44px; } .hm-words .quote { min-height: 380px; }
+}
