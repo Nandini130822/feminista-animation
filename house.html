@@ -181,6 +181,26 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
 }
 .two.three { grid-template-columns: repeat(3, 1fr); } .two.three figure { aspect-ratio: 1 / .9; } .two.three .copy { max-width: 30ch; }
 @media (max-width: 820px) { .two.three { grid-template-columns: 1fr; } }
+/* the index: titles on the left, the picture on the right */
+.index { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(30px, 7vw, 120px); padding-inline: var(--edge); }
+.ix-list { padding-left: clamp(0px, 4vw, 70px); } .ix-list .label { margin-bottom: 22px; }
+.index ol { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--line); }
+.index li a { display: grid; grid-template-columns: 34px 1fr auto; align-items: baseline; gap: 14px; padding: clamp(18px, 2vw, 28px) 0; border-top: 1px solid var(--line); color: rgba(9, 9, 9, .34); transition: color .6s var(--ease), padding .7s var(--ease); }
+.index li a i { font: 500 10.5px/1 var(--sans); letter-spacing: .14em; font-style: normal; }
+.index li a b { display: block; font: 400 clamp(26px, 3.1vw, 48px)/1.12 var(--serif); letter-spacing: -.008em; }
+.index li a em { display: block; max-height: 0; overflow: hidden; opacity: 0; font: 400 13px/1.7 var(--sans); font-style: normal; color: var(--mute); transition: max-height .8s var(--ease), opacity .6s var(--ease), margin .8s var(--ease); }
+.index li a u { text-decoration: none; font: 600 10.5px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; opacity: 0; transform: translateX(-8px); transition: opacity .5s var(--ease), transform .7s var(--ease); }
+.index li a.on { color: var(--noir); } .index li a.on em { max-height: 60px; opacity: 1; margin-top: 10px; } .index li a.on u { opacity: 1; transform: none; }
+.ix-pic { position: relative; aspect-ratio: 1 / .92; overflow: hidden; background: var(--pale); }
+.ix-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; scale: 1.07; transition: opacity 1s var(--ease), scale 2.4s var(--ease); } .ix-pic img.on { opacity: 1; scale: 1; }
+/* one quiet line of services */
+.line { display: grid; grid-template-columns: repeat(4, 1fr); margin: clamp(80px, 11vw, 160px) var(--edge) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.line p { padding: 26px 18px; text-align: center; color: var(--mute); font-size: 12px; } .line p + p { border-left: 1px solid var(--line); }
+.line b { display: block; margin-bottom: 3px; color: var(--noir); font: 700 10.5px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+@media (max-width: 820px) {
+  .index { grid-template-columns: 1fr; } .ix-pic { order: -1; aspect-ratio: 1; } .ix-list { padding-left: 0; }
+  .line { grid-template-columns: 1fr 1fr; } .line p:nth-child(3) { border-left: 0; } .line p:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
 </style>
 </head>
 <body>
@@ -211,39 +231,38 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
     <div class="trio" id="trio"></div>
   </section>
 
-  <!-- 3 · the discovery set, on brand-kit Wine (Valentino) -->
-  <section class="band">
-    <figure class="cv"><img src="site/img/p-set-3.webp" alt="The Discovery Set case, open, with three travel sprays" loading="lazy"></figure>
-    <div class="say"><p class="label rv">The Discovery Set</p><h2 class="serif rv" style="--d:1">More than one way <em>to be her</em></h2>
-      <p class="rv" style="--d:2">Locken, Vers and Fresca in 10 ml, to wear before you choose.</p><p class="pr rv" style="--d:2">₹2,500 · 3 × 10 ml</p>
-      <p class="rv" style="--d:3"><button class="box" type="button" data-add="Discovery Set">Add to bag</button><a class="u" href="luxe/product.html?p=discovery-set">Discover the set</a></p></div>
-  </section>
-
   <!-- 4 · two tall pictures, side by side, the words on them (Gucci) -->
   <section class="duo">
     <a href="luxe/our-story.html"><img src="site/img/stairs.webp" alt="A woman on a staircase holding Locken" loading="lazy"><span class="on"><b>Who is she</b><i>She is never just one thing. Neither is Feminista.</i><u class="u">Our story</u></span></a>
     <a href="luxe/fragrances.html"><img src="site/img/p-locken-4.webp" alt="A woman holding Locken" loading="lazy"><span class="on"><b>Created for her</b><i>Never adapted to her.</i><u class="u">Find yours</u></span></a>
   </section>
 
-  <!-- 7 · two stories -->
-  <section>
-    <div class="two three">
-      <a href="luxe/our-story.html"><figure class="cv"><img src="site/img/story-flatlay.webp" alt="" loading="lazy"></figure><div class="txt"><h3 class="caps rv">Our Story</h3><p class="copy rv" style="--d:1">Where the House began, and the women it was made for.</p><span class="u rv" style="--d:2">Discover</span></div></a>
-      <a href="luxe/art-of-180.html"><figure class="cv" style="--d:1"><img src="site/img/maturation.webp" alt="" loading="lazy"></figure><div class="txt"><h3 class="caps rv">Inside the Laboratory</h3><p class="copy rv" style="--d:1">Blending, maturation and evaluation, one unhurried step at a time.</p><span class="u rv" style="--d:2">Discover</span></div></a>
-      <a href="luxe/art-of-180.html"><figure class="cv" style="--d:2"><img src="luxe/img/art-of-180-locken-loom.webp" alt="Locken on folded linen beside a hand spindle" loading="lazy" style="object-position:86% center"></figure><div class="txt"><h3 class="caps rv">The Art of 180</h3><p class="copy rv" style="--d:1">Composed by hand, then left to rest for 180 days.</p><span class="u rv" style="--d:2">Explore</span></div></a>
+  <!-- the House, as an index: large titles, one picture that follows them -->
+  <section class="index" id="index">
+    <div class="ix-list">
+      <p class="label rv">The House</p>
+      <ol>
+        <li><a href="luxe/our-story.html" data-i="0" class="on"><i>01</i><span><b>Our Story</b><em>Where the House began, and the women it was made for.</em></span><u>Discover</u></a></li>
+        <li><a href="luxe/art-of-180.html" data-i="1"><i>02</i><span><b>Inside the Laboratory</b><em>Blending, maturation and evaluation, one unhurried step at a time.</em></span><u>Discover</u></a></li>
+        <li><a href="luxe/art-of-180.html" data-i="2"><i>03</i><span><b>The Art of 180</b><em>Composed by hand, then left to rest for 180 days.</em></span><u>Explore</u></a></li>
+        <li><a href="luxe/product.html?p=discovery-set" data-i="3"><i>04</i><span><b>The Discovery Set</b><em>Locken, Vers and Fresca in 10 ml, to wear before you choose. ₹2,500.</em></span><u>Discover</u></a></li>
+      </ol>
     </div>
+    <figure class="ix-pic">
+      <img class="on" src="site/img/story-flatlay.webp" alt="Locken among orange, vanilla and orchid" loading="lazy">
+      <img src="site/img/maturation.webp" alt="Locken, Vers and Fresca on the laboratory bench" loading="lazy">
+      <img src="luxe/img/art-of-180-locken-loom.webp" alt="Locken on folded linen beside a hand spindle" loading="lazy" style="object-position:84% center">
+      <img src="site/img/p-set-3.webp" alt="The Discovery Set case, open, with three travel sprays" loading="lazy">
+    </figure>
   </section>
 
-  <!-- every detail considered: four small pictures (Creed) -->
-  <section>
-    <div class="head"><h2 class="caps rv">Every detail considered</h2></div>
-    <div class="four">
-      <div class="rv"><figure><img src="site/img/p-locken-1.webp" alt="" loading="lazy"></figure><b>Complimentary shipping</b><p>On every order, across India.</p></div>
-      <div class="rv" style="--d:1"><figure><img src="site/img/p-vers-1.webp" alt="" loading="lazy"></figure><b>Delivered within 7 days</b><p>Packed by hand, sealed and cushioned.</p></div>
-      <div class="rv" style="--d:2"><figure><img src="site/img/p-set-2.webp" alt="" loading="lazy"></figure><b>Try before you choose</b><p>All three in the Discovery Set.</p></div>
-      <div class="rv" style="--d:3"><figure><img src="site/img/story-dropper.webp" alt="" loading="lazy"></figure><b>100% authentic, always</b><p>Composed, rested and bottled by the House.</p></div>
-    </div>
-  </section>
+  <!-- at her service: one quiet line -->
+  <div class="line">
+    <p class="rv"><b>Complimentary shipping</b>On every order, across India</p>
+    <p class="rv" style="--d:1"><b>Delivered within 7 days</b>Packed by hand, sealed and cushioned</p>
+    <p class="rv" style="--d:2"><b>Try before you choose</b>All three in the Discovery Set</p>
+    <p class="rv" style="--d:3"><b>100% authentic, always</b>Bottled by the House</p>
+  </div>
 </main>
 
 <footer>
@@ -273,6 +292,13 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
   // a quiet toast and a bag count
   let bag = 0, tt; const say = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2200); };
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-add]'); if (!b) return; bag += 1; $('#bagN').textContent = bag; say(`${b.dataset.add} added to bag`); });
+
+  // the index: the picture follows the title under the pointer; left alone, it moves on by itself
+  (() => { const links = [...document.querySelectorAll('#index li a')], pics = [...document.querySelectorAll('#index .ix-pic img')]; let k = 0, held = false;
+    const show = (i) => { k = i; links.forEach((a, j) => a.classList.toggle('on', j === i)); pics.forEach((im, j) => im.classList.toggle('on', j === i)); };
+    links.forEach((a, i) => { a.addEventListener('pointerenter', () => { held = true; show(i); }); a.addEventListener('focus', () => { held = true; show(i); }); });
+    document.querySelector('#index ol').addEventListener('pointerleave', () => { held = false; });
+    setInterval(() => { if (!held && document.querySelector('#index').getBoundingClientRect().top < innerHeight) show((k + 1) % links.length); }, 4200); })();
 
   // reveals
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
