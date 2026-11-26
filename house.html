@@ -201,6 +201,17 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
   .index { grid-template-columns: 1fr; } .ix-pic { order: -1; aspect-ratio: 1; } .ix-list { padding-left: 0; }
   .line { grid-template-columns: 1fr 1fr; } .line p:nth-child(3) { border-left: 0; } .line p:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
+/* the rail */
+.rail { overflow: hidden; }
+.rail-head { display: flex; justify-content: space-between; align-items: center; padding: 0 var(--edge); margin-bottom: clamp(22px, 2.6vw, 36px); }
+.rail-nav { display: flex; align-items: center; gap: 16px; font: 500 11px/1 var(--sans); letter-spacing: .12em; } .rail-nav button { width: 38px; height: 38px; border: 1px solid var(--line); font-size: 15px; transition: background .4s var(--ease), color .4s var(--ease), border-color .4s; } .rail-nav button:hover { background: var(--noir); color: #fff; border-color: var(--noir); }
+.rail-track { display: flex; gap: clamp(8px, 1vw, 16px); padding: 0 var(--edge); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--edge); scrollbar-width: none; cursor: grab; } .rail-track::-webkit-scrollbar { display: none; }
+.rail-track.drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.slide { flex: 0 0 clamp(260px, 37vw, 620px); scroll-snap-align: start; } .slide:last-child { margin-right: var(--edge); }
+.slide figure { aspect-ratio: 4 / 4.7; overflow: hidden; background: var(--pale); margin-bottom: 18px; } .slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 2s var(--ease); pointer-events: none; } .slide:hover img { transform: scale(1.035); }
+.slide b { display: block; font: 700 clamp(13px, 1.1vw, 15px)/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; } .slide p { margin: 4px 0 10px; max-width: 38ch; color: var(--mute); font-size: 12.5px; }
+.rail-bar { position: relative; height: 1px; margin: clamp(28px, 3vw, 44px) var(--edge) 0; background: var(--line); overflow: hidden; } .rail-bar i { position: absolute; left: 0; top: 0; height: 100%; width: 40%; background: var(--noir); transition: transform .3s linear; }
+@media (max-width: 820px) { .slide { flex-basis: 76vw; } .rail-nav button { display: none; } }
 </style>
 </head>
 <body>
@@ -237,23 +248,17 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
     <a href="luxe/fragrances.html"><img src="site/img/p-locken-4.webp" alt="A woman holding Locken" loading="lazy"><span class="on"><b>Created for her</b><i>Never adapted to her.</i><u class="u">Find yours</u></span></a>
   </section>
 
-  <!-- the House, as an index: large titles, one picture that follows them -->
-  <section class="index" id="index">
-    <div class="ix-list">
-      <p class="label rv">The House</p>
-      <ol>
-        <li><a href="luxe/our-story.html" data-i="0" class="on"><i>01</i><span><b>Our Story</b><em>Where the House began, and the women it was made for.</em></span><u>Discover</u></a></li>
-        <li><a href="luxe/art-of-180.html" data-i="1"><i>02</i><span><b>Inside the Laboratory</b><em>Blending, maturation and evaluation, one unhurried step at a time.</em></span><u>Discover</u></a></li>
-        <li><a href="luxe/art-of-180.html" data-i="2"><i>03</i><span><b>The Art of 180</b><em>Composed by hand, then left to rest for 180 days.</em></span><u>Explore</u></a></li>
-        <li><a href="luxe/product.html?p=discovery-set" data-i="3"><i>04</i><span><b>The Discovery Set</b><em>Locken, Vers and Fresca in 10 ml, to wear before you choose. ₹2,500.</em></span><u>Discover</u></a></li>
-      </ol>
+  <!-- the House, as a rail: tall pictures that slide sideways, the next one always in sight (Chanel, Tom Ford) -->
+  <section class="rail" id="rail">
+    <div class="rail-head"><h2 class="caps rv">The House</h2>
+      <div class="rail-nav rv" style="--d:1"><button type="button" id="rp" aria-label="Previous">←</button><span id="rn">1 / 4</span><button type="button" id="rx" aria-label="Next">→</button></div></div>
+    <div class="rail-track" id="track">
+      <a class="slide" href="luxe/our-story.html"><figure><img src="site/img/story-flatlay.webp" alt="Locken among orange, vanilla and orchid" loading="lazy" draggable="false"></figure><b>Our Story</b><p>Where the House began, and the women it was made for.</p><span class="u">Discover</span></a>
+      <a class="slide" href="luxe/art-of-180.html"><figure><img src="site/img/maturation.webp" alt="Locken, Vers and Fresca on the laboratory bench" loading="lazy" draggable="false"></figure><b>Inside the Laboratory</b><p>Blending, maturation and evaluation, one unhurried step at a time.</p><span class="u">Discover</span></a>
+      <a class="slide" href="luxe/art-of-180.html"><figure><img src="luxe/img/art-of-180-locken-loom.webp" alt="Locken on folded linen beside a hand spindle" loading="lazy" draggable="false" style="object-position:84% center"></figure><b>The Art of 180</b><p>Composed by hand, then left to rest for 180 days.</p><span class="u">Explore</span></a>
+      <a class="slide" href="luxe/product.html?p=discovery-set"><figure><img src="site/img/p-set-3.webp" alt="The Discovery Set case, open, with three travel sprays" loading="lazy" draggable="false"></figure><b>The Discovery Set</b><p>Locken, Vers and Fresca in 10 ml, to wear before you choose. ₹2,500.</p><span class="u">Discover</span></a>
     </div>
-    <figure class="ix-pic">
-      <img class="on" src="site/img/story-flatlay.webp" alt="Locken among orange, vanilla and orchid" loading="lazy">
-      <img src="site/img/maturation.webp" alt="Locken, Vers and Fresca on the laboratory bench" loading="lazy">
-      <img src="luxe/img/art-of-180-locken-loom.webp" alt="Locken on folded linen beside a hand spindle" loading="lazy" style="object-position:84% center">
-      <img src="site/img/p-set-3.webp" alt="The Discovery Set case, open, with three travel sprays" loading="lazy">
-    </figure>
+    <div class="rail-bar" aria-hidden="true"><i id="rb"></i></div>
   </section>
 
   <!-- at her service: one quiet line -->
@@ -293,12 +298,17 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
   let bag = 0, tt; const say = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2200); };
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-add]'); if (!b) return; bag += 1; $('#bagN').textContent = bag; say(`${b.dataset.add} added to bag`); });
 
-  // the index: the picture follows the title under the pointer; left alone, it moves on by itself
-  (() => { const links = [...document.querySelectorAll('#index li a')], pics = [...document.querySelectorAll('#index .ix-pic img')]; let k = 0, held = false;
-    const show = (i) => { k = i; links.forEach((a, j) => a.classList.toggle('on', j === i)); pics.forEach((im, j) => im.classList.toggle('on', j === i)); };
-    links.forEach((a, i) => { a.addEventListener('pointerenter', () => { held = true; show(i); }); a.addEventListener('focus', () => { held = true; show(i); }); });
-    document.querySelector('#index ol').addEventListener('pointerleave', () => { held = false; });
-    setInterval(() => { if (!held && document.querySelector('#index').getBoundingClientRect().top < innerHeight) show((k + 1) % links.length); }, 4200); })();
+  // the rail: arrows, a count, a thin progress line, and dragging with the mouse
+  (() => { const tr = $('#track'), n = tr.children.length, step = () => tr.children[1].offsetLeft - tr.children[0].offsetLeft;
+    const sync = () => { const max = tr.scrollWidth - tr.clientWidth, f = max > 0 ? tr.scrollLeft / max : 0; $('#rn').textContent = `${max > 0 && tr.scrollLeft >= max - 2 ? n : Math.min(n, Math.round(tr.scrollLeft / step()) + 1)} / ${n}`;
+      $('#rb').style.transform = `translateX(${(f * (100 / (tr.clientWidth / tr.scrollWidth) - 100)).toFixed(1)}%)`; $('#rb').style.width = `${(tr.clientWidth / tr.scrollWidth * 100).toFixed(1)}%`; };
+    tr.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); sync();
+    $('#rp').onclick = () => tr.scrollBy({ left: -step(), behavior: 'smooth' }); $('#rx').onclick = () => tr.scrollBy({ left: step(), behavior: 'smooth' });
+    let down = false, x0 = 0, s0 = 0, moved = 0;
+    tr.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = 0; x0 = e.clientX; s0 = tr.scrollLeft; tr.classList.add('drag'); });
+    addEventListener('pointermove', (e) => { if (!down) return; moved = Math.abs(e.clientX - x0); tr.scrollLeft = s0 - (e.clientX - x0); });
+    addEventListener('pointerup', () => { if (!down) return; down = false; tr.classList.remove('drag'); });
+    tr.addEventListener('click', (e) => { if (moved > 6) e.preventDefault(); }, true); })();
 
   // reveals
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
