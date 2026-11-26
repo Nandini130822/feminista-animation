@@ -104,8 +104,8 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
 
       <div class="ch on" data-c="0"><p class="label">The Intimate · Extrait de parfum</p><h1 class="serif">The beauty of <em>contrast</em></h1><p class="copy">A little unexpected. A little irresistible. Never quite what it seems.</p></div>
       <div class="ch" data-c="1"><p class="label">01 · It opens</p><h2 class="serif">A subtle <em>warmth</em></h2><p class="copy">Cinnamon, cardamom and ginger, soft rather than sharp.</p><ul><li>Cinnamon</li><li>Cardamom</li><li>Ginger</li></ul></div>
-      <div class="ch" data-c="2"><p class="label">02 · The heart</p><h2 class="serif">Smooth and <em>tender</em></h2><p class="copy">Candied fruits folded into white flowers.</p><ul><li>Candied Fruits</li><li>Rose de Mai</li><li>Iris</li><li>White Flowers</li></ul></div>
-      <div class="ch" data-c="3"><p class="label">03 · It stays</p><h2 class="serif">Softness, <em>close</em></h2><p class="copy">Vanilla and cashmere wood that stay near the skin.</p><ul><li>Vanilla</li><li>Cashmere Wood</li><li>Tonka Bean</li><li>Benzoin</li></ul></div>
+      <div class="ch" data-c="2"><p class="label">02 · The heart</p><h2 class="serif">Smooth and <em>tender</em></h2><p class="copy">Praline and candied fruits folded into white flowers.</p><ul><li>Praline</li><li>Candied Fruits</li><li>White Flowers</li></ul></div>
+      <div class="ch" data-c="3"><p class="label">03 · It stays</p><h2 class="serif">Softness, <em>close</em></h2><p class="copy">Vanilla, coffee and tonka bean, warm and near the skin.</p><ul><li>Vanilla</li><li>Coffee</li><li>Tonka Bean</li><li>Benzoin</li><li>Musk</li></ul></div>
       <div class="ch end" data-c="4"><p class="label">Composed without haste</p><h2 class="serif">180 days to become <em>itself</em></h2><p class="copy">Every element given time for its spice, softness and warmth to settle.</p><p class="pr">₹8,000 · 100 ml</p><p class="row"><button class="box" type="button" id="add">Add to bag</button><a class="u" href="luxe/product.html?p=vers">Full details</a></p></div>
 
       <div class="steps" id="steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
@@ -133,8 +133,8 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   // the notes: which accord (c), where on the ring (a, in turns), how far out (r) and how high (y), how large (s)
   const NOTES = [
     ['cinnamon', 1, .04, 1.05, .12, 1.15], ['cardamom', 1, .38, 1.12, -.2, .9], ['ginger', 1, .70, 1.0, .26, 1.0],
-    ['candied', 2, .08, 1.05, -.2, 1.05], ['rose', 2, .40, 1.15, .2, 1.0], ['iris', 2, .62, .95, -.05, 1.0], ['jasmine', 2, .88, 1.2, .3, .85],
-    ['vanilla', 3, .05, 1.1, .16, 1.2], ['woodchips', 3, .34, 1.0, -.22, 1.0], ['tonka', 3, .60, 1.15, .28, .8], ['benzoin', 3, .84, 1.05, -.1, .95]];
+    ['candied', 2, .08, 1.05, -.2, 1.1], ['jasmine', 2, .44, 1.15, .2, .95], ['jasmine', 2, .76, 1.0, -.05, .8],
+    ['vanilla', 3, .05, 1.1, .16, 1.2], ['coffee', 3, .34, 1.0, -.22, 1.0], ['tonka', 3, .60, 1.15, .28, .8], ['benzoin', 3, .84, 1.05, -.1, .95]];
   const scene = $('#scene');
   const notes = NOTES.map(([n, c, a, r, y, s]) => { const el = document.createElement('div'); el.className = 'note'; el.innerHTML = `<img src="assets/ing/${n}.webp" alt="">`;
     el.firstChild.onerror = () => el.remove(); scene.appendChild(el); return { el, c, a, r, y, s }; });

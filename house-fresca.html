@@ -103,9 +103,9 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
       </div>
 
       <div class="ch on" data-c="0"><p class="label">The Luminous · Extrait de parfum</p><h1 class="serif">The art of <em>subtlety</em></h1><p class="copy">Delicate at first. A little more indulgent with time. Effortlessly intriguing.</p></div>
-      <div class="ch" data-c="1"><p class="label">01 · It opens</p><h2 class="serif">A bright <em>freshness</em></h2><p class="copy">Fruit at its ripest, crisp and full of light.</p><ul><li>Red Fruits</li><li>Apple</li><li>Raspberry</li><li>Cherry</li></ul></div>
-      <div class="ch" data-c="2"><p class="label">02 · The heart</p><h2 class="serif">Radiant white <em>petals</em></h2><p class="copy">Magnolia and orange blossom over jasmine and water lily.</p><ul><li>Magnolia</li><li>Orange Blossom</li><li>Jasmine</li><li>Water Lily</li></ul></div>
-      <div class="ch" data-c="3"><p class="label">03 · It stays</p><h2 class="serif">Smooth and <em>creamy</em></h2><p class="copy">Whipped cream and vanilla over amber and sandalwood.</p><ul><li>Whipped Cream</li><li>Vanilla</li><li>Amber</li><li>Sandalwood</li></ul></div>
+      <div class="ch" data-c="1"><p class="label">01 · It opens</p><h2 class="serif">A bright <em>freshness</em></h2><p class="copy">Fruit at its ripest, crisp and full of light.</p><ul><li>Fruits</li></ul></div>
+      <div class="ch" data-c="2"><p class="label">02 · The heart</p><h2 class="serif">A soft <em>apple</em></h2><p class="copy">Crisp at first, then rounder and sweeter.</p><ul><li>Apple</li></ul></div>
+      <div class="ch" data-c="3"><p class="label">03 · It stays</p><h2 class="serif">Smooth and <em>creamy</em></h2><p class="copy">Whipped cream and vanilla, close to the skin.</p><ul><li>Whipped Cream</li><li>Vanilla</li></ul></div>
       <div class="ch end" data-c="4"><p class="label">Composed without haste</p><h2 class="serif">180 days to become <em>itself</em></h2><p class="copy">Its freshness and softness given time to settle, becoming smoother and more complete.</p><p class="pr">₹7,000 · 100 ml</p><p class="row"><button class="box" type="button" id="add">Add to bag</button><a class="u" href="luxe/product.html?p=fresca">Full details</a></p></div>
 
       <div class="steps" id="steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
@@ -132,9 +132,9 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
 
   // the notes: which accord (c), where on the ring (a, in turns), how far out (r) and how high (y), how large (s)
   const NOTES = [
-    ['apple', 1, .02, 1.05, .12, 1.05], ['raspberry', 1, .36, 1.12, -.2, .85], ['strawberry', 1, .68, .98, .26, .85], ['cherry', 1, .86, 1.2, -.3, .85],
-    ['orangeblossom', 2, .08, 1.05, -.2, 1.0], ['jasmine', 2, .40, 1.15, .2, .9], ['tuberose', 2, .64, .98, -.05, 1.1],
-    ['cream', 3, .05, 1.1, .16, 1.0], ['vanilla', 3, .34, 1.02, -.22, 1.15], ['amber', 3, .60, 1.15, .28, .8], ['sandalwood', 3, .84, 1.05, -.1, 1.0]];
+    ['raspberry', 1, .04, 1.05, .12, .9], ['strawberry', 1, .38, 1.12, -.2, .9], ['cherry', 1, .70, 1.0, .26, .9],
+    ['apple', 2, .10, 1.05, -.12, 1.15], ['apple', 2, .60, 1.12, .2, .85],
+    ['cream', 3, .08, 1.08, .14, 1.05], ['vanilla', 3, .42, 1.05, -.2, 1.2], ['vanilla', 3, .76, 1.12, .24, .85]];
   const scene = $('#scene');
   const notes = NOTES.map(([n, c, a, r, y, s]) => { const el = document.createElement('div'); el.className = 'note'; el.innerHTML = `<img src="assets/ing/${n}.webp" alt="">`;
     el.firstChild.onerror = () => el.remove(); scene.appendChild(el); return { el, c, a, r, y, s }; });
