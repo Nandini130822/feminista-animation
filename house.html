@@ -132,6 +132,18 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
   .serv { grid-template-columns: 1fr; gap: 26px; } .serv div + div { border-left: 0; }
   .cols { grid-template-columns: 1fr 1fr; }
 }
+
+/* the big photograph cards (after the two-stories section) */
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.4vw, 22px); padding: 0 var(--edge); }
+.card figure { position: relative; aspect-ratio: 1 / 1.12; overflow: hidden; background: var(--pale); }
+.card figure img { width: 100%; height: 100%; object-fit: cover; }
+.card figure .alt { position: absolute; inset: 0; opacity: 0; clip-path: none !important; scale: 1.06 !important; transition: opacity .9s var(--ease), scale 2.2s var(--ease) !important; }
+.card:hover figure .alt { opacity: 1; scale: 1 !important; }
+.card .txt { padding-top: 22px; text-align: center; display: grid; justify-items: center; gap: 5px; }
+.card .label { margin-bottom: 2px; } .card .copy { max-width: none; } .card .pr, .under .pr { color: var(--noir); font-weight: 600; margin: 4px 0 8px; }
+.two figure.sq { aspect-ratio: 1 / .86; }
+.under { padding: 26px var(--edge) 0; text-align: center; display: grid; justify-items: center; gap: 8px; }
+@media (max-width: 820px) { .trio { grid-template-columns: 1fr; gap: 50px; } .two figure.sq { aspect-ratio: 1; } }
 </style>
 </head>
 <body>
@@ -155,35 +167,27 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
     <div class="tick" aria-hidden="true"></div>
   </div>
 
-  <!-- 2 · the three scenes -->
+  <!-- 2 · the three, as large photographs; the scene appears on hover -->
   <section>
-    <div class="head"><h2 class="serif rv">The Collection</h2><a class="u rv" style="--d:1" href="luxe/fragrances.html">Discover</a></div>
-    <div class="scenes" id="scenes"></div>
+    <div class="head"><h2 class="serif rv">The Collection</h2><a class="u rv" style="--d:1" href="luxe/fragrances.html">Discover all</a></div>
+    <div class="trio" id="trio"></div>
   </section>
 
-  <!-- 3 · split banner -->
+  <!-- 3 · the discovery set -->
   <section>
-    <div class="split">
-      <figure class="cv"><img src="luxe/img/discovery-set-banner.webp" alt="The Discovery Set case beside three travel sprays" loading="lazy"></figure>
-      <div class="say"><p class="label rv">The Discovery Set · 3 × 10 ml · ₹2,500</p><h2 class="caps rv" style="--d:1">More than one way to be her</h2><a class="box rv" style="--d:2" href="luxe/product.html?p=discovery-set">Discover</a></div>
+    <div class="two">
+      <a href="luxe/product.html?p=discovery-set"><figure class="cv sq"><img src="site/img/p-set-3.webp" alt="The Discovery Set case, open, with three travel sprays" loading="lazy"></figure></a>
+      <a href="luxe/product.html?p=discovery-set"><figure class="cv sq" style="--d:1"><img src="site/img/p-set-1.webp" alt="Three travel sprays beside the Discovery Set case" loading="lazy"></figure></a>
     </div>
+    <div class="under"><h2 class="caps rv">The Discovery Set</h2><p class="copy rv" style="--d:1">More than one way to be her. Locken, Vers and Fresca in 10 ml, to wear before you choose.</p><p class="pr rv" style="--d:2">₹2,500 · 3 × 10 ml</p>
+      <p class="rv" style="--d:3"><button class="box" type="button" data-add="Discovery Set">Add to bag</button></p></div>
   </section>
 
-  <!-- 4 · bottles on white -->
+  <!-- 4 · who she is -->
   <section>
-    <div class="head"><h2 class="caps rv">The Extraits</h2></div>
-    <div class="shelf" id="shelf"></div>
-  </section>
-
-  <!-- 5 · portrait and words -->
-  <section>
-    <div class="pair">
-      <div class="say"><p class="label rv">About us</p><h2 class="caps rv" style="--d:1">Who is she</h2><p class="copy rv" style="--d:2">She is never just one thing. Neither is Feminista. A world of fragrances for every side of her — the familiar, the unexpected, and the ones she keeps to herself.</p><a class="u rv" style="--d:3" href="luxe/our-story.html">Our story</a></div>
-      <figure class="cv"><img src="luxe/img/locken-stairs-woman.webp" alt="A woman on a staircase with Locken" loading="lazy"></figure>
-    </div>
-    <div class="pair flip">
-      <div class="say"><p class="label rv">Feminista by you</p><h2 class="caps rv" style="--d:1">Created for her. Never adapted to her.</h2><p class="copy rv" style="--d:2">Feminista was born from a simple belief — that every woman deserves a fragrance as unique as her story.</p><a class="u rv" style="--d:3" href="luxe/fragrances.html">Find yours</a></div>
-      <figure class="cv"><img src="luxe/img/who-is-she-legs.webp" alt="A woman in heels on a red velvet chair, beside a black cat" loading="lazy"></figure>
+    <div class="two">
+      <a href="luxe/our-story.html"><figure class="cv"><img src="site/img/collection-cat.webp" alt="A woman in a fur coat beside a black cat" loading="lazy"></figure><div class="txt"><h3 class="caps rv">Who is she</h3><p class="copy rv" style="--d:1">She is never just one thing. Neither is Feminista.</p><span class="u rv" style="--d:2">Discover</span></div></a>
+      <a href="luxe/fragrances.html"><figure class="cv" style="--d:1"><img src="site/img/story-legs.webp" alt="A woman in heels walking beside a black cat" loading="lazy"></figure><div class="txt"><h3 class="caps rv">Created for her</h3><p class="copy rv" style="--d:1">Never adapted to her. A fragrance as unique as her story.</p><span class="u rv" style="--d:2">Find yours</span></div></a>
     </div>
   </section>
 
@@ -223,15 +227,13 @@ footer { padding: clamp(50px, 6vw, 90px) var(--edge) 34px; }
 
 <script>
   const P = [
-    { k: 'locken', name: 'Locken', tag: 'The Magnetic', notes: 'Almond, coffee and vanilla notes', price: '₹8,000', n: 5, bg: 'luxe/img/locken-driftwood-bg.webp', cut: 'assets/locken-cut.webp' },
-    { k: 'vers', name: 'Vers', tag: 'The Intimate', notes: 'Warm spice and soft woods', price: '₹8,000', n: 4, bg: 'luxe/img/vers-stone-bg.webp', cut: 'assets/vers-cut.webp' },
-    { k: 'fresca', name: 'Fresca', tag: 'The Luminous', notes: 'Fruits, magnolia and orange blossom', price: '₹7,000', n: 3, bg: 'luxe/img/fresca-true-bg.webp', cut: 'assets/fresca-cut.webp' }];
+    { k: 'locken', name: 'Locken', tag: 'The Magnetic', notes: 'Almond, coffee and vanilla notes', price: '₹8,000', n: 5, bg: 'luxe/img/locken-driftwood-bg.webp', img: 'site/img/p-locken-3.webp' },
+    { k: 'vers', name: 'Vers', tag: 'The Intimate', notes: 'Warm spice and soft woods', price: '₹8,000', n: 4, bg: 'luxe/img/vers-stone-bg.webp', img: 'site/img/p-vers-4.webp' },
+    { k: 'fresca', name: 'Fresca', tag: 'The Luminous', notes: 'Fruits, magnolia and jasmine', price: '₹7,000', n: 3, bg: 'luxe/img/fresca-true-bg.webp', img: 'site/img/p-fresca-4.webp' }];
   const $ = (s) => document.querySelector(s);
   const dots = (n) => `<span class="dots">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= n ? 'f' : ''}"></i>`).join('')}</span>`;
-  $('#scenes').innerHTML = P.map((p, i) => `<a class="scene" href="luxe/product.html?p=${p.k}"><figure class="cv" style="--d:${i}"><img src="${p.bg}" alt="${p.name} by Feminista" loading="lazy"></figure>
-    <div class="txt rv" style="--d:${i}"><b>${p.name}</b><p>Extrait de parfum · ${p.notes}</p><p>Intensity ${dots(p.n)}</p><p class="pr">${p.price} · Spray 50 ml</p></div></a>`).join('');
-  $('#shelf').innerHTML = P.map((p, i) => `<div class="item rv" style="--d:${i}"><a class="im" href="luxe/product.html?p=${p.k}"><img src="${p.cut}" alt="${p.name} by Feminista" loading="lazy"></a>
-    <b>${p.name}</b><p>${p.tag} · Extrait de parfum</p><p class="pr">${p.price}</p><button class="u" type="button" data-add="${p.name}">Add to bag</button></div>`).join('');
+  $('#trio').innerHTML = P.map((p, i) => `<article class="card"><a href="luxe/product.html?p=${p.k}"><figure class="cv" style="--d:${i}"><img src="${p.img}" alt="${p.name} by Feminista" loading="lazy"><img class="alt" src="${p.bg}" alt="" loading="lazy"></figure></a>
+    <div class="txt rv" style="--d:${i}"><p class="label">${p.tag}</p><h3 class="caps"><a href="luxe/product.html?p=${p.k}">${p.name}</a></h3><p class="copy">Extrait de parfum · ${p.notes}</p><p class="copy">Intensity ${dots(p.n)}</p><p class="pr">${p.price} · 50 ml</p><button class="u" type="button" data-add="${p.name}">Add to bag</button></div></article>`).join('');
 
   // a quiet toast and a bag count
   let bag = 0, tt; const say = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2200); };
