@@ -44,9 +44,10 @@ h1, h2, h3, p, figure, ul { margin: 0; padding: 0; } li { list-style: none; }
 .floor { position: absolute; left: 50%; top: calc(var(--bh) * .5 - 6px); width: calc(var(--bh) * .5); height: calc(var(--bh) * .07); transform: translate(calc(-50% + var(--sx, 0px)), 0); background: radial-gradient(closest-side, rgba(60, 30, 10, .3), rgba(60, 30, 10, 0)); filter: blur(4px); }
 .bottle { --bh: min(56vh, 92vw); position: absolute; z-index: 2; left: 0; top: 0; height: var(--bh); aspect-ratio: 374 / 880; transform: translate(-50%, -50%) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transform-style: preserve-3d; will-change: transform; }
 .scene { --bh: min(56vh, 92vw); }
-.bottle img { width: 100%; height: 100%; filter: drop-shadow(0 22px 24px rgba(80, 45, 15, .18)); }
+.bottle img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bottle img.mid { filter: brightness(.8) saturate(1.2); } .bottle img.back { filter: brightness(.72) saturate(1.15) drop-shadow(0 22px 24px rgba(80, 45, 15, .2)); }
 /* a band of light that crosses the glass as it turns */
-.sheen { position: absolute; inset: 0; -webkit-mask: url(assets/fresca-cut.webp) center / 100% 100% no-repeat; mask: url(assets/fresca-cut.webp) center / 100% 100% no-repeat; mix-blend-mode: screen;
+.sheen { position: absolute; inset: 0; transform: translateZ(var(--zf, 20px)); -webkit-mask: url(assets/fresca-cut.webp) center / 100% 100% no-repeat; mask: url(assets/fresca-cut.webp) center / 100% 100% no-repeat; mix-blend-mode: screen;
   background: linear-gradient(105deg, transparent 38%, rgba(255, 248, 230, .55) 50%, transparent 62%) no-repeat; background-size: 260% 100%; background-position: var(--sh, 50%) 0; pointer-events: none; }
 .note { position: absolute; left: 0; top: 0; width: clamp(84px, 11vw, 168px); pointer-events: none; will-change: transform, opacity; opacity: 0; }
 .note img { width: 100%; filter: drop-shadow(0 14px 12px rgba(60, 30, 10, .2)); }
@@ -133,13 +134,20 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   // the notes: which accord (c), where on the ring (a, in turns), how far out (r) and how high (y), how large (s)
   const NOTES = [
     ['raspberry', 1, .04, 1.05, .12, .9], ['strawberry', 1, .38, 1.12, -.2, .9], ['cherry', 1, .70, 1.0, .26, .9],
-    ['apple', 2, .10, 1.05, -.12, 1.15], ['apple', 2, .60, 1.12, .2, .85],
-    ['cream', 3, .08, 1.08, .14, 1.05], ['vanilla', 3, .42, 1.05, -.2, 1.2], ['vanilla', 3, .76, 1.12, .24, .85]];
+    ['apple', 2, .12, 1.1, .05, 1.2],
+    ['cream-warm', 3, .10, 1.12, .2, .78], ['vanilla', 3, .52, 1.08, -.16, 1.2]];
   const scene = $('#scene');
   const notes = NOTES.map(([n, c, a, r, y, s]) => { const el = document.createElement('div'); el.className = 'note'; el.innerHTML = `<img src="assets/ing/${n}.webp" alt="">`;
     el.firstChild.onerror = () => el.remove(); scene.appendChild(el); return { el, c, a, r, y, s }; });
 
   const stage = $('#stage'), bottle = $('#bottle'), floor = $('#floor'), chs = $$('.ch'), steps = $$('#steps i'), nameEl = $('#name'), cue = $('#cue');
+  // depth: the photograph repeated through the bottle's thickness, darker inside, a touch narrower at the faces
+  const face = bottle.querySelector('img'), SRC = face.getAttribute('src'), ALT = face.alt, N = 18;
+  function slices() { const D = bottle.offsetWidth * .3, sheen = bottle.querySelector('.sheen'); bottle.querySelectorAll('img').forEach((i) => i.remove());
+    for (let i = 0; i < N; i++) { const u = -1 + 2 * i / (N - 1), im = new Image(); im.src = SRC; im.alt = i === N - 1 ? ALT : ''; im.className = i === 0 ? 'back' : i === N - 1 ? '' : 'mid';
+      im.style.transform = `translateZ(${(u * D / 2).toFixed(1)}px) scaleX(${(1 - u * u * .07).toFixed(3)})`; bottle.insertBefore(im, sheen); }
+    bottle.style.setProperty('--zf', `${(D / 2 + 1).toFixed(1)}px`); }
+  slices(); addEventListener('resize', slices);
   let mx = 0, my = 0, tx = 0, ty = 0, cur = -1; const AT = new URLSearchParams(location.search).get('at');   // ?at=0…1 holds a moment for review
   addEventListener('pointermove', (e) => { tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2; });
 
@@ -152,7 +160,7 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
     const time = still ? 0 : t / 1000;
 
     // the bottle leans with the scroll and with the pointer
-    const ry = Math.sin(c * 1.35) * 11 + mx * 7, rx = -my * 4;
+    const ry = Math.sin(c * 1.35) * 19 + mx * 11, rx = -my * 5;
     bottle.style.setProperty('--ry', `${ry.toFixed(2)}deg`); bottle.style.setProperty('--rx', `${rx.toFixed(2)}deg`);
     bottle.style.setProperty('--sh', `${(50 - ry * 3.2).toFixed(1)}%`);
     bottle.style.translate = `0 ${(Math.sin(time * .8) * 5).toFixed(1)}px`;
