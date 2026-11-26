@@ -90,7 +90,9 @@
   .hm-care { grid-template-columns: 1fr; gap: 44px; } .hm-words .quote { min-height: 380px; }
 }
 
-/* the basalt wall, straight after the film (styles from ../site/pwall.css) */
-.pwall { --hh: 0px; --ease-o: cubic-bezier(.19, 1, .22, 1); }
+/* the basalt wall, straight after the film (styles from ../site/pwall.css); cut just below the names, no spare stone */
+.pwall { --hh: 0px; --ease-o: cubic-bezier(.19, 1, .22, 1); height: auto; min-height: 0; padding: 0; aspect-ratio: 1679 / 775; }
 .pwall a { color: inherit; }
-@media (max-width: 760px) { .pwall { --hh: 0px; padding: 0 0 46px; } .pw-hint { bottom: 16px; font-size: 7.5px; letter-spacing: .2em; padding: 0 12px; } }
+.pwall .pw-frame { position: absolute; left: 0; top: 0; width: 100%; transform: none; }
+.pwall .pw-hint { bottom: clamp(10px, 1.4vw, 22px); }
+@media (max-width: 760px) { .pwall { --hh: 0px; padding: 0; aspect-ratio: 1679 / 937; } .pwall .pw-hint { display: none; } }
