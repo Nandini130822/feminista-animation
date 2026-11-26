@@ -2,6 +2,7 @@
 const ORDER = ['locken', 'vers', 'fresca', 'discovery-set'];
 const CUT = { locken: '../assets/locken-cut.webp', vers: '../assets/vers-cut.webp', fresca: '../assets/fresca-cut.webp', 'discovery-set': '../site/img/p-set-1.webp' };
 const BANNER = { locken: 'img/locken-driftwood-bg.webp', vers: 'img/vers-stone-bg.webp', fresca: 'img/fresca-true-bg.webp', 'discovery-set': 'img/discovery-set-banner.webp' };
+const BANNER_P = { ...BANNER, 'discovery-set': 'img/discovery-set-portrait.webp' };
 const inr = (v) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(v);
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
@@ -98,7 +99,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 function pcard(k, opts = {}) {
   const p = PRODUCTS[k], g = p.gallery;
   return `<article class="pcard ${opts.cls || ''}"><a href="product.html?p=${k}" class="ph rv-img">
-      <img src="${opts.img || g[g.length - 1]}" alt="${p.name} by Feminista" loading="lazy"><img class="alt" src="${opts.alt || BANNER[k]}" alt="" loading="lazy">
+      <img src="${opts.img || g[g.length - 1]}" alt="${p.name} by Feminista" loading="lazy"><img class="alt" src="${opts.alt || BANNER_P[k]}" alt="" loading="lazy">
       <button type="button" class="quick" data-add="${k}">Add to bag · ${inr(p.price)}</button></a>
     <div class="meta"><div><h3><a href="product.html?p=${k}">${p.name}</a></h3><p>${p.tagline}</p></div><b>${inr(p.price)}</b></div>
     <p class="tag">${p.tag}</p></article>`;

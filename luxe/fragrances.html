@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#FBF8F6">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=5">
+<link rel="stylesheet" href="luxe.css?v=4"><link rel="stylesheet" href="luxe-pages.css?v=4"><link rel="stylesheet" href="luxe-edit.css?v=6">
 <link rel="stylesheet" href="luxe-motion.css?v=1">
 <noscript><style>body{opacity:1}</style></noscript>
 </head>
@@ -44,12 +44,12 @@
   </section>
 </main>
 <script src="luxe-data.js?v=1"></script>
-<script src="luxe-shell.js?v=4"></script>
+<script src="luxe-shell.js?v=5"></script>
 <script src="luxe-motion.js?v=1"></script>
 <script>
   const MOOD = { locken: ['evening'], vers: ['day'], fresca: ['day', 'evening'], 'discovery-set': ['gift'] };
   const ALT = { locken: '../site/img/p-locken-4.webp', vers: '../site/img/p-vers-2.webp', fresca: '../site/img/p-fresca-2.webp', 'discovery-set': '../site/img/p-set-2.webp' };
-  $('#grid').innerHTML = ORDER.map((k) => pcard(k, { img: BANNER[k], alt: ALT[k], cls: `m-${MOOD[k].join(' m-')}` })).join('');
+  $('#grid').innerHTML = ORDER.map((k) => pcard(k, { img: BANNER_P[k], alt: ALT[k], cls: `m-${MOOD[k].join(' m-')}` })).join('');
   watchReveals();
   $$('.chips button').forEach((b) => b.addEventListener('click', () => {
     $$('.chips button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
