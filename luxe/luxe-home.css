@@ -96,3 +96,10 @@
 .pwall .pw-frame { position: absolute; left: 0; top: 0; width: 100%; transform: none; }
 .pwall .pw-hint { bottom: clamp(10px, 1.4vw, 22px); }
 @media (max-width: 760px) { .pwall { --hh: 0px; padding: 0; aspect-ratio: 1679 / 937; } .pwall .pw-hint { display: none; } }
+
+/* motion that follows the scroll (luxe-home.js adds .hm-live) */
+.hm-live .sw { transition: opacity .3s linear; }
+.hm-live .tile .rv-img img, .hm-live .hm-half:not(.flip) figure img { scale: 1.14; will-change: translate; }
+.hm-live .hm-panel { clip-path: inset(calc(var(--k, 0) * 6vh) calc(var(--k, 0) * 8vw)); }
+.hm-live .tile { will-change: translate; }
+.hm-live .cell-img img { will-change: translate, scale; transform-origin: 50% 100%; }
