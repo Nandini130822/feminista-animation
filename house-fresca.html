@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fresca — Scent Journey · Feminista</title>
-<meta name="description" content="Fresca by Feminista. Press the bottle and follow the fragrance on skin, from the first spray to the dry-down.">
+<meta name="description" content="Fresca by Feminista. Click the bottle and follow the fragrance on skin, from the first spray to the dry-down.">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* FEMINISTA — The House · Fresca, as a scent journey. Press the bottle: the cap lifts, it sprays, the cap returns.
+/* FEMINISTA — The House · Fresca, as a scent journey. Click the bottle: the cap lifts, it sprays, the cap returns.
    The panel on the right then follows the fragrance on skin, and its notes gather, small, beside the bottle. */
 :root { --noir: #090909; --wine: #6D1F3A; --gold: #E89D1B; --sand: #E2B795; --ivory: #F1E9E6; --pale: #F7F2F0; --line: rgba(9, 9, 9, .12); --mute: rgba(9, 9, 9, .58);
   --serif: 'Playfair Display', Georgia, serif; --sans: Raleway, Arial, sans-serif; --ease: cubic-bezier(.19, 1, .22, 1); --edge: clamp(16px, 2.6vw, 40px); --tint: 214, 120, 130; }
@@ -151,11 +151,11 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
 </header>
 
 <main>
-  <div class="top"><h1 class="serif">Fresca · Scent <em>Journey</em></h1><p>Press the bottle, and watch how it unfolds on your skin.</p></div>
+  <div class="top"><h1 class="serif">Fresca · Scent <em>Journey</em></h1><p>Click the bottle, and watch how it unfolds on your skin.</p></div>
   <div class="wrap pre" id="wrap">
     <div class="left">
       <div class="stage" id="stage">
-        <p class="hint"><b></b>Press the bottle</p>
+        <p class="hint"><b></b>Click the bottle</p>
         <img class="poster" src="assets/fresca-cut.webp" alt="" aria-hidden="true">
         <iframe class="fx" id="fx" src="fusion.html?embed&amp;spray&amp;p=2&amp;v=35" title="Fresca: the cap lifts and it sprays" tabindex="-1"></iframe>
         <div class="bottle" id="bottle" role="button" tabindex="0" aria-label="Spray Fresca"></div>
@@ -173,7 +173,7 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
     <div class="panel" id="panel">
       <div class="wait"><svg viewBox="0 0 24 24"><path d="M12 2c.6 5.4 4.6 9.400 10 10-5.400.6-9.400 4.600-10 10-.6-5.400-4.600-9.400-10-10 5.400-.6 9.400-4.600 10-10z"/></svg>
         <h3 class="serif" style="font-size:clamp(22px,2.2vw,30px)">Waiting for the first spray</h3>
-        <p>Press the bottle. The cap lifts, Fresca opens, evolves and dries down, from the first burst to the last whisper on skin.</p></div>
+        <p>Click the bottle. The cap lifts, Fresca opens, evolves and dries down, from the first burst to the last whisper on skin.</p></div>
       <div class="jr">
         <div class="jr-head"><div><p class="label">Time on skin</p><p class="clock" id="clock">0 min</p></div><span class="pill swap" id="pill">Opening</span></div>
         <p class="label when swap" id="when"></p>
@@ -291,7 +291,7 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   if (Q.has('at') && +Q.get('at') > 0) { wrapEl.classList.remove('pre'); stage.classList.add('live'); panel.classList.add('live-on'); const k = Math.min(4, +Q.get('at') - 1); phase(k); $('#clock').textContent = fmt((EDGE[k] + EDGE[k + 1]) / 2); }
   
 
-  if (Q.has('autospray')) setTimeout(spray, +Q.get('autospray') || 600);   // review: press the bottle by itself
+  if (Q.has('autospray')) setTimeout(spray, +Q.get('autospray') || 600);   // review: click the bottle by itself
   let bag = 0, tt; $('#add').onclick = () => { bag += 1; $('#bagN').textContent = bag; const el = $('#toast'); el.textContent = `${D.name} added to bag`; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2200); };
 </script>
 </body>
