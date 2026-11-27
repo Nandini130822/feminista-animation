@@ -17,6 +17,7 @@ const SPRAY = qs.has('spray');                                   // embedded on 
 const SOLO = qs.has('solo') || SPRAY;
 if (SOLO) document.body.classList.add('solo');
 if (SPRAY) document.body.classList.add('spray-only');
+if (SPRAY && !qs.has('dark')) document.body.classList.add('light');
 if (EMBED) document.body.classList.add('embed');
 const STAGE = document.body.dataset.mode === 'stage';
 const LAB = document.body.dataset.scene === 'lab';
@@ -147,6 +148,9 @@ const floor = new THREE.Mesh(new THREE.PlaneGeometry(34, 34), new THREE.MeshBasi
 floor.rotation.x = -Math.PI / 2; floor.position.set(0, FLOOR_Y, -3); scene.add(floor);
 const pool = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 2.2), new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: .3 }));
 pool.rotation.x = -Math.PI / 2; pool.position.y = FLOOR_Y + .005; scene.add(pool);
+// on a perfume page the stage is the page's own light: cream ground, a soft shadow for a floor, no dark room
+const LIGHT = SPRAY && !qs.has('dark');
+if (LIGHT) { scene.background = new THREE.Color('#FFE6D6').multiplyScalar(1.85); backdrop.visible = false; floor.visible = false; pool.visible = false; }   // lifted, so it lands on cream after tone mapping
 // the turntable: a faint ring of light the bottles stand on
 const R = 4.6, CENTER = new THREE.Vector3(0, 0, -R);
 const track = new THREE.Mesh(new THREE.RingGeometry(R - .012, R + .012, 220), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: .07, blending: THREE.AdditiveBlending, depthWrite: false }));
@@ -456,6 +460,7 @@ class Sparks {
   }
 }
 const sparks = new Sparks(PREVIEW ? 1600 : 3000);
+if (LIGHT) sparks.points.material.blending = THREE.NormalBlending;  // light ground: droplets darken, not glow
 
 // mist: soft, slow, widening puffs of vapour (normal blending, so it reads as a cloud, not sparks)
 const smokeTex = (() => {
@@ -708,7 +713,7 @@ function spray(r) {
   r.group.updateMatrixWorld(true);
   const p0 = V(); r.spray.nozzle.getWorldPosition(p0);
   const dir = V(-1, .1, 0).applyQuaternion(r.group.quaternion).normalize();
-  const tint = new THREE.Color('#ffffff').lerp(new THREE.Color(current.liquid), .12);
+  const tint = LIGHT ? new THREE.Color('#5a5563') : new THREE.Color('#ffffff').lerp(new THREE.Color(current.liquid), .12);
   // 1. the jet: a cone streaked with fine vapour, flashing out over a split second
   const L = 2.3;
   plume.quaternion.copy(r.group.quaternion); plume.rotateZ(Math.PI - .1);
@@ -723,7 +728,7 @@ function spray(r) {
     const perp = V(0, Math.cos(ang), Math.sin(ang)).applyQuaternion(r.group.quaternion).multiplyScalar(cone);
     const end = p0.clone().addScaledVector(dir, dist).add(perp); end.y -= dist * dist * .03;
     const mid = p0.clone().addScaledVector(dir, dist * .55).addScaledVector(perp, .4);
-    sparks.emit({ a: p0.clone(), b: mid, c: end, life: rand(.5, 1.2), delay: rand(0, .3), size: rand(.005, .012), alpha: rand(.35, .8), color: tint, fadeIn: 10 });
+    sparks.emit({ a: p0.clone(), b: mid, c: end, life: rand(.5, 1.2), delay: rand(0, .3), size: LIGHT ? rand(.03, .065) : rand(.005, .012), alpha: LIGHT ? rand(.55, 1) : rand(.35, .8), color: tint, fadeIn: 10 });
   }
   // 3. the haze that lingers after the jet
 
@@ -832,7 +837,7 @@ function frame(t, dt) {
   backdrop.material.uniforms.uTime.value = clockTotal;
   pool.material.opacity = (.12 + glow * .25 + flash * .5) * r.front;
   core.intensity = (f * 6 + flash * 30) * r.front;
-  bloom.strength = .42 + flash * 1.3 + f * .12;
+  bloom.strength = LIGHT ? .06 : .42 + flash * 1.3 + f * .12;
 
   // shockwave
   if (t > T.fuse && t < T.fuse + 2) {
