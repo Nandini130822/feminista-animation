@@ -14,6 +14,7 @@ const qs = new URLSearchParams(location.search);
 const PREVIEW = qs.has('preview');
 const EMBED = qs.has('embed');
 const SOLO = qs.has('solo');
+if (SOLO) document.body.classList.add('solo');
 if (EMBED) document.body.classList.add('embed');
 const STAGE = document.body.dataset.mode === 'stage';
 const LAB = document.body.dataset.scene === 'lab';
@@ -1039,6 +1040,8 @@ addEventListener('message', (e) => {
   if (m.type === 'fusion-pause') hold = true;
   if (m.type === 'fusion-go' && m.i !== active) { started = true; go(m.i); }
 });
+// tell the page around us once every picture is in and a frame has been drawn, so it never shows an empty stage
+if (EMBED && parent !== window) Promise.all(loads).then(() => requestAnimationFrame(() => requestAnimationFrame(() => parent.postMessage({ type: 'fusion-ready' }, '*'))));
 if (STAGE && !qs.has('t')) { turnT = 0; prevActive = -1; stageLanded = false; clock = -TURN * .75; }
 // ?t=8.5 jumps to that moment; add &still to freeze it
 if (qs.has('t')) {

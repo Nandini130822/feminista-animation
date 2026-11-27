@@ -197,35 +197,28 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   $('#steps').innerHTML = D.phases.map((p) => `<li><i></i><div><small>${p[0]}</small><small>${p[1]}</small></div><div><b>${p[2]}</b><p>${p[5].map((n) => n[0]).join(' · ')}</p></div></li>`).join('');
   $('#acc').insertAdjacentHTML('beforeend', D.accords.map(([n, v]) => `<div><span>${n}</span><s style="--v:${v}%"></s></div>`).join(''));
 
-  // ── the mist (after the Fusion study): soft puffs of vapour, not dots. Thrown fast from the nozzle, they slow,
-  //    swell, turn and dissolve; a fine cone flashes at the start and a few droplets ride inside it ──
-  const cv = $('#mist'), cx = cv.getContext('2d'); let puffs = [], jets = [], fine = [], cw = 0, chh = 0, lastT = 0;
+  // ── the spray, as a real atomiser makes it: a fine liquid cone of micro-droplets, dense at the nozzle, thrown out
+  //    fast, slowing and falling a little; a few larger droplets catch the light; a faint veil hangs for a moment ──
+  const cv = $('#mist'), cx = cv.getContext('2d'); let drops = [], veil = [], cw = 0, chh = 0, lastT = 0;
   const fit = () => { const r = stage.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); cw = r.width; chh = r.height; cv.width = cw * d; cv.height = chh * d; cx.setTransform(d, 0, 0, d, 0, 0); }; fit(); addEventListener('resize', fit);
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const tex = (rgb, core) => { const S = 128, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d');
-    for (let i = 0; i < 22; i++) { const a = Math.random() * 6.3, d = Math.random() * S * .2, x = S / 2 + Math.cos(a) * d, y = S / 2 + Math.sin(a) * d, r = S * rnd(.16, .3);
-      const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, `rgba(${rgb},${core})`); gr.addColorStop(1, `rgba(${rgb},0)`); g.fillStyle = gr; g.fillRect(0, 0, S, S); } return c; };
-  const SMOKE = tex(D.mist.join(','), .06), LIGHT = tex('255,255,255', .12);
-  const CONE = (() => { const W = 320, H = 160, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'), im = g.createImageData(W, H), d = im.data, [R, G, B] = D.mist;
-    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const u = x / W, v = (y / H) * 2 - 1, k = v / (.04 + u * .86); if (Math.abs(k) > 1.3) continue;
-      const a = Math.exp(-k * k * 2.4) * Math.pow(1 - u, 1.5) * Math.min(1, u * 24) * (.8 + .2 * Math.random()), i = (y * W + x) * 4; d[i] = R; d[i + 1] = G; d[i + 2] = B; d[i + 3] = Math.min(255, a * 150); }
-    g.putImageData(im, 0, 0); return c; })();
+  const rnd = (a, b) => a + Math.random() * (b - a), gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+  const VEIL = (() => { const S = 128, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d'), gr = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    gr.addColorStop(0, "rgba(160,156,166,.3)"); gr.addColorStop(1, "rgba(160,156,166,0)"); g.fillStyle = gr; g.fillRect(0, 0, S, S); return c; })();
+  // each droplet follows an exact path (drag and a little gravity), so the spray is the same at any frame rate
+  const TAU = .3;
   function puff() { const s = stage.getBoundingClientRect(), b = $('#pump .btn').getBoundingClientRect(), x = b.left - s.left + 1, y = b.top - s.top + b.height * .45, now = performance.now();
-    const ang = Math.PI + .05, dx = Math.cos(ang), dy = Math.sin(ang), reach = Math.min(cw * .5, x - 4);
-    jets.push({ x, y, L: reach * .9, ang, t0: now });
-    for (let i = 0; i < 150; i++) { const sp = rnd(2.4, 7.4) * reach * .42, side = rnd(-1, 1) * sp * .3;
-      puffs.push({ x, y, vx: dx * sp - dy * side, vy: dy * sp + dx * side, r: rnd(5, 12), gr: rnd(40, 115), rot: rnd(0, 6.3), vr: rnd(-.8, .8), t0: now + rnd(0, 170), life: rnd(1300, 3200), a: rnd(.12, .34), light: Math.random() < .45 }); }
-    for (let i = 0; i < 260; i++) { const sp = rnd(3, 8) * reach * .42, side = rnd(-1, 1) * sp * .22;
-      fine.push({ x, y, vx: dx * sp - dy * side, vy: dy * sp + dx * side, r: rnd(.4, 1), t0: now + rnd(0, 140), life: rnd(350, 900), a: rnd(.12, .34) }); } }
-  (function draw(now) { requestAnimationFrame(draw); const dt = Math.min(.05, (now - lastT) / 1000 || 0); lastT = now; if (!puffs.length && !jets.length && !fine.length) return;
-    cx.clearRect(0, 0, cw, chh); const [R, G, B] = D.mist, drag = Math.pow(.045, dt);
-    jets = jets.filter((j) => now - j.t0 < 420); for (const j of jets) { const k = (now - j.t0) / 420, o = k < .15 ? k / .15 : Math.pow(1 - (k - .15) / .85, 1.5), len = j.L * (.5 + .55 * Math.min(1, k * 3));
-      cx.save(); cx.translate(j.x, j.y); cx.rotate(j.ang); cx.globalAlpha = o * .75; cx.drawImage(CONE, 0, -len * .25, len, len * .5); cx.restore(); }
-    puffs = puffs.filter((q) => now - q.t0 < q.life); for (const q of puffs) { const k = (now - q.t0) / q.life; if (k < 0) continue;
-      q.vx *= drag; q.vy = q.vy * drag - 2 * dt; q.x += q.vx * dt; q.y += q.vy * dt; q.rot += q.vr * dt; const r = q.r + q.gr * (1 - Math.pow(1 - k, 2.2));
-      cx.save(); cx.translate(q.x, q.y); cx.rotate(q.rot); cx.globalAlpha = q.a * Math.min(1, k * 9) * Math.pow(1 - k, 1.5); cx.drawImage(q.light ? LIGHT : SMOKE, -r, -r, r * 2, r * 2); cx.restore(); }
-    cx.globalAlpha = 1; fine = fine.filter((f) => now - f.t0 < f.life); for (const f of fine) { const k = (now - f.t0) / f.life; if (k < 0) continue;
-      f.vx *= drag; f.vy = f.vy * drag + 14 * dt; f.x += f.vx * dt; f.y += f.vy * dt; cx.fillStyle = `rgba(${R},${G},${B},${(f.a * (1 - k)).toFixed(3)})`; cx.beginPath(); cx.arc(f.x, f.y, f.r, 0, 6.3); cx.fill(); } })(0);
+    const reach = Math.min(cw * .48, x - 8), ang = Math.PI + .05;
+    for (let i = 0; i < 3000; i++) { const spread = gauss() * .34, a = ang + spread, dist = reach * Math.pow(Math.random(), .55) * (1 - Math.abs(spread) * .6), big = Math.random() < .03;
+      drops.push({ x, y, vx: Math.cos(a) * dist / TAU, vy: Math.sin(a) * dist / TAU, r: big ? rnd(1.1, 1.8) : rnd(.35, .9), big, t0: now + Math.pow(Math.random(), 2) * 260, life: rnd(700, 1500), a: big ? rnd(.45, .75) : rnd(.18, .5) }); }
+    for (let i = 0; i < 9; i++) { const d = reach * rnd(.35, .95), a = ang + gauss() * .2; veil.push({ x: x + Math.cos(a) * d, y: y + Math.sin(a) * d, r: rnd(22, 40) + d * .14, t0: now + rnd(200, 420), life: rnd(1100, 1700), vx: rnd(-10, -3), vy: rnd(-2, 5) }); } }
+  (function draw() { requestAnimationFrame(draw); const now = performance.now(), dt = Math.min(.05, (now - lastT) / 1000 || 0); lastT = now; if (!drops.length && !veil.length) return; cx.clearRect(0, 0, cw, chh);
+    veil = veil.filter((v) => now - v.t0 < v.life); for (const v of veil) { const k = (now - v.t0) / v.life; if (k < 0) continue; v.x += v.vx * dt; v.y += v.vy * dt; const r = v.r * (1 + k);
+      cx.globalAlpha = Math.sin(Math.PI * k) * .22; cx.drawImage(VEIL, v.x - r, v.y - r, r * 2, r * 2); }
+    drops = drops.filter((p) => now - p.t0 < p.life);
+    for (const p of drops) { const t = (now - p.t0) / 1000, k = t * 1000 / p.life; if (t < 0) continue; const f = TAU * (1 - Math.exp(-t / TAU)), x = p.x + p.vx * f, y = p.y + p.vy * f + 26 * t * t;
+      cx.globalAlpha = p.a * Math.min(1, k * 16) * Math.pow(1 - k, 1.3); cx.fillStyle = p.big ? '#7a7680' : '#9a96a0'; cx.beginPath(); cx.arc(x, y, p.r, 0, 6.3); cx.fill();
+      if (p.big) { cx.fillStyle = '#ffffff'; cx.beginPath(); cx.arc(x - p.r * .35, y - p.r * .35, p.r * .45, 0, 6.3); cx.fill(); } }
+    cx.globalAlpha = 1; })();
 
   // ── the spray: cap lifts and is set down, two presses, cap returns ──
   const wrapEl = $('#wrap'); let busy = false;

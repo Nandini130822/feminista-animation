@@ -126,3 +126,6 @@ em { font-family: var(--it); font-style: italic; font-weight: 340; color: var(--
 .embed .top, .embed .credits { display: none !important; }
 .embed .notes { top: 54%; }
 .embed .vignette { background: radial-gradient(120% 90% at 50% 50%, transparent 50%, rgba(0, 0, 0, .7) 100%); }
+
+/* embedded with &solo (the House wall): one perfume, no carousel */
+.solo .carousel, .solo .next-hint { display: none !important; }
