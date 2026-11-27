@@ -129,3 +129,4 @@ em { font-family: var(--it); font-style: italic; font-weight: 340; color: var(--
 
 /* embedded with &solo (the House wall): one perfume, no carousel */
 .solo .carousel, .solo .next-hint { display: none !important; }
+.spray-only .notes, .spray-only .labels, .spray-only .caption, .spray-only .reveal, .spray-only .bar, .spray-only .top, .spray-only .credits { display: none !important; }

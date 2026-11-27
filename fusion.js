@@ -13,8 +13,10 @@ import * as I from './ingredients.js';
 const qs = new URLSearchParams(location.search);
 const PREVIEW = qs.has('preview');
 const EMBED = qs.has('embed');
-const SOLO = qs.has('solo');
+const SPRAY = qs.has('spray');                                   // embedded on a perfume page: only cap off, two sprays, cap on
+const SOLO = qs.has('solo') || SPRAY;
 if (SOLO) document.body.classList.add('solo');
+if (SPRAY) document.body.classList.add('spray-only');
 if (EMBED) document.body.classList.add('embed');
 const STAGE = document.body.dataset.mode === 'stage';
 const LAB = document.body.dataset.scene === 'lab';
@@ -79,6 +81,7 @@ const T = {
   capClose: 12.2,                    // the cap goes back on
   done: 13.6, previewNext: 16,
 };
+if (SPRAY) Object.assign(T, { tier: [900, 901, 902], vortex: 950, fuse: -3, capOpen: 1.55, crimp: 2.15, reveal: 2.3, capRest: 2.5, sprays: [3.35, 4.05], capClose: 4.9, done: 6.4 });
 const TURN = 1.6; // seconds for the turntable to bring the next bottle forward
 
 /* ── renderer, scene, camera ──────────────────────────────────────────── */
@@ -808,7 +811,7 @@ function frame(t, dt) {
   for (const st of T.sprays) { const k = (t - st) / .35; if (k >= 0 && k < 1) press = Math.sin(Math.PI * k); }
   r.spray.actuator.position.y = .37 - press * .09;
   if (t > T.crimp + .8 && !crimped) { crimped = true; burstAt(r.neckY + r.W * .25, PREVIEW ? 40 : 70, new THREE.Color('#fff3dc'), .7); }
-  T.sprays.forEach((st, i) => { if (t > st && !sprayed[i]) { sprayed[i] = true; spray(r); } });
+  T.sprays.forEach((st, i) => { if (t > st && !sprayed[i]) { sprayed[i] = true; spray(r); if (SPRAY && !i && !still && parent !== window) parent.postMessage({ type: 'fusion-sprayed' }, '*'); } });
   if (closed && !capped) { capped = true; burstAt(r.capBase - r.cap.scale.y * .4, PREVIEW ? 30 : 50, new THREE.Color('#fff3dc'), .5); }
   rigs.forEach((o) => { if (o !== r) { o.cap.position.set(0, o.capBase, .002); o.cap.rotation.z = 0; o.spray.g.visible = false; o.shaft.material.opacity = 0; } });
   r.shaft.material.opacity = open * (1 - smooth(T.fuse - .3, T.crimp, t)) * (.22 + Math.sin(t * 3) * .03);
@@ -954,7 +957,7 @@ function frame(t, dt) {
 
   // camera: slow sway; leans in for the pour, eases back for the reveal and the turn
   const yaw = Math.sin(clockTotal * .13) * .16;
-  const lean = smooth(T.capOpen, T.fuse, t) - smooth(T.reveal, T.done + 1, t) * .7;
+  const lean = SPRAY ? 0 : smooth(T.capOpen, T.fuse, t) - smooth(T.reveal, T.done + 1, t) * .7;
   const back = turning ? Math.sin(Math.PI * turnT) * .12 : 0;
   const dist = baseDist * (1 - lean * .12 + back);
   camera.position.set(Math.sin(yaw) * dist, .35 + lean * .12 + back * 2, Math.cos(yaw) * dist);
@@ -1009,6 +1012,7 @@ function resize() {
   camera.aspect = w / h;
   const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   baseDist = Math.max(2.55 / halfH, 2.9 / (halfH * camera.aspect));
+  if (SPRAY) baseDist = Math.max(BOTTLE_H / (2 * halfH * .56), 2.75 / (halfH * camera.aspect));
   if (STAGE) { baseDist = Math.max(BOTTLE_H / (2 * halfH * (w < 760 ? .36 : LAB ? .56 : .5)), 3.1 / (halfH * camera.aspect)); stageBg.material.uniforms.uScreen.value = w / h; }
   if (w < 760 && !STAGE) camera.setViewOffset(w, h, 0, h * .1, w, h); else camera.clearViewOffset();
   camera.updateProjectionMatrix();
@@ -1033,14 +1037,20 @@ document.addEventListener('visibilitychange', () => { paused = document.hidden; 
 
 go(qs.has('p') ? +qs.get('p') : 1, true);
 // inside another page: wait until it says play, restart from the beginning the first time
-let hold = EMBED && parent !== window, started = !hold;
+let hold = EMBED && parent !== window && !SPRAY, started = !hold;
+if (SPRAY) still = true;                                          // rests, lit and closed, until the page says spray
+// run the whole short sequence once, unseen, so the resting bottle is already in its warm light
+function warmUp() { while (clock < T.done) { const dt = 1 / 30; clock += dt; clockTotal += dt; frame(clock, dt); } sparks.clear(); sparks.update(0); mist.clear(); mist.update(0); }
+function sprays_reset() { sprayed = []; opened = false; crimped = false; capped = false; }
 addEventListener('message', (e) => {
   const m = e.data || {};
   if (m.type === 'fusion-play') { hold = false; last = performance.now(); if (!started) { started = true; clock = 0; cast(active); } }
   if (m.type === 'fusion-pause') hold = true;
+  if (m.type === 'fusion-spray' && SPRAY) { still = false; hold = false; clock = 1.15; sprays_reset(); last = performance.now(); }
   if (m.type === 'fusion-go' && m.i !== active) { started = true; go(m.i); }
 });
 // tell the page around us once every picture is in and a frame has been drawn, so it never shows an empty stage
+if (SPRAY && !qs.has('t')) Promise.all(loads).then(warmUp);
 if (EMBED && parent !== window) Promise.all(loads).then(() => requestAnimationFrame(() => requestAnimationFrame(() => parent.postMessage({ type: 'fusion-ready' }, '*'))));
 if (STAGE && !qs.has('t')) { turnT = 0; prevActive = -1; stageLanded = false; clock = -TURN * .75; }
 // ?t=8.5 jumps to that moment; add &still to freeze it
@@ -1062,5 +1072,6 @@ function loop(now) {
   window.__fusion = { t: clock, T, active, turning: turnT < 1 };
   frame(clock, dt);
   composer.render();
+  if (SPRAY && clock > T.done && !still) { still = true; if (parent !== window) parent.postMessage({ type: 'fusion-done' }, '*'); }
 }
 requestAnimationFrame(loop);

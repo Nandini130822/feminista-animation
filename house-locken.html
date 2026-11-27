@@ -119,7 +119,18 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
 .wrap.pre .panel { display: none; }
 .tiers, .buy { transition: opacity 1.4s cubic-bezier(.6, 0, .2, 1) .5s; } .wrap.pre .tiers, .wrap.pre .buy { opacity: 0; pointer-events: none; }
 .bottle, .halo, .id, .panel, .hint { will-change: transform; }
+/* the stage is the Fusion renderer: dark, lit, the bottle sprays in 3D */
+.stage { background: #060505 !important; overflow: hidden !important; }
+.fx { position: absolute; left: 0; top: 0; width: 100%; height: 124%; border: 0; pointer-events: none; opacity: 0; transition: opacity .9s var(--ease); } .stage.fxon .fx { opacity: 1; }
+.poster { position: absolute; left: 50%; top: 16%; height: 58%; width: auto; transform: translateX(-50%); filter: brightness(.95) drop-shadow(0 18px 24px rgba(0, 0, 0, .5)); transition: opacity .9s var(--ease); } .stage.fxon .poster { opacity: 0; }
+.bottle { background: none !important; } .bottle::after { display: none; }
+.left { width: var(--lw, auto); }
+.wrap.pre .left { justify-self: center; transform: scale(1.12); transform-origin: 50% 0; }
+.wrap.pre .stage { height: min(64vh, 620px); }
+.bub span { color: #f4ece1; } .bub i { background: rgba(255, 255, 255, .92); }
+.hint { background: rgba(255, 255, 255, .94); }
 @media (max-width: 900px) {
+  .left { width: auto; } .wrap.pre .left { transform: none; } .wrap.pre .stage { height: 62vh; }
   .wrap.pre .bottle { --bh: min(48vh, 420px); }
   .bar nav { gap: 16px; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; white-space: nowrap; } .bar-top img { height: 36px; }
   .wrap { grid-template-columns: 1fr; } .left { position: static; } .stage { height: 62vh; } .bottle { --bh: min(40vh, 360px); }
@@ -144,13 +155,10 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   <div class="wrap pre" id="wrap">
     <div class="left">
       <div class="stage" id="stage">
-        <div class="halo"></div>
         <p class="hint"><b></b>Press the bottle</p>
-        <div class="bottle" id="bottle" role="button" tabindex="0" aria-label="Spray Locken">
-          <img class="body" src="assets/locken-cut.webp" alt="Locken, extrait de parfum by Feminista" draggable="false">
-          <div class="pump" id="pump"><i class="btn"></i><i class="stem"></i><i class="fer"></i></div>
-          <img class="cap" src="assets/locken-cut.webp" alt="" draggable="false">
-        </div>
+        <img class="poster" src="assets/locken-cut.webp" alt="" aria-hidden="true">
+        <iframe class="fx" id="fx" src="fusion.html?embed&amp;spray&amp;p=1&amp;v=35" title="Locken: the cap lifts and it sprays" tabindex="-1"></iframe>
+        <div class="bottle" id="bottle" role="button" tabindex="0" aria-label="Spray Locken"></div>
         <canvas class="mist" id="mist"></canvas>
       </div>
       <div class="id">
@@ -226,18 +234,27 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   const wrapEl = $('#wrap'); let busy = false;
   // FLIP: note where things are, let the layout snap to two columns, then play each one from where it was
   const EASE = 'cubic-bezier(.6, 0, .2, 1)', DUR = 1500;
-  function glide() { const els = [[bottle, 'translateX(-50%)'], [$('.halo'), 'translate(-50%, -50%)'], [$('.id'), ''], [$('.hint'), 'translateX(-50%)']];
-    const a = els.map(([e]) => e.getBoundingClientRect()); wrapEl.classList.remove('pre'); const b = els.map(([e]) => e.getBoundingClientRect());
+  function glide() { const L = $('.left'), a = L.getBoundingClientRect(); wrapEl.classList.remove('pre'); const b = L.getBoundingClientRect();
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return Promise.resolve();
-    els.forEach(([e, base], i) => { const dx = a[i].left + a[i].width / 2 - (b[i].left + b[i].width / 2), dy = a[i].top + a[i].height / 2 - (b[i].top + b[i].height / 2), sc = e === bottle || i === 1 ? a[i].height / b[i].height : 1;
-      e.animate([{ transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) ${base} scale(${sc.toFixed(4)})` }, { transform: `translate(0px, 0px) ${base} scale(1)` }], { duration: DUR, easing: EASE }); });
+    const dx = a.left - b.left, dy = a.top - b.top, sc = a.width / b.width;
+    L.animate([{ transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${sc.toFixed(4)})`, transformOrigin: '0 0' }, { transform: 'translate(0, 0) scale(1)', transformOrigin: '0 0' }], { duration: DUR, easing: EASE });
     panel.animate([{ opacity: 0, transform: 'translateX(70px)' }, { opacity: 0, transform: 'translateX(56px)', offset: .2 }, { opacity: 1, transform: 'translateX(0)' }], { duration: DUR, easing: EASE });
     return wait(DUR + 80); } const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  // the left column keeps one width before and after the press, so the 3D view never has to resize mid-glide
+  const lw = () => { const cs = getComputedStyle(wrapEl), W = wrapEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), gap = parseFloat(cs.columnGap) || 20;
+    wrapEl.style.setProperty('--lw', innerWidth > 900 ? `${Math.round((W - gap) * .46)}px` : 'auto'); }; lw(); addEventListener('resize', lw);
+  const fx = $('#fx'); let fxReady = false, fxWait = null;
+  let onSprayed = null, onDone = null;
+  addEventListener('message', (e) => { if (e.source !== fx.contentWindow || !e.data) return; const m = e.data.type;
+    if (m === 'fusion-ready') { fxReady = true; stage.classList.add('fxon'); if (fxWait) fxWait(); }
+    if (m === 'fusion-sprayed' && onSprayed) onSprayed(); if (m === 'fusion-done' && onDone) onDone(); });
   async function spray() { if (busy) return; busy = true; stage.classList.add('live');
-    if (wrapEl.classList.contains('pre')) { await glide(); } fit();
-    bottle.classList.add('open'); await wait(850); bottle.classList.replace('open', 'away'); await wait(900);
-    for (let i = 0; i < 2; i++) { pump.classList.add('press'); puff(); if (!i) begin(); await wait(190); pump.classList.remove('press'); await wait(520); }
-    await wait(500); bottle.classList.replace('away', 'open'); await wait(950); bottle.classList.remove('open'); await wait(900); busy = false; }
+    if (wrapEl.classList.contains('pre')) await glide();
+    if (!fxReady) await new Promise((r) => { fxWait = r; });
+    fx.contentWindow.postMessage({ type: 'fusion-spray' }, location.origin);
+    await Promise.race([new Promise((r) => { onSprayed = r; }), wait(9000)]); onSprayed = null;   // the first press of the atomiser starts the clock on skin
+    if (!running) begin(); else { t = 0; cur = -1; }
+    await Promise.race([new Promise((r) => { onDone = r; }), wait(9000)]); onDone = null; busy = false; }
   bottle.addEventListener('click', spray); bottle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spray(); } });
 
   // ── the journey: five phases; the clock runs in skin-minutes ──
@@ -262,7 +279,7 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
     const old = $$('.bub'); old.forEach((b) => b.classList.remove('on')); setTimeout(() => old.forEach((b) => b.remove()), 900);
     list.forEach(([n, f], i) => { const b = document.createElement('div'); b.className = 'bub'; const nx = innerWidth < 900 ? (SLOT[i][0] < 50 ? Math.max(10, SLOT[i][0] - 7) : Math.min(90, SLOT[i][0] + 7)) : SLOT[i][0]; b.style.cssText = `left:${nx}%;top:${SLOT[i][1]}%;--k:${i}`; b.innerHTML = `<i>${f ? `<img src="assets/ing/${f}.webp" alt="">` : pic(n)}</i><span>${n}</span>`;
       stage.appendChild(b); setTimeout(() => b.classList.add('on'), 250 + i * 130); }); }
-  (function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.1, (now - last) / 1000 || 0); last = now; if (!running || paused) return;
+  (function tick(now) { requestAnimationFrame(tick); const dt = Math.max(0, Math.min(.1, (now - last) / 1000 || 0)); last = now; if (!running || paused) return;
     t = Math.min(5 * SEG, t + dt * speed); const k = Math.min(4, Math.floor(t / SEG)), f = Math.min(1, t / SEG - k);
     $('#clock').textContent = fmt(EDGE[k] + (EDGE[k + 1] - EDGE[k]) * f) + (t >= 5 * SEG ? ' +' : ''); if (k !== cur) phase(k); if (t >= 5 * SEG) running = false; })(0);
   $('#pause').onclick = () => { paused = !paused; $('#pause').textContent = paused ? 'Resume' : 'Pause'; };
@@ -272,8 +289,9 @@ footer { padding: 26px var(--edge); border-top: 1px solid var(--line); display: 
   // review: ?at=0…5 holds a moment (0 = waiting, 1–5 = a phase), ?open shows the cap set down
   const Q = new URLSearchParams(location.search);
   if (Q.has('at') && +Q.get('at') > 0) { wrapEl.classList.remove('pre'); stage.classList.add('live'); panel.classList.add('live-on'); const k = Math.min(4, +Q.get('at') - 1); phase(k); $('#clock').textContent = fmt((EDGE[k] + EDGE[k + 1]) / 2); }
-  if (Q.has('open')) { wrapEl.classList.remove('pre'); stage.classList.add('live'); bottle.classList.add('away'); setTimeout(puff, 300); }
+  
 
+  if (Q.has('autospray')) setTimeout(spray, +Q.get('autospray') || 600);   // review: press the bottle by itself
   let bag = 0, tt; $('#add').onclick = () => { bag += 1; $('#bagN').textContent = bag; const el = $('#toast'); el.textContent = `${D.name} added to bag`; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2200); };
 </script>
 </body>
